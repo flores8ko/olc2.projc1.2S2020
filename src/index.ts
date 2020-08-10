@@ -21,3 +21,5 @@ const user: User = new UserAccount("Murphy", 1);
 console.log(user);
 console.log(v1);
 console.log(6);
+
+if(module && module.hot) module.hot.accept()
