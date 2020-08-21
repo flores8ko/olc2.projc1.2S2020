@@ -1,3 +1,5 @@
+import {Reference} from "./Reference";
+
 export abstract class Cntnr {
     private readonly owner: Cntnr;
     public readonly props = new Map<string, Cntnr>();
@@ -28,12 +30,8 @@ export abstract class Cntnr {
             return val;
         }
 
-        //TODO añadir codigo para refeencia
-        /*
         this.props.set(id, new Reference());
         return this.props.get(id);
-        */
-        return null;
     }
 
     public Declare(id: string, cntnr: Cntnr): void {
