@@ -2,15 +2,24 @@ import {Cntnr} from "./Cntnr";
 
 export class Reference extends Cntnr {
     private value: Cntnr;
+    private isConst: boolean;
+    private tipoNombre: string;
 
-    constructor() {
+    constructor(tipoNombre?: string, isConst?: boolean) {
         super();
         this.typo = "REFERENCE";
+        //TODO añadir Undefinied no null
         this.value = null;
+        this.tipoNombre = tipoNombre;
+        this.isConst = isConst;
     }
 
+    public getReferenceValue = () : string => {
+        return this.tipoNombre.toUpperCase();
+    };
+
     public toString = (): string => {
-        return `[: ${this.value.toString()} :]`;
+        return this.value.toString();
     };
 
     public PutValueOnReference(value: Cntnr): void {
