@@ -1,5 +1,5 @@
 import {Cntnr} from "./Cntnr";
-import {UNDEFINIED} from "./PrimitiveTypoContainer";
+import {DefaultValue} from "./Utils";
 
 export class Reference extends Cntnr {
     private value: Cntnr;
@@ -9,8 +9,7 @@ export class Reference extends Cntnr {
     constructor(tipoNombre?: string, isConst?: boolean) {
         super();
         this.typo = "REFERENCE";
-        //TODO añadir Undefinied no null
-        this.value = null;
+        this.value = DefaultValue(tipoNombre);
         this.tipoNombre = tipoNombre;
         this.isConst = isConst;
     }
