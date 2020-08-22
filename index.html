@@ -49,10 +49,11 @@
   $(document).ready(()=> {
     $('#textarea').text('5*4');
 
-    $('#run').click(()=> {
-        let console = $('#console');
-        console.text('');
-        console.text(calc.parse($('#textarea').val()));
+    $('#run').click((e)=> {
+        e.preventDefault();
+        let c = $('#console');
+        c.text('');
+        c.text(calc.parse($('#textarea').val()));
     });
   });
 </script>
