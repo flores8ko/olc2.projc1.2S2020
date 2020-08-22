@@ -110,7 +110,7 @@ sentence
     ;
 
 consoleLog
-    : 'console.log' '(' e ')' { $$ = $3; }
+    : 'console.log' '(' e ')' { $$ = new ast.ConsoleLogNode($3); }
     ;
 
 e
