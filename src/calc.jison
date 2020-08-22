@@ -129,7 +129,7 @@ e
     | '(' e ')'
         {$$ = $2;}
     | NUMBER
-        {$$ = Number(yytext);}
+        {$$ = new ast.NumberNode(Number(yytext));}
     | STRING
         {$$ = "aver"}
     | NULL
