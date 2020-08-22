@@ -53,7 +53,7 @@
         e.preventDefault();
         let c = $('#console');
         c.text('');
-        c.text(calc.parse($('#textarea').val()));
+        c.text(JSON.stringify(calc.parse($('#textarea').val())));
     });
   });
 </script>
