@@ -15,7 +15,7 @@ StringCharacter                 [^"\\] | {EscapeSequence}
 StringCharacters                {StringCharacter}+
 
 JavaCharacterLiteral            ('\''{SingleCharacter}'\'')|('\''{EscapeSequence}'\'')
-JavaStringLiteral               '"' {StringCharacters}? '"'
+JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCharacters}? '\'')
 
 
 
@@ -37,6 +37,8 @@ JavaStringLiteral               '"' {StringCharacters}? '"'
 "false"               return 'FALSE';
 "true"                return 'TRUE';
 
+"console.log"         return 'console.log';
+
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -44,8 +46,7 @@ JavaStringLiteral               '"' {StringCharacters}? '"'
 "^"                   return '^'
 "("                   return '('
 ")"                   return ')'
-"PI"                  return 'PI'
-"E"                   return 'E'
+";"                  return ';'
 // EOF means "end of file"
 <<EOF>>               return 'EOF'
 // any other characters will throw an error
@@ -99,11 +100,17 @@ expressions
 
 sentences
     : sentences sentence { $1.push($2); $$ = $1; }
+    | sentences sentence ';' { $1.push($2); $$ = $1; }
     | sentence { $$ = [$1];}
+    | sentence ';' { $$ = [$1];}
     ;
 
 sentence
-    : e {$$ = $1;}
+    : consoleLog {$$ = $1;}
+    ;
+
+consoleLog
+    : 'console.log' '(' e ')' { $$ = $3; }
     ;
 
 e
