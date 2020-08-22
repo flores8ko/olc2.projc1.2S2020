@@ -5,10 +5,38 @@
 
 /* lexical grammar */
 %lex
+%s                comment
+
+
+
+EscapeSequence                  ('\\' [btnfr"'\\])
+SingleCharacter                 [^'\\]
+StringCharacter                 [^"\\] | {EscapeSequence}
+StringCharacters                {StringCharacter}+
+
+JavaCharacterLiteral            ('\''{SingleCharacter}'\'')|('\''{EscapeSequence}'\'')
+JavaStringLiteral               '"' {StringCharacters}? '"'
+
+
+
 %%
+"/*"                  {
+
+                        this.begin('no joda man xD');
+                        }
+<comment>"*/"         {
+
+                        this.popState();
+                        }
+<comment>.            /* skip comment content*/
 
 \s+                   /* skip whitespace */
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
+{JavaStringLiteral}   return 'STRING';
+"null"                return 'NULL';
+"false"               return 'FALSE';
+"true"                return 'TRUE';
+
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -86,8 +114,9 @@ e
         {$$ = $2;}
     | NUMBER
         {$$ = Number(yytext);}
-    | E
-        {$$ = Math.E;}
-    | PI
-        {$$ = Math.PI;}
+    | STRING
+        {$$ = "aver"}
+    | NULL
+    | FALSE
+    | TRUE
     ;
