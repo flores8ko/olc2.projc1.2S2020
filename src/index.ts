@@ -6,6 +6,7 @@ import {Op} from "./utils/Op";
 import {Console} from "./utils/Console";
 
 import {ConsoleLogNode} from "./nodes/ConsoleLogNode";
+import {NumberNode} from "./nodes/NumberNode";
 
 export {
     Console,
@@ -17,6 +18,7 @@ export {
     Reference,
 
     ConsoleLogNode,
+    NumberNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

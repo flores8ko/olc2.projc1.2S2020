@@ -1,5 +1,23 @@
 import {Cntnr} from "./Cntnr";
 
+export class NUMBER extends Cntnr {
+    private readonly value: number;
+
+    constructor(value?: number) {
+        super();
+        this.value = value || 0;
+        this.typo = "NUMBER";
+    }
+
+    public toString = (): string => {
+        return this.value + '';
+    };
+
+    public getValue = (): number => {
+        return this.value;
+    };
+}
+
 export class UNDEFINIED extends Cntnr{
     constructor() {
         super();
