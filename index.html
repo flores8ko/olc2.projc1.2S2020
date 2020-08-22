@@ -47,13 +47,15 @@
 </div>
 <script>
   $(document).ready(()=> {
-    $('#textarea').text('5*4');
+    $('#textarea').text('console.log(5)');
 
     $('#run').click((e)=> {
         e.preventDefault();
         let c = $('#console');
         c.text('');
-        c.text(JSON.stringify(calc.parse($('#textarea').val())));
+        let sentences = calc.parse($('#textarea').val());
+        ast.ExecuteAST(sentences);
+        c.text(ast.Console.log);
     });
   });
 </script>
