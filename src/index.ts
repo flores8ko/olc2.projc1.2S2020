@@ -1,25 +1,15 @@
-import NVector from './NVector';
+import {Reference} from "./utils/Reference";
+import {UNDEFINIED, NULL} from "./utils/PrimitiveTypoContainer";
+import {Envmnt} from "./utils/Envmnt";
+import {Cntnr} from "./utils/Cntnr";
+import {Op} from "./utils/Op";
 
-interface User {
-  name: string;
-  id: number;
+export {
+    Cntnr,
+    Envmnt,
+    Op,
+    NULL,
+    UNDEFINIED,
+    Reference,
 }
-
-class UserAccount {
-  name: string;
-  id: number;
-
-  constructor(name: string, id: number) {
-    this.name = name;
-    this.id = id;
-  }
-}
-
-const v1: NVector = new NVector();
-const user: User = new UserAccount("Murphy", 1);
-
-console.log(user);
-console.log(v1);
-console.log(6);
-
-if(module && module.hot) module.hot.accept()
+if(module && module.hot) module.hot.accept();
