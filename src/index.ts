@@ -12,4 +12,9 @@ export {
     UNDEFINIED,
     Reference,
 }
+
+export function ExecuteAST(sentences: Array<Op>) {
+    const env = new Envmnt(null, sentences);
+    env.GO_ALL();
+}
 if(module && module.hot) module.hot.accept();

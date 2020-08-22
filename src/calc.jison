@@ -83,7 +83,7 @@ JavaStringLiteral               '"' {StringCharacters}? '"'
 // i.e. the "e"
 
 expressions
-    : e EOF
+    : sentences EOF
         {return $1;}
     ;
 
@@ -96,6 +96,15 @@ expressions
 // introduced a -> shorthand. You can see the
 // shorthand illustrated in the other sample
 // grammars.
+
+sentences
+    : sentences sentence { $1.push($2); $$ = $1; }
+    | sentence { $$ = [$1];}
+    ;
+
+sentence
+    : e {$$ = $1;}
+    ;
 
 e
     : e '+' e
