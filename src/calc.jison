@@ -34,6 +34,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
 {JavaStringLiteral}   return 'STRING';
 "null"                return 'NULL';
+"undefined"          return 'UNDEFINED';
 "false"               return 'FALSE';
 "true"                return 'TRUE';
 
@@ -133,6 +134,9 @@ e
     | STRING
         {$$ = new ast.StringNode(yytext); }
     | NULL
+        { $$ = new ast.NullNode(); }
+    | UNDEFINED
+        { $$ = new ast.UndefinedNode(); }
     | FALSE
         {$$ = new ast.BooleanNode(false);}
     | TRUE

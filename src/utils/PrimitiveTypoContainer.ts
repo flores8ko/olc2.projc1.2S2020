@@ -54,14 +54,14 @@ export class NUMBER extends Cntnr {
     };
 }
 
-export class UNDEFINIED extends Cntnr{
+export class UNDEFINED extends Cntnr{
     constructor() {
         super();
-        this.typo = "UNDEFINIED";
+        this.typo = "UNDEFINED";
     }
 
     public toString = (): string => {
-        return "undefinied";
+        return "undefined";
     };
 }
 
