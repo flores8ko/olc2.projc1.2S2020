@@ -131,7 +131,7 @@ e
     | NUMBER
         {$$ = new ast.NumberNode(Number(yytext));}
     | STRING
-        {$$ = "aver"}
+        {$$ = new ast.StringNode(yytext); }
     | NULL
     | FALSE
     | TRUE

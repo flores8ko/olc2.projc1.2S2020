@@ -7,6 +7,7 @@ import {Console} from "./utils/Console";
 
 import {ConsoleLogNode} from "./nodes/ConsoleLogNode";
 import {NumberNode} from "./nodes/NumberNode";
+import {StringNode} from "./nodes/StringNode";
 
 export {
     Console,
@@ -19,6 +20,7 @@ export {
 
     ConsoleLogNode,
     NumberNode,
+    StringNode
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
@@ -26,4 +28,5 @@ export function ExecuteAST(sentences: Array<Op>) {
     const env = new Envmnt(null, sentences);
     env.GO_ALL();
 }
-if(module && module.hot) module.hot.accept();
+
+if (module && module.hot) module.hot.accept();
