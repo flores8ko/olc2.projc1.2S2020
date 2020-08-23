@@ -9,6 +9,8 @@ import {ConsoleLogNode} from "./nodes/ConsoleLogNode";
 import {NumberNode} from "./nodes/NumberNode";
 import {StringNode} from "./nodes/StringNode";
 import { BooleanNode } from "./nodes/BooleanNode";
+import { NullNode } from "./nodes/NullNode";
+import { UndefiniedNode } from "./nodes/UndefiniedNode";
 
 export {
     Console,
@@ -23,6 +25,8 @@ export {
     NumberNode,
     StringNode,
     BooleanNode,
+    NullNode,
+    UndefiniedNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
