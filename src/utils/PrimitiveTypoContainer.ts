@@ -1,5 +1,23 @@
 import {Cntnr} from "./Cntnr";
 
+export class BOOLEAN extends Cntnr {
+    private readonly value: boolean;
+
+    constructor(value?: boolean) {
+        super();
+        this.value = value || true;
+        this.typo = "BOOLEAN";
+    }
+
+    public toString = (): string => {
+        return this.value ? "true" : "false";
+    };
+
+    public getValue = (): boolean => {
+        return this.value;
+    };
+}
+
 export class STRING extends Cntnr{
     private readonly value: string;
 
