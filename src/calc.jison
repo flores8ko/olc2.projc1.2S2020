@@ -34,6 +34,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
 {JavaStringLiteral}   return 'STRING';
 "null"                return 'NULL';
+"undefined"          return 'UNDEFINED';
 "false"               return 'FALSE';
 "true"                return 'TRUE';
 
