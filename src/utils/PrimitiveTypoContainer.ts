@@ -5,7 +5,7 @@ export class BOOLEAN extends Cntnr {
 
     constructor(value?: boolean) {
         super();
-        this.value = value || true;
+        this.value = value;
         this.typo = "BOOLEAN";
     }
 
