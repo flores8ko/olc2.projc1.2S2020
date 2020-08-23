@@ -8,6 +8,7 @@ import {Console} from "./utils/Console";
 import {ConsoleLogNode} from "./nodes/ConsoleLogNode";
 import {NumberNode} from "./nodes/NumberNode";
 import {StringNode} from "./nodes/StringNode";
+import { BooleanNode } from "./nodes/BooleanNode";
 
 export {
     Console,
@@ -20,7 +21,8 @@ export {
 
     ConsoleLogNode,
     NumberNode,
-    StringNode
+    StringNode,
+    BooleanNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

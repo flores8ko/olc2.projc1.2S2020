@@ -134,5 +134,7 @@ e
         {$$ = new ast.StringNode(yytext); }
     | NULL
     | FALSE
+        {$$ = new ast.BooleanNode(false);}
     | TRUE
+        {$$ = new ast.BooleanNode(true);}
     ;
