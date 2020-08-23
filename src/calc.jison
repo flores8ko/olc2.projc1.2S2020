@@ -134,6 +134,9 @@ e
     | STRING
         {$$ = new ast.StringNode(yytext); }
     | NULL
+        { $$ = new ast.NullNode(); }
+    | UNDEFINED
+        { $$ = new ast.UndefinedNode(); }
     | FALSE
         {$$ = new ast.BooleanNode(false);}
     | TRUE
