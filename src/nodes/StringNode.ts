@@ -11,6 +11,6 @@ export class StringNode extends Op{
     }
 
     GO(env: Envmnt) {
-        return new STRING(this.val);
+        return new STRING(this.val.substring(1, this.val.length - 1));
     }
 }
