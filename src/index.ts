@@ -1,5 +1,5 @@
 import {Reference} from "./utils/Reference";
-import {UNDEFINIED, NULL} from "./utils/PrimitiveTypoContainer";
+import {UNDEFINED, NULL} from "./utils/PrimitiveTypoContainer";
 import {Envmnt} from "./utils/Envmnt";
 import {Cntnr} from "./utils/Cntnr";
 import {Op} from "./utils/Op";
@@ -10,7 +10,7 @@ import {NumberNode} from "./nodes/NumberNode";
 import {StringNode} from "./nodes/StringNode";
 import { BooleanNode } from "./nodes/BooleanNode";
 import { NullNode } from "./nodes/NullNode";
-import { UndefiniedNode } from "./nodes/UndefiniedNode";
+import { UndefinedNode } from "./nodes/UndefinedNode";
 
 export {
     Console,
@@ -18,7 +18,7 @@ export {
     Envmnt,
     Op,
     NULL,
-    UNDEFINIED,
+    UNDEFINED,
     Reference,
 
     ConsoleLogNode,
@@ -26,7 +26,7 @@ export {
     StringNode,
     BooleanNode,
     NullNode,
-    UndefiniedNode,
+    UndefinedNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

@@ -1,4 +1,4 @@
-import {NULL, UNDEFINIED} from "./PrimitiveTypoContainer";
+import {NULL, UNDEFINED} from "./PrimitiveTypoContainer";
 import {Cntnr} from "./Cntnr";
 
 export class SemanticException extends Error {
@@ -18,6 +18,6 @@ export function DefaultValue(typo: string) : Cntnr {
         case "NULL":
             return new NULL();
         default:
-            return new UNDEFINIED();
+            return new UNDEFINED();
     }
 }
