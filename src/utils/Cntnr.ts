@@ -26,7 +26,7 @@ export abstract class Cntnr {
     public GetProperty(id: string): Cntnr {
         id = id.toUpperCase();
         const val = this.props.get(id);
-        if (val !== null) {
+        if (val !== null && val !== undefined) {
             return val;
         }
 

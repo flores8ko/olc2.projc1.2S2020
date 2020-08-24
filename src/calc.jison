@@ -175,4 +175,6 @@ e
         {$$ = new ast.BooleanNode(false);}
     | TRUE
         {$$ = new ast.BooleanNode(true);}
+    | IDENTIFIER
+        { $$ = new ast.CreateIdVarNode($1); }
     ;
