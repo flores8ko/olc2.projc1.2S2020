@@ -30,8 +30,9 @@ export abstract class Cntnr {
             return val;
         }
 
-        this.props.set(id, new Reference());
-        return this.props.get(id);
+        //this.props.set(id, new Reference());
+        //return this.props.get(id);
+        return null;
     }
 
     public Declare(id: string, cntnr: Cntnr): void {
