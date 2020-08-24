@@ -121,6 +121,7 @@ sentences
 
 sentence
     : consoleLog {$$ = $1;}
+    | letDeclarations { $$ = $1; }
     ;
 
 varType
@@ -132,15 +133,15 @@ varType
     ;
 
 letDeclarations
-    : LET idList ':' varType '=' e
-    | LET idList ':' varType
-    | LET idList '=' e
-    | LET idList6
+    : LET idList ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, $2, $6); }
+    | LET idList ':' varType { $$ = new ast.DeclareVarListNode($4, $2);  }
+    | LET idList '=' e { $$ = new ast.DeclareVarListNode("", $2, $4); }
+    | LET idList {$$ = new ast.DeclareVarListNode("", $2); }
     ;
 
 idList
-    : idList IDENTIFIER { $1.push($2); $$ = $1; }
-    | IDENTIFIER { $$ = [$1] }
+    : idList ',' IDENTIFIER { $1.push(new ast.DeclareVarNode($3)); $$ = $1; }
+    | IDENTIFIER { $$ = [new ast.DeclareVarNode($1)] }
     ;
 
 consoleLog

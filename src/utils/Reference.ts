@@ -3,10 +3,10 @@ import {DefaultValue} from "./Utils";
 
 export class Reference extends Cntnr {
     private value: Cntnr;
-    private isConst: boolean;
-    private tipoNombre: string;
+    private isConst: boolean = false;
+    private tipoNombre: string = 'any';
 
-    constructor(tipoNombre?: string, isConst?: boolean) {
+    constructor(tipoNombre: string = '', isConst: boolean = false) {
         super();
         this.typo = "REFERENCE";
         this.value = DefaultValue(tipoNombre);

@@ -23,9 +23,10 @@ export class DeclareVarListNode extends Op {
                 }
                 op.Exe(env);
             } catch (e) {
-                e.message();
+                console.log(e.message);
             }
         }
+        console.log(env);
         return null;
     }
 }

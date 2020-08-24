@@ -14,7 +14,7 @@ export class DeclareVarNode extends Op{
     }
 
     GO(env: Envmnt) : object {
-        this.AddVarOnDeclare(env, name);
+        this.AddVarOnDeclare(env, this.name);
         return null;
     }
 
