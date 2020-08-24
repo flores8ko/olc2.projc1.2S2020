@@ -24,7 +24,7 @@ export class DeclareVarNode extends Op{
 
     private AddVarOnDeclare(env: Envmnt, identifier: string): void {
         const value: Cntnr = this.value;
-        const reference: Reference = new Reference();
+        const reference: Reference = new Reference(this.value.typo, false);
         reference.PutValueOnReference(value);
         env.Declare(identifier, reference);
     }
