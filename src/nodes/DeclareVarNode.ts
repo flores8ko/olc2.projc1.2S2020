@@ -7,6 +7,8 @@ import {Reference} from "../utils/Reference";
 export class DeclareVarNode extends Op{
     private readonly name: string;
     private value: Cntnr = new UNDEFINED();
+    private isConst:boolean;
+    private tipoNombre: string;
 
     constructor(name: string) {
         super();
@@ -18,13 +20,15 @@ export class DeclareVarNode extends Op{
         return null;
     }
 
-    public AddValue(value: Cntnr){
+    public AddValue(value: Cntnr, isConst: boolean = false, tipoNombre: string = 'ANY'){
         this.value = value;
+        this.isConst = isConst;
+        this.tipoNombre = tipoNombre.toUpperCase();
     }
 
     private AddVarOnDeclare(env: Envmnt, identifier: string): void {
         const value: Cntnr = this.value;
-        const reference: Reference = new Reference(this.value.typo, false);
+        const reference: Reference = new Reference(this.tipoNombre, this.isConst);
         reference.PutValueOnReference(value);
         env.Declare(identifier, reference);
     }

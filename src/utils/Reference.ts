@@ -1,12 +1,12 @@
 import {Cntnr} from "./Cntnr";
-import {DefaultValue} from "./Utils";
+import {DefaultValue, SemanticException} from "./Utils";
 
 export class Reference extends Cntnr {
     private value: Cntnr;
     private isConst: boolean = false;
     private tipoNombre: string = 'any';
 
-    constructor(tipoNombre: string = '', isConst: boolean = false) {
+    constructor(tipoNombre: string = 'ANY', isConst: boolean = false) {
         super();
         this.typo = "REFERENCE";
         this.value = DefaultValue(tipoNombre);
@@ -28,6 +28,13 @@ export class Reference extends Cntnr {
             v = (value as Reference).value;
         } else {
             v = value;
+        }
+        if(this.tipoNombre !== v.typo
+            && this.tipoNombre !== 'ANY'
+            && v.typo !== 'NULL'
+            && v.typo !== 'UNDEFINED'
+        ){
+            throw new SemanticException(`Tipo ${v.typo} no puede ser asignado a Variable de tipo ${this.tipoNombre}`)
         }
         this.value = v;
     }

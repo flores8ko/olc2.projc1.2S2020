@@ -137,6 +137,8 @@ letDeclarations
     | LET idList ':' varType { $$ = new ast.DeclareVarListNode($4, $2);  }
     | LET idList '=' e { $$ = new ast.DeclareVarListNode("", $2, $4); }
     | LET idList {$$ = new ast.DeclareVarListNode("", $2); }
+    | CONST IDENTIFIER ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, [new ast.DeclareVarNode($2)], $6, true); }
+    | CONST IDENTIFIER '=' e { $$ = new ast.DeclareVarListNode("", [new ast.DeclareVarNode($2)], $4, true); }
     ;
 
 idList
