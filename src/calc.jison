@@ -34,11 +34,21 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
 {JavaStringLiteral}   return 'STRING';
 "null"                return 'NULL';
-"undefined"          return 'UNDEFINED';
+"undefined"           return 'UNDEFINED';
 "false"               return 'FALSE';
 "true"                return 'TRUE';
 
+'number'              return 'NUMBER_TYPE';
+'string'              return 'STRING_TYPE';
+'boolean'             return 'BOOLEAN_TYPE';
+'any'                 return 'ANY_TYPE';
+
+"const"               return 'CONST';
+"let"                 return 'LET'
+
 "console.log"         return 'console.log';
+
+[a-zA-Z_][a-zA-Z0-9_]*    return 'IDENTIFIER';
 
 "*"                   return '*'
 "/"                   return '/'
@@ -47,7 +57,10 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "^"                   return '^'
 "("                   return '('
 ")"                   return ')'
-";"                  return ';'
+";"                   return ';'
+','                   return ','
+':'                   return ':'
+'='                   return '='
 // EOF means "end of file"
 <<EOF>>               return 'EOF'
 // any other characters will throw an error
@@ -108,6 +121,29 @@ sentences
 
 sentence
     : consoleLog {$$ = $1;}
+    | letDeclarations { $$ = $1; }
+    ;
+
+varType
+    : NUMBER_TYPE { $$ = $1; }
+    | STRING_TYPE { $$ = $1; }
+    | BOOLEAN_TYPE { $$ = $1; }
+    | ANY_TYPE { $$ = $1; }
+    | IDENTIFIER { $$ = $1; }
+    ;
+
+letDeclarations
+    : LET idList ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, $2, $6); }
+    | LET idList ':' varType { $$ = new ast.DeclareVarListNode($4, $2);  }
+    | LET idList '=' e { $$ = new ast.DeclareVarListNode("", $2, $4); }
+    | LET idList {$$ = new ast.DeclareVarListNode("", $2); }
+    | CONST IDENTIFIER ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, [new ast.DeclareVarNode($2)], $6, true); }
+    | CONST IDENTIFIER '=' e { $$ = new ast.DeclareVarListNode("", [new ast.DeclareVarNode($2)], $4, true); }
+    ;
+
+idList
+    : idList ',' IDENTIFIER { $1.push(new ast.DeclareVarNode($3)); $$ = $1; }
+    | IDENTIFIER { $$ = [new ast.DeclareVarNode($1)] }
     ;
 
 consoleLog
@@ -141,4 +177,6 @@ e
         {$$ = new ast.BooleanNode(false);}
     | TRUE
         {$$ = new ast.BooleanNode(true);}
+    | IDENTIFIER
+        { $$ = new ast.CreateIdVarNode($1); }
     ;

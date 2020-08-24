@@ -11,6 +11,9 @@ import {StringNode} from "./nodes/StringNode";
 import { BooleanNode } from "./nodes/BooleanNode";
 import { NullNode } from "./nodes/NullNode";
 import { UndefinedNode } from "./nodes/UndefinedNode";
+import { DeclareVarNode } from "./nodes/DeclareVarNode";
+import { DeclareVarListNode } from "./nodes/DeclareVarListNode";
+import { CreateIdVarNode } from "./nodes/CreateIdVarNode";
 
 export {
     Console,
@@ -27,6 +30,11 @@ export {
     BooleanNode,
     NullNode,
     UndefinedNode,
+
+    DeclareVarNode,
+    DeclareVarListNode,
+
+    CreateIdVarNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

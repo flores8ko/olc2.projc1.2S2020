@@ -26,12 +26,13 @@ export abstract class Cntnr {
     public GetProperty(id: string): Cntnr {
         id = id.toUpperCase();
         const val = this.props.get(id);
-        if (val !== null) {
+        if (val !== null && val !== undefined) {
             return val;
         }
 
-        this.props.set(id, new Reference());
-        return this.props.get(id);
+        //this.props.set(id, new Reference());
+        //return this.props.get(id);
+        return null;
     }
 
     public Declare(id: string, cntnr: Cntnr): void {
