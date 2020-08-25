@@ -147,7 +147,7 @@ idList
     ;
 
 asigna
-    : e '=' e {  }
+    : e '=' e { $$ = new ast.AsignNode($1, $3); }
     ;
 
 consoleLog
