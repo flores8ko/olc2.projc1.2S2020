@@ -146,6 +146,10 @@ idList
     | IDENTIFIER { $$ = [new ast.DeclareVarNode($1)] }
     ;
 
+asigna
+    : e '=' e {  }
+    ;
+
 consoleLog
     : 'console.log' '(' e ')' { $$ = new ast.ConsoleLogNode($3); }
     ;
