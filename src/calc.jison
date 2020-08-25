@@ -10,11 +10,9 @@
 
 
 EscapeSequence                  ('\\' [btnfr"'\\])
-SingleCharacter                 [^'\\]
-StringCharacter                 [^"\\] | {EscapeSequence}
+StringCharacter                 [^"\\^'\\] | {EscapeSequence}
 StringCharacters                {StringCharacter}+
 
-JavaCharacterLiteral            ('\''{SingleCharacter}'\'')|('\''{EscapeSequence}'\'')
 JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCharacters}? '\'')
 
 
@@ -122,6 +120,7 @@ sentences
 sentence
     : consoleLog {$$ = $1;}
     | letDeclarations { $$ = $1; }
+    | asigna { $$ = $1; }
     ;
 
 varType
