@@ -14,6 +14,7 @@ import { UndefinedNode } from "./nodes/UndefinedNode";
 import { DeclareVarNode } from "./nodes/DeclareVarNode";
 import { DeclareVarListNode } from "./nodes/DeclareVarListNode";
 import { CreateIdVarNode } from "./nodes/CreateIdVarNode";
+import { AsignNode } from "./nodes/AsignNode";
 
 export {
     Console,
@@ -35,6 +36,8 @@ export {
     DeclareVarListNode,
 
     CreateIdVarNode,
+
+    AsignNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

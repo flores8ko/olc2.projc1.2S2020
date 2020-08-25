@@ -1,5 +1,6 @@
 import {Cntnr} from "./Cntnr";
 import {DefaultValue, SemanticException} from "./Utils";
+import {UNDEFINED} from "./PrimitiveTypoContainer";
 
 export class Reference extends Cntnr {
     private value: Cntnr;
@@ -23,6 +24,10 @@ export class Reference extends Cntnr {
     };
 
     public PutValueOnReference(value: Cntnr): void {
+        if(this.isConst && !(this.value instanceof UNDEFINED)){
+            throw new SemanticException('No se puede cambiar el valor de una constante');
+        }
+
         let v: Cntnr;
         if (value instanceof Reference) {
             v = (value as Reference).value;

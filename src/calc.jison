@@ -10,11 +10,9 @@
 
 
 EscapeSequence                  ('\\' [btnfr"'\\])
-SingleCharacter                 [^'\\]
-StringCharacter                 [^"\\] | {EscapeSequence}
+StringCharacter                 [^"\\^'\\] | {EscapeSequence}
 StringCharacters                {StringCharacter}+
 
-JavaCharacterLiteral            ('\''{SingleCharacter}'\'')|('\''{EscapeSequence}'\'')
 JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCharacters}? '\'')
 
 
@@ -122,6 +120,7 @@ sentences
 sentence
     : consoleLog {$$ = $1;}
     | letDeclarations { $$ = $1; }
+    | asigna { $$ = $1; }
     ;
 
 varType
@@ -144,6 +143,10 @@ letDeclarations
 idList
     : idList ',' IDENTIFIER { $1.push(new ast.DeclareVarNode($3)); $$ = $1; }
     | IDENTIFIER { $$ = [new ast.DeclareVarNode($1)] }
+    ;
+
+asigna
+    : e '=' e { $$ = new ast.AsignNode($1, $3); }
     ;
 
 consoleLog
