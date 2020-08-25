@@ -23,6 +23,9 @@ export class DeclareVarNode extends Op{
     public AddValue(value: Cntnr, isConst: boolean = false, tipoNombre: string = 'ANY'){
         this.value = value;
         this.isConst = isConst;
+        if(tipoNombre === ''){
+            tipoNombre = 'ANY';
+        }
         this.tipoNombre = tipoNombre.toUpperCase();
     }
 
