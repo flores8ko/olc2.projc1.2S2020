@@ -155,7 +155,7 @@ consoleLog
 
 e
     : e '+' e
-        {$$ = $1+$3;}
+        {$$ = new ast.SumNode($1,$3);}
     | e '-' e
         {$$ = $1-$3;}
     | e '*' e

@@ -14,9 +14,9 @@ export function Suma(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 
     function Sumar(lf: any, rt: any): Cntnr {
-        switch (lf) {
+        switch (true) {
             case lf instanceof NUMBER:
-                switch (rt) {
+                switch (true) {
                     case rt instanceof NUMBER:
                         return new NUMBER((lf as NUMBER).getValue() + (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
@@ -32,7 +32,7 @@ export function Suma(lf: Cntnr, rt: Cntnr): Cntnr {
                 }
                 break;
             case lf instanceof BOOLEAN:
-                switch (rt) {
+                switch (true) {
                     case rt instanceof NUMBER:
                         return new NUMBER((lf as BOOLEAN).getValueNumber() + (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
@@ -48,7 +48,7 @@ export function Suma(lf: Cntnr, rt: Cntnr): Cntnr {
                 }
                 break;
             case lf instanceof STRING:
-                switch (rt) {
+                switch (true) {
                     case rt instanceof NUMBER:
                         return new STRING((lf as STRING).getValue() + (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
@@ -64,7 +64,7 @@ export function Suma(lf: Cntnr, rt: Cntnr): Cntnr {
                 }
                 break;
             case lf instanceof UNDEFINED:
-                switch (rt) {
+                switch (true) {
                     case rt instanceof NUMBER:
                         return new NAN();
                     case rt instanceof BOOLEAN:
@@ -80,7 +80,7 @@ export function Suma(lf: Cntnr, rt: Cntnr): Cntnr {
                 }
                 break;
             case lf instanceof NULL:
-                switch (rt) {
+                switch (true) {
                     case rt instanceof NUMBER:
                         return new NUMBER((rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
@@ -96,7 +96,7 @@ export function Suma(lf: Cntnr, rt: Cntnr): Cntnr {
                 }
                 break;
             case lf instanceof NAN:
-                switch (rt) {
+                switch (true) {
                     case rt instanceof NUMBER:
                         return new NAN();
                     case rt instanceof BOOLEAN:
