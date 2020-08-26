@@ -13,6 +13,10 @@ export class BOOLEAN extends Cntnr {
         return this.value ? "true" : "false";
     };
 
+    public getValueNumber = (): number => {
+        return this.value ? 1 : 0;
+    }
+
     public getValue = (): boolean => {
         return this.value;
     };
@@ -63,6 +67,17 @@ export class UNDEFINED extends Cntnr{
     public toString = (): string => {
         return "undefined";
     };
+}
+
+export class NAN extends Cntnr{
+    constructor() {
+        super();
+        this.typo = "NAN";
+    }
+
+    public toString = (): string => {
+        return "NaN";
+    }
 }
 
 export class NULL extends Cntnr{
