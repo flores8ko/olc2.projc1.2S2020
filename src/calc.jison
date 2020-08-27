@@ -59,8 +59,8 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 ";"                   return ';'
 ','                   return ','
 ':'                   return ':'
-'='                   return '='
 '=='                  return '=='
+'='                   return '='
 // EOF means "end of file"
 <<EOF>>               return 'EOF'
 // any other characters will throw an error
@@ -84,9 +84,10 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 // Details here:
 // http://web.mit.edu/gnu/doc/html/bison_8.html#SEC76
 
-%left '+' '-'
-%left '*' '/'
 %left '^'
+%left '=='
+%left '+' '-'
+%left '*' '/' '%'
 %left UMINUS
 
 %start expressions
