@@ -189,6 +189,15 @@ export function Division(lf: Cntnr, rt: Cntnr): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
+    if(rt instanceof NUMBER){
+        if((rt as NUMBER).getValue() === 0){
+            throw new SemanticException('Operación no válida, no se puede dividir entre 0');
+        }
+    } else {
+        if((rt as BOOLEAN).getValueNumber() === 0){
+            throw new SemanticException('Operación no válida, no se puede dividir entre 0');
+        }
+    }
     try {
         return Dividir(lf, rt);
     } catch (e) {
@@ -196,15 +205,6 @@ export function Division(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 
     function Dividir(lf: any, rt: any): Cntnr {
-        if(rt instanceof NUMBER){
-            if((rt as NUMBER).getValue() === 0){
-                throw new SemanticException('Operación no válida, no se puede dividir entre 0');
-            }
-        } else {
-            if((rt as BOOLEAN).getValueNumber() === 0){
-                throw new SemanticException('Operación no válida, no se puede dividir entre 0');
-            }
-        }
         switch (true) {
             case lf instanceof NUMBER:
                 switch (true) {

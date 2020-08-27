@@ -161,7 +161,7 @@ e
     | e '*' e
         {$$ = new ast.MulNode($1,$3);}
     | e '/' e
-        {$$ = $1/$3;}
+        {$$ = new ast.DivNode($1,$3);}
     | e '^' e
         {$$ = Math.pow($1, $3);}
     | '-' e %prec UMINUS
