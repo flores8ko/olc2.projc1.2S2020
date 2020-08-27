@@ -152,7 +152,7 @@ export function Division(lf: Cntnr, rt: Cntnr): Cntnr {
         if((rt as NUMBER).getValue() === 0){
             throw new SemanticException('Operación no válida, no se puede dividir entre 0');
         }
-    } else {
+    } else if(rt instanceof BOOLEAN){
         if((rt as BOOLEAN).getValueNumber() === 0){
             throw new SemanticException('Operación no válida, no se puede dividir entre 0');
         }
