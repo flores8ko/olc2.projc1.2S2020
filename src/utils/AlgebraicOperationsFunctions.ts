@@ -184,3 +184,46 @@ export function Multiplicacion(lf: Cntnr, rt: Cntnr): Cntnr {
         }
     }
 }
+
+export function Division(lf: Cntnr, rt: Cntnr): Cntnr {
+    lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
+    rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
+
+    try {
+        return Dividir(lf, rt);
+    } catch (e) {
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} * ${rt.typo} ) no permitida.`)
+    }
+
+    function Dividir(lf: any, rt: any): Cntnr {
+        if(rt instanceof NUMBER){
+            if((rt as NUMBER).getValue() === 0){
+                throw new SemanticException('Operación no válida, no se puede dividir entre 0');
+            }
+        } else {
+            if((rt as BOOLEAN).getValueNumber() === 0){
+                throw new SemanticException('Operación no válida, no se puede dividir entre 0');
+            }
+        }
+        switch (true) {
+            case lf instanceof NUMBER:
+                switch (true) {
+                    case rt instanceof NUMBER:
+                        return new NUMBER((lf as NUMBER).getValue() / (rt as NUMBER).getValue());
+                    case rt instanceof BOOLEAN:
+                        return new NUMBER((lf as NUMBER).getValue() / (rt as BOOLEAN).getValueNumber());
+                }
+                break;
+            case lf instanceof BOOLEAN:
+                switch (true) {
+                    case rt instanceof NUMBER:
+                        return new NUMBER((lf as BOOLEAN).getValueNumber() / (rt as NUMBER).getValue());
+                    case rt instanceof BOOLEAN:
+                        return new NUMBER((lf as BOOLEAN).getValueNumber() / (rt as BOOLEAN).getValueNumber());
+                }
+                break;
+            default:
+                throw new Error();
+        }
+    }
+}
