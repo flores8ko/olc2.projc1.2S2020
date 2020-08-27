@@ -166,7 +166,7 @@ e
     | e '%' e
         {$$ = new ast.ModNode($1,$3);}
     | e '^' e
-        {$$ = Math.pow($1, $3);}
+        {$$ = new ast.ExpNode($1, $3);}
     | '-' e %prec UMINUS
         {$$ = -$2;}
     | '(' e ')'
