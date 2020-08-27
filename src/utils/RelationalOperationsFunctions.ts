@@ -3,7 +3,7 @@ import {Reference} from "./Reference";
 import {SemanticException} from "./Utils";
 import {BOOLEAN, NAN, NULL, NUMBER, STRING, UNDEFINED} from "./PrimitiveTypoContainer";
 
-export function Igual(lf: Cntnr, rt: Cntnr): Cntnr{
+export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
@@ -67,7 +67,7 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr{
     }
 }
 
-export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr{
+export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
@@ -85,6 +85,12 @@ export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr{
                         return new BOOLEAN((lf as NUMBER).getValue() !== (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as NUMBER).getValue() !== (rt as BOOLEAN).getValueNumber());
+                    case rt instanceof NULL:
+                        return new BOOLEAN(true);
+                    case rt instanceof UNDEFINED:
+                        return new BOOLEAN(true);
+                    case rt instanceof NAN:
+                        return new BOOLEAN(true);
                     default:
                         throw new Error();
                 }
@@ -94,6 +100,12 @@ export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr{
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() != (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() != (rt as BOOLEAN).getValueNumber());
+                    case rt instanceof NULL:
+                        return new BOOLEAN(true);
+                    case rt instanceof UNDEFINED:
+                        return new BOOLEAN(true);
+                    case rt instanceof NAN:
+                        return new BOOLEAN(true);
                     default:
                         throw new Error();
                 }
@@ -101,6 +113,10 @@ export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr{
                 switch (true) {
                     case rt instanceof STRING:
                         return new BOOLEAN((lf as STRING).getValue() !== (rt as STRING).getValue());
+                    case rt instanceof NULL:
+                        return new BOOLEAN(true);
+                    case rt instanceof UNDEFINED:
+                        return new BOOLEAN(true);
                     default:
                         throw new Error();
                 }
