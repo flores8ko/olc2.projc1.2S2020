@@ -171,16 +171,18 @@ export function Division(lf: Cntnr, rt: Cntnr): Cntnr {
                         return new NUMBER((lf as NUMBER).getValue() / (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new NUMBER((lf as NUMBER).getValue() / (rt as BOOLEAN).getValueNumber());
+                    default:
+                        throw new Error();
                 }
-                break;
             case lf instanceof BOOLEAN:
                 switch (true) {
                     case rt instanceof NUMBER:
                         return new NUMBER((lf as BOOLEAN).getValueNumber() / (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new NUMBER((lf as BOOLEAN).getValueNumber() / (rt as BOOLEAN).getValueNumber());
+                    default:
+                        throw new Error();
                 }
-                break;
             default:
                 throw new Error();
         }
