@@ -53,6 +53,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "-"                   return '-'
 "+"                   return '+'
 "^"                   return '^'
+"%"                   return '%'
 "("                   return '('
 ")"                   return ')'
 ";"                   return ';'
@@ -162,6 +163,8 @@ e
         {$$ = new ast.MulNode($1,$3);}
     | e '/' e
         {$$ = new ast.DivNode($1,$3);}
+    | e '%' e
+        {$$ = new ast.ModNode($1,$3);}
     | e '^' e
         {$$ = Math.pow($1, $3);}
     | '-' e %prec UMINUS
