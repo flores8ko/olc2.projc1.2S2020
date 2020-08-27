@@ -21,40 +21,46 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr{
                         return new BOOLEAN((lf as NUMBER).getValue() === (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as NUMBER).getValue() === (rt as BOOLEAN).getValueNumber());
+                    default:
+                        throw new Error();
                 }
-                break;
             case lf instanceof BOOLEAN:
                 switch (true) {
                     case rt instanceof NUMBER:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() == (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() == (rt as BOOLEAN).getValueNumber());
+                    default:
+                        throw new Error();
                 }
-                break;
             case lf instanceof STRING:
                 switch (true) {
                     case rt instanceof STRING:
                         return new BOOLEAN((lf as STRING).getValue() === (rt as STRING).getValue());
+                    default:
+                        throw new Error();
                 }
-                break;
             case lf instanceof UNDEFINED:
                 switch (true) {
                     case rt instanceof UNDEFINED:
                         return new BOOLEAN(true);
+                    default:
+                        throw new Error();
                 }
-                break;
             case lf instanceof NULL:
                 switch (true) {
                     case rt instanceof NULL:
                         return new BOOLEAN(true);
+                    default:
+                        throw new Error();
                 }
-                break;
             case lf instanceof NAN:
                 switch (true) {
                     case rt instanceof NAN:
                         return new BOOLEAN(true);
+                    default:
+                        throw new Error();
                 }
-                break;
             default:
                 throw new Error();
         }
