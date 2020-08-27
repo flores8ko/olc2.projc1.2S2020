@@ -201,7 +201,7 @@ export function Division(lf: Cntnr, rt: Cntnr): Cntnr {
     try {
         return Dividir(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} * ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} / ${rt.typo} ) no permitida.`)
     }
 
     function Dividir(lf: any, rt: any): Cntnr {
@@ -235,7 +235,7 @@ export function Modulo(lf: Cntnr, rt: Cntnr): Cntnr {
     try {
         return Mod(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} * ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} % ${rt.typo} ) no permitida.`)
     }
 
     function Mod(lf: any, rt: any): Cntnr {
@@ -254,6 +254,40 @@ export function Modulo(lf: Cntnr, rt: Cntnr): Cntnr {
                         return new NUMBER((lf as BOOLEAN).getValueNumber() % (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new NUMBER((lf as BOOLEAN).getValueNumber() % (rt as BOOLEAN).getValueNumber());
+                }
+                break;
+            default:
+                throw new Error();
+        }
+    }
+}
+
+export function Potencia(lf: Cntnr, rt: Cntnr): Cntnr {
+    lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
+    rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
+
+    try {
+        return Pot(lf, rt);
+    } catch (e) {
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} ^ ${rt.typo} ) no permitida.`)
+    }
+
+    function Pot(lf: any, rt: any): Cntnr {
+        switch (true) {
+            case lf instanceof NUMBER:
+                switch (true) {
+                    case rt instanceof NUMBER:
+                        return new NUMBER(Math.pow((lf as NUMBER).getValue(), (rt as NUMBER).getValue()));
+                    case rt instanceof BOOLEAN:
+                        return new NUMBER(Math.pow((lf as NUMBER).getValue(),  (rt as BOOLEAN).getValueNumber()));
+                }
+                break;
+            case lf instanceof BOOLEAN:
+                switch (true) {
+                    case rt instanceof NUMBER:
+                        return new NUMBER(Math.pow((lf as BOOLEAN).getValueNumber(), (rt as NUMBER).getValue()));
+                    case rt instanceof BOOLEAN:
+                        return new NUMBER(Math.pow((lf as BOOLEAN).getValueNumber(), (rt as BOOLEAN).getValueNumber()));
                 }
                 break;
             default:
