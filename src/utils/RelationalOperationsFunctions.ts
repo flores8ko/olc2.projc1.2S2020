@@ -21,6 +21,12 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
                         return new BOOLEAN((lf as NUMBER).getValue() === (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as NUMBER).getValue() === (rt as BOOLEAN).getValueNumber());
+                    case rt instanceof NULL:
+                        return new BOOLEAN(false);
+                    case rt instanceof UNDEFINED:
+                        return new BOOLEAN(false);
+                    case rt instanceof NAN:
+                        return new BOOLEAN(false);
                     default:
                         throw new Error();
                 }
@@ -30,6 +36,12 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() == (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() == (rt as BOOLEAN).getValueNumber());
+                    case rt instanceof NULL:
+                        return new BOOLEAN(false);
+                    case rt instanceof UNDEFINED:
+                        return new BOOLEAN(false);
+                    case rt instanceof NAN:
+                        return new BOOLEAN(false);
                     default:
                         throw new Error();
                 }
@@ -37,6 +49,12 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
                 switch (true) {
                     case rt instanceof STRING:
                         return new BOOLEAN((lf as STRING).getValue() === (rt as STRING).getValue());
+                    case rt instanceof NULL:
+                        return new BOOLEAN(false);
+                    case rt instanceof UNDEFINED:
+                        return new BOOLEAN(false);
+                    case rt instanceof NAN:
+                        return new BOOLEAN(false);
                     default:
                         throw new Error();
                 }
@@ -45,21 +63,21 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof UNDEFINED:
                         return new BOOLEAN(true);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof NULL:
                 switch (true) {
                     case rt instanceof NULL:
                         return new BOOLEAN(true);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof NAN:
                 switch (true) {
                     case rt instanceof NAN:
                         return new BOOLEAN(true);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             default:
                 throw new Error();
