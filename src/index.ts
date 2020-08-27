@@ -16,6 +16,7 @@ import { DeclareVarListNode } from "./nodes/DeclareVarListNode";
 import { CreateIdVarNode } from "./nodes/CreateIdVarNode";
 import { AsignNode } from "./nodes/AsignNode";
 import { SumNode } from "./nodes/SumNode";
+import { SubNode } from "./nodes/SubNode";
 
 export {
     Console,
@@ -41,6 +42,7 @@ export {
     AsignNode,
 
     SumNode,
+    SubNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
