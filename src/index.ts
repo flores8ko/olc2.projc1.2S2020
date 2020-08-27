@@ -18,6 +18,7 @@ import { AsignNode } from "./nodes/AsignNode";
 import { SumNode } from "./nodes/SumNode";
 import { SubNode } from "./nodes/SubNode";
 import { MulNode } from "./nodes/MulNode";
+import { DivNode } from "./nodes/DivNode";
 
 export {
     Console,
@@ -45,6 +46,7 @@ export {
     SumNode,
     SubNode,
     MulNode,
+    DivNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
