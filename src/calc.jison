@@ -59,6 +59,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 ";"                   return ';'
 ','                   return ','
 ':'                   return ':'
+'=='                  return '=='
 '='                   return '='
 // EOF means "end of file"
 <<EOF>>               return 'EOF'
@@ -83,9 +84,10 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 // Details here:
 // http://web.mit.edu/gnu/doc/html/bison_8.html#SEC76
 
-%left '+' '-'
-%left '*' '/'
 %left '^'
+%left '=='
+%left '+' '-'
+%left '*' '/' '%'
 %left UMINUS
 
 %start expressions
@@ -169,6 +171,8 @@ e
         {$$ = new ast.ExpNode($1, $3);}
     | '-' e %prec UMINUS
         {$$ = -$2;}
+    | e '==' e
+        {$$ = new ast.EqNode($1, $3);}
     | '(' e ')'
         {$$ = $2;}
     | NUMBER

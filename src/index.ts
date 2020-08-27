@@ -21,6 +21,7 @@ import { MulNode } from "./nodes/MulNode";
 import { DivNode } from "./nodes/DivNode";
 import { ModNode } from "./nodes/ModNode";
 import { ExpNode } from "./nodes/ExpNode";
+import { EqNode } from "./nodes/EqNode";
 
 export {
     Console,
@@ -51,6 +52,8 @@ export {
     DivNode,
     ModNode,
     ExpNode,
+
+    EqNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
