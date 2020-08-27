@@ -19,6 +19,7 @@ import { SumNode } from "./nodes/SumNode";
 import { SubNode } from "./nodes/SubNode";
 import { MulNode } from "./nodes/MulNode";
 import { DivNode } from "./nodes/DivNode";
+import { ModNode } from "./nodes/ModNode";
 
 export {
     Console,
@@ -47,6 +48,7 @@ export {
     SubNode,
     MulNode,
     DivNode,
+    ModNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
