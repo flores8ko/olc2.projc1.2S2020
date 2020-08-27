@@ -227,3 +227,37 @@ export function Division(lf: Cntnr, rt: Cntnr): Cntnr {
         }
     }
 }
+
+export function Modulo(lf: Cntnr, rt: Cntnr): Cntnr {
+    lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
+    rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
+
+    try {
+        return Mod(lf, rt);
+    } catch (e) {
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} * ${rt.typo} ) no permitida.`)
+    }
+
+    function Mod(lf: any, rt: any): Cntnr {
+        switch (true) {
+            case lf instanceof NUMBER:
+                switch (true) {
+                    case rt instanceof NUMBER:
+                        return new NUMBER((lf as NUMBER).getValue() % (rt as NUMBER).getValue());
+                    case rt instanceof BOOLEAN:
+                        return new NUMBER((lf as NUMBER).getValue() % (rt as BOOLEAN).getValueNumber());
+                }
+                break;
+            case lf instanceof BOOLEAN:
+                switch (true) {
+                    case rt instanceof NUMBER:
+                        return new NUMBER((lf as BOOLEAN).getValueNumber() % (rt as NUMBER).getValue());
+                    case rt instanceof BOOLEAN:
+                        return new NUMBER((lf as BOOLEAN).getValueNumber() % (rt as BOOLEAN).getValueNumber());
+                }
+                break;
+            default:
+                throw new Error();
+        }
+    }
+}
