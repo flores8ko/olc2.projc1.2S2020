@@ -277,17 +277,17 @@ export function Potencia(lf: Cntnr, rt: Cntnr): Cntnr {
             case lf instanceof NUMBER:
                 switch (true) {
                     case rt instanceof NUMBER:
-                        return new NUMBER((lf as NUMBER).getValue() ^ (rt as NUMBER).getValue());
+                        return new NUMBER(Math.pow((lf as NUMBER).getValue(), (rt as NUMBER).getValue()));
                     case rt instanceof BOOLEAN:
-                        return new NUMBER((lf as NUMBER).getValue() ^ (rt as BOOLEAN).getValueNumber());
+                        return new NUMBER(Math.pow((lf as NUMBER).getValue(),  (rt as BOOLEAN).getValueNumber()));
                 }
                 break;
             case lf instanceof BOOLEAN:
                 switch (true) {
                     case rt instanceof NUMBER:
-                        return new NUMBER((lf as BOOLEAN).getValueNumber() ^ (rt as NUMBER).getValue());
+                        return new NUMBER(Math.pow((lf as BOOLEAN).getValueNumber(), (rt as NUMBER).getValue()));
                     case rt instanceof BOOLEAN:
-                        return new NUMBER((lf as BOOLEAN).getValueNumber() ^ (rt as BOOLEAN).getValueNumber());
+                        return new NUMBER(Math.pow((lf as BOOLEAN).getValueNumber(), (rt as BOOLEAN).getValueNumber()));
                 }
                 break;
             default:
