@@ -79,8 +79,6 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
                     default:
                         return new BOOLEAN(false);
                 }
-            default:
-                throw new Error();
         }
     }
 }
