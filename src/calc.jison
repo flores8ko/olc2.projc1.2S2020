@@ -62,6 +62,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 '=='                  return '=='
 '!='                  return '!='
 '='                   return '='
+'>'                   return '>'
 // EOF means "end of file"
 <<EOF>>               return 'EOF'
 // any other characters will throw an error
@@ -176,6 +177,8 @@ e
         {$$ = new ast.EqNode($1, $3);}
     | e '!=' e
         {$$ = new ast.DifNode($1, $3);}
+    | e '>' e
+        {$$ = new ast.HigherNode($1, $3);}
     | '(' e ')'
         {$$ = $2;}
     | NUMBER
