@@ -52,3 +52,22 @@ export function And(lf: Cntnr, rt: Cntnr): Cntnr {
         }
     }
 }
+
+export function Not(lf: Cntnr): Cntnr {
+    lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
+
+    try {
+        return not(lf);
+    } catch (e) {
+        throw new SemanticException(`Operacion entre tipos ( ! ${lf.typo} ) no permitida.`);
+    }
+
+    function not(lf: any): Cntnr {
+        switch (true) {
+            case lf instanceof BOOLEAN:
+                return new BOOLEAN(!(lf as BOOLEAN).getValue());
+            default:
+                throw new Error();
+        }
+    }
+}
