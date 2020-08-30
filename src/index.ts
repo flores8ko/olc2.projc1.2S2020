@@ -30,6 +30,7 @@ import { MinorEqNode } from "./nodes/MinorEqNode";
 import { OrNode } from "./nodes/OrNode";
 import { AndNode } from "./nodes/AndNode";
 import { NotNode } from "./nodes/NotNode";
+import { ReAsignAddNode } from "./nodes/ReAsignAddNode";
 
 export {
     Console,
@@ -71,6 +72,8 @@ export {
     OrNode,
     AndNode,
     NotNode,
+
+    ReAsignAddNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

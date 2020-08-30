@@ -48,6 +48,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 
 [a-zA-Z_][a-zA-Z0-9_]*    return 'IDENTIFIER';
 
+'+='                  return '+='
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -104,6 +105,8 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 %left '<' '>' '<=' '>='
 %left '+' '-'
 %left '*' '/' '%'
+%left '+=' '-='
+%left '*=' '/='
 %left UMINUS
 %left '--' '++' '!'
 %left '.' '['
@@ -142,6 +145,7 @@ sentence
     : consoleLog {$$ = $1;}
     | letDeclarations { $$ = $1; }
     | asigna { $$ = $1; }
+    | e '+=' e { $$ = new ast.ReAsignAddNode($1, $3); }
     ;
 
 varType
