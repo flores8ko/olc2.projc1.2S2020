@@ -7,9 +7,9 @@ export function Or(lf: Cntnr, rt: Cntnr): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
-    try{
+    try {
         return or(lf, rt);
-    }catch (e){
+    } catch (e) {
         throw new SemanticException(`Operacion entre tipos ( ${lf.typo} || ${rt.typo} ) no permitida.`);
     }
 
@@ -18,7 +18,32 @@ export function Or(lf: Cntnr, rt: Cntnr): Cntnr {
             case lf instanceof BOOLEAN:
                 switch (true) {
                     case rt instanceof BOOLEAN:
-                        return  new BOOLEAN((lf as BOOLEAN).getValue() || (rt as BOOLEAN).getValue());
+                        return new BOOLEAN((lf as BOOLEAN).getValue() || (rt as BOOLEAN).getValue());
+                    default:
+                        throw new Error();
+                }
+            default:
+                throw new Error();
+        }
+    }
+}
+
+export function And(lf: Cntnr, rt: Cntnr): Cntnr {
+    lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
+    rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
+
+    try {
+        return and(lf, rt);
+    } catch (e) {
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} && ${rt.typo} ) no permitida.`);
+    }
+
+    function and(lf: any, rt: any): Cntnr {
+        switch (true) {
+            case lf instanceof BOOLEAN:
+                switch (true) {
+                    case rt instanceof BOOLEAN:
+                        return new BOOLEAN((lf as BOOLEAN).getValue() && (rt as BOOLEAN).getValue());
                     default:
                         throw new Error();
                 }
