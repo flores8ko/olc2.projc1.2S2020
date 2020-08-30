@@ -34,10 +34,16 @@
 <div class="row">
   <form class="col s12 m12 l12">
     <div class="row">
-      <div class="input-field col s12">
-        <textarea style="height: 35vh" rows="10" id="textarea"></textarea>
-        <button id="run" class="btn">Run</button>
+      <div class="input-field col s12 m5 l5">
+        <textarea style="height: 80vh" rows="10" id="textarea"></textarea>
       </div>
+        <div style="text-align: center" class="input-field col s12 m2 l2">
+            <button id="translate" style="width: 80%; margin-top: 30vh" class="btn">Translate</button>
+            <button id="run" style="width: 80%; margin-top: 5vh" class="btn">Run</button>
+        </div>
+    <div class="input-field col s12 m5 l5">
+        <textarea style="height: 80vh" rows="10" id="translated"></textarea>
+    </div>
       <div class="input-field col s12">
         <h5>Console</h5>
         <textarea style="height: 30vh; background-color: rgba(28,31,26,0.94); color: red" rows="10" id="console"></textarea>
