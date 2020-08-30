@@ -28,6 +28,7 @@ import { MinorNode } from "./nodes/MinorNode";
 import { HigherEqNode } from "./nodes/HigherEqNode";
 import { MinorEqNode } from "./nodes/MinorEqNode";
 import { OrNode } from "./nodes/OrNode";
+import { AndNode } from "./nodes/AndNode";
 
 export {
     Console,
@@ -67,6 +68,7 @@ export {
     MinorEqNode,
 
     OrNode,
+    AndNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
