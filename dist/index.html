@@ -8,18 +8,19 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <script src="ace/ace.js"></script>
     <script src="nodes.js"></script>
     <script src="calcParser.js"></script>
 
     <title>olc2-p1-2s2020</title>
 </head>
-<body>
+<body style="background-color: #1E222A">
 <!-- Dropdown Structure -->
 <div id="text-editor"></div>
 <nav>
     <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper">
+            <div style="background-color: #2BBBAD" class="nav-wrapper">
                 <a href="#!" class="brand-logo">OLC2 P1 2S2020</a>
                 <ul class="right hide-on-med-and-down">
                     <li><a id="go-to-console">Console</a></li>
@@ -33,7 +34,7 @@
     <form class="col s12 m12 l12">
         <div class="row">
             <div class="input-field col s12 m5 l5">
-                <textarea style="height: 80vh" rows="10" id="textarea"></textarea>
+                <div style="height: 80vh"  id="textarea">aver</div>
             </div>
             <div style="text-align: center" class="input-field col s12 m2 l2">
                 <button id="translate" style="width: 80%; margin-top: 30vh" class="btn">Translate</button>
@@ -44,7 +45,7 @@
             </div>
             <div id="console-header" class="input-field col s12">
                 <h5>Console</h5>
-                <textarea style="height: 80vh; background-color: rgba(28,31,26,0.94); color: red" rows="10"
+                <textarea style="height: 80vh; background-color: #2E3440; color: #35D63A" rows="10"
                           id="console"></textarea>
             </div>
         </div>
@@ -52,6 +53,23 @@
 </div>
 <script>
     $(document).ready(() => {
+        var editor = ace.edit("textarea");
+        editor.setTheme("ace/theme/nord_dark");
+        editor.session.setMode("ace/mode/typescript");
+        editor.setKeyboardHandler("ace/keyboard/emacs");
+        editor.setFontSize(16);
+
+        editor.setValue('' +
+            'let a: number = 5;\n' +
+            'let b: number = 6;\n' +
+            'console.log(a);\n' +
+            'console.log(b);\n' +
+            'console.log(a+b);\n' +
+            'console.log(a == b);\n' +
+            '');
+
+
+
         const scrollFactor = 500;
         function scrollToConsole() {
             $('html, body').animate({
@@ -75,14 +93,11 @@
             scrollToTextEditor();
         });
 
-
-        $('#textarea').text('let a = 5 + 6; console.log(a);');
-
         $('#run').click((e) => {
             e.preventDefault();
             let c = $('#console');
             c.text('');
-            let sentences = calc.parse($('#textarea').val());
+            let sentences = calc.parse(editor.getValue());
             ast.ExecuteAST(sentences);
             c.text(ast.Console.log);
 
