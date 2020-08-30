@@ -8,56 +8,102 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <script src="ace/ace.js"></script>
     <script src="nodes.js"></script>
     <script src="calcParser.js"></script>
 
     <title>olc2-p1-2s2020</title>
 </head>
-<body>
+<body style="background-color: #1E222A">
 <!-- Dropdown Structure -->
-<ul id="dropdown1" class="dropdown-content">
-    <li><a href="#!">one</a></li>
-    <li><a href="#!">two</a></li>
-    <li class="divider"></li>
-    <li><a href="#!">three</a></li>
-</ul>
+<div id="text-editor"></div>
 <nav>
-    <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">OLC2 P1 2S2020</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-        </ul>
+    <div class="navbar-fixed">
+        <nav>
+            <div style="background-color: #2BBBAD" class="nav-wrapper">
+                <a href="#!" class="brand-logo">OLC2 P1 2S2020</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a id="go-to-console">Console</a></li>
+                    <li><a id="go-to-text-editor">Text Editor</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
 </nav>
-
 <div class="row">
-  <form class="col s12 m12 l12">
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea style="height: 35vh" rows="10" id="textarea"></textarea>
-        <button id="run" class="btn">Run</button>
-      </div>
-      <div class="input-field col s12">
-        <h5>Console</h5>
-        <textarea style="height: 30vh; background-color: rgba(28,31,26,0.94); color: red" rows="10" id="console"></textarea>
-      </div>
-    </div>
-  </form>
+    <form class="col s12 m12 l12">
+        <div class="row">
+            <div class="input-field col s12 m5 l5">
+                <div style="height: 80vh"  id="textarea">aver</div>
+            </div>
+            <div style="text-align: center" class="input-field col s12 m2 l2">
+                <button id="translate" style="width: 80%; margin-top: 30vh" class="btn">Translate</button>
+                <button id="run" style="width: 80%; margin-top: 5vh" class="btn">Run</button>
+            </div>
+            <div class="input-field col s12 m5 l5">
+                <textarea style="height: 80vh" rows="10" id="translated"></textarea>
+            </div>
+            <div id="console-header" class="input-field col s12">
+                <h5>Console</h5>
+                <textarea style="height: 80vh; background-color: #2E3440; color: #35D63A" rows="10"
+                          id="console"></textarea>
+            </div>
+        </div>
+    </form>
 </div>
 <script>
-  $(document).ready(()=> {
-    $('#textarea').text('let a = 5 + 6; console.log(a);');
+    $(document).ready(() => {
+        var editor = ace.edit("textarea");
+        editor.setTheme("ace/theme/nord_dark");
+        editor.session.setMode("ace/mode/typescript");
+        editor.setKeyboardHandler("ace/keyboard/emacs");
+        editor.setFontSize(16);
 
-    $('#run').click((e)=> {
-        e.preventDefault();
-        let c = $('#console');
-        c.text('');
-        let sentences = calc.parse($('#textarea').val());
-        ast.ExecuteAST(sentences);
-        c.text(ast.Console.log);
+        editor.setValue('' +
+            'let a: number = 5;\n' +
+            'let b: number = 6;\n' +
+            'console.log(a);\n' +
+            'console.log(b);\n' +
+            'console.log(a+b);\n' +
+            'console.log(a == b);\n' +
+            '');
+
+
+
+        const scrollFactor = 500;
+        function scrollToConsole() {
+            $('html, body').animate({
+                scrollTop: $("#console-header").offset().top
+            }, scrollFactor);
+        }
+
+        function scrollToTextEditor() {
+            $('html, body').animate({
+                scrollTop: $("#text-editor").offset().top
+            }, scrollFactor);
+        }
+
+        $('#go-to-console').click((e) => {
+            e.preventDefault();
+            scrollToConsole();
+        });
+
+        $('#go-to-text-editor').click((e) => {
+            e.preventDefault();
+            scrollToTextEditor();
+        });
+
+        $('#run').click((e) => {
+            e.preventDefault();
+            let c = $('#console');
+            c.text('');
+            let sentences = calc.parse(editor.getValue());
+            ast.ExecuteAST(sentences);
+            c.text(ast.Console.log);
+
+            scrollToConsole();
+        });
     });
-  });
 </script>
 </body>
 
