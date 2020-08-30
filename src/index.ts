@@ -36,6 +36,7 @@ import { ReAsignMulNode } from "./nodes/ReAsignMulNode";
 import { ReAsignDivNode } from "./nodes/ReAsignDivNode";
 import { ReAsignModNode } from "./nodes/ReAsignModNode";
 import { ReAddNode } from "./nodes/ReAddNode";
+import { ReSubNode } from "./nodes/ReSubNode";
 
 export {
     Console,
@@ -85,6 +86,7 @@ export {
     ReAsignModNode,
 
     ReAddNode,
+    ReSubNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
