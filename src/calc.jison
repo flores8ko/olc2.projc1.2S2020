@@ -49,6 +49,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 [a-zA-Z_][a-zA-Z0-9_]*    return 'IDENTIFIER';
 
 '+='                  return '+='
+'-='                  return '-='
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -146,6 +147,7 @@ sentence
     | letDeclarations { $$ = $1; }
     | asigna { $$ = $1; }
     | e '+=' e { $$ = new ast.ReAsignAddNode($1, $3); }
+    | e '-=' e { $$ = new ast.ReAsignSubNode($1, $3); }
     ;
 
 varType

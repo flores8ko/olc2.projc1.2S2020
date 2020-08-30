@@ -31,6 +31,7 @@ import { OrNode } from "./nodes/OrNode";
 import { AndNode } from "./nodes/AndNode";
 import { NotNode } from "./nodes/NotNode";
 import { ReAsignAddNode } from "./nodes/ReAsignAddNode";
+import { ReAsignSubNode } from "./nodes/ReAsignSubNode";
 
 export {
     Console,
@@ -74,6 +75,7 @@ export {
     NotNode,
 
     ReAsignAddNode,
+    ReAsignSubNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
