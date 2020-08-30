@@ -223,6 +223,20 @@ e
         {$$ = new ast.AndNode($1, $3);}
     | '!' e
         {$$ = new ast.NotNode($2);}
+    | e '+=' e
+        { $$ = new ast.ReAsignAddNode($1, $3); }
+    | e '-=' e
+        { $$ = new ast.ReAsignSubNode($1, $3); }
+    | e '*=' e
+        { $$ = new ast.ReAsignMulNode($1, $3); }
+    | e '/=' e
+        { $$ = new ast.ReAsignDivNode($1, $3); }
+    | e '%=' e
+        { $$ = new ast.ReAsignModNode($1, $3); }
+    | e '++'
+        { $$ = new ast.ReAddNode($1); }
+    | e '--'
+        { $$ = new ast.ReSubNode($1); }
     | '(' e ')'
         {$$ = $2;}
     | NUMBER
