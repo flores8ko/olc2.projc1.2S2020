@@ -54,6 +54,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 '/='                  return '/='
 '%='                  return '%='
 '++'                  return '++'
+'--'                  return '--'
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -156,6 +157,7 @@ sentence
     | e '/=' e { $$ = new ast.ReAsignDivNode($1, $3); }
     | e '%=' e { $$ = new ast.ReAsignModNode($1, $3); }
     | e '++' { $$ = new ast.ReAddNode($1); }
+    | e '--' { $$ = new ast.ReSubNode($1); }
     ;
 
 varType
