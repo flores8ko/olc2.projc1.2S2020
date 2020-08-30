@@ -1,5 +1,4 @@
-dist/*
-!dist/index.html
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,linux,windows,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,linux,windows,intellij
