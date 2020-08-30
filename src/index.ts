@@ -23,6 +23,7 @@ import { ModNode } from "./nodes/ModNode";
 import { ExpNode } from "./nodes/ExpNode";
 import { EqNode } from "./nodes/EqNode";
 import { DifNode } from "./nodes/DifNode";
+import { HigherNode } from "./nodes/HigherNode";
 
 export {
     Console,
@@ -56,6 +57,7 @@ export {
 
     EqNode,
     DifNode,
+    HigherNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
