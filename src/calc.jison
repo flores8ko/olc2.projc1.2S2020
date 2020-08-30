@@ -63,6 +63,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 '!='                  return '!='
 '='                   return '='
 '>='                  return '>='
+'<='                  return '<='
 '>'                   return '>'
 '<'                   return '<'
 // EOF means "end of file"
@@ -183,6 +184,8 @@ e
         {$$ = new ast.HigherNode($1, $3);}
     | e '>=' e
             {$$ = new ast.HigherEqNode($1, $3);}
+    | e ''<=' e
+            {$$ = new ast.MinorEqNode($1, $3);}
     | e '<' e
             {$$ = new ast.MinorNode($1, $3);}
     | '(' e ')'
