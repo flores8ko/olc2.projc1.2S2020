@@ -53,6 +53,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 '*='                  return '*='
 '/='                  return '/='
 '%='                  return '%='
+'++'                  return '++'
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -112,7 +113,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 %left '+=' '-='
 %left '*=' '/=' '%='
 %left UMINUS
-%left '--' '++' '!'
+%right '--' '++' '!'
 %left '.' '['
 
 %start expressions
@@ -154,6 +155,7 @@ sentence
     | e '*=' e { $$ = new ast.ReAsignMulNode($1, $3); }
     | e '/=' e { $$ = new ast.ReAsignDivNode($1, $3); }
     | e '%=' e { $$ = new ast.ReAsignModNode($1, $3); }
+    | e '++' { $$ = new ast.ReAddNode($1); }
     ;
 
 varType
