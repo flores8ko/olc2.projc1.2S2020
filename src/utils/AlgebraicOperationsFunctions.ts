@@ -260,3 +260,17 @@ export function Potencia(lf: Cntnr, rt: Cntnr): Cntnr {
         }
     }
 }
+
+export function Add(lf: Cntnr): Cntnr {
+    if (!(lf instanceof Reference)) {
+        throw new SemanticException("Operacion {ref++} permitida solamente sobre referencas");
+    }
+
+    const val = (lf as Reference).getValue();
+    if (val instanceof NUMBER) {
+        (lf as Reference).setValue(new NUMBER((val as NUMBER).getValue() + 1));
+        return val as NUMBER;
+    }
+
+    throw new SemanticException("Operacion {ref++} No se puede realizar sobre variables distintas de tipo number");
+}
