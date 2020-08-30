@@ -50,6 +50,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 
 '+='                  return '+='
 '-='                  return '-='
+'*='                  return '*='
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -148,6 +149,7 @@ sentence
     | asigna { $$ = $1; }
     | e '+=' e { $$ = new ast.ReAsignAddNode($1, $3); }
     | e '-=' e { $$ = new ast.ReAsignSubNode($1, $3); }
+    | e '*=' e { $$ = new ast.ReAsignMulNode($1, $3); }
     ;
 
 varType
