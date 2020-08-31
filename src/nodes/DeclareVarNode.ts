@@ -20,7 +20,7 @@ export class DeclareVarNode extends Op{
         return null;
     }
 
-    public AddValue(value: Cntnr, isConst: boolean = false, tipoNombre: string = 'ANY'){
+    public AddValue(value: Cntnr = new UNDEFINED(), isConst: boolean = false, tipoNombre: string = 'ANY'){
         this.value = value;
         this.isConst = isConst;
         if(tipoNombre === ''){

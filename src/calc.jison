@@ -32,6 +32,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 'string'              return 'STRING_TYPE';
 'boolean'             return 'BOOLEAN_TYPE';
 'any'                 return 'ANY_TYPE';
+'array'               return 'ARRAY_TYPE';
 
 "const"               return 'CONST';
 "let"                 return 'LET'
@@ -75,6 +76,8 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "."                   return '.'
 "["                   return '['
 "]"                   return ']'
+"<"                   return '<'
+">"                   return '>'
 
 [a-zA-Z_][a-zA-Z0-9_]*    return 'IDENTIFIER';
 
@@ -135,6 +138,7 @@ varType
     | BOOLEAN_TYPE { $$ = $1; }
     | ANY_TYPE { $$ = $1; }
     | IDENTIFIER { $$ = $1; }
+    | ARRAY_TYPE '<' varType '>' { $$ = $1; }
     ;
 
 letDeclarations
@@ -192,6 +196,12 @@ e
         {$$ = new ast.NotNode($2);}
     | '(' e ')'
         {$$ = $2;}
+    | '[' ']'
+        { $$ = new ast.CreateArrayNode([]); }
+    | '[' eList ']'
+        { $$ = new ast.CreateArrayNode($2); }
+    | e '[' e ']'
+        { $$ = new ast.CreateArrVarNode($1, $3); }
     | '-' e %prec UMINUS
         {$$ = new ast.MulNode($2, new ast.NumberNode(-1));}
     | increment
@@ -210,4 +220,11 @@ e
         {$$ = new ast.BooleanNode(true);}
     | IDENTIFIER
         { $$ = new ast.CreateIdVarNode($1); }
+    ;
+
+eList
+    : eList ',' e
+        {$1.push($3); $$ = $1; }
+    | e
+        {$$ = [$1]}
     ;
