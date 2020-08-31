@@ -1,4 +1,5 @@
 import {Cntnr} from "./Cntnr";
+import {Reference} from "./Reference";
 
 export class BOOLEAN extends Cntnr {
     private readonly value: boolean;
@@ -22,7 +23,7 @@ export class BOOLEAN extends Cntnr {
     };
 }
 
-export class STRING extends Cntnr{
+export class STRING extends Cntnr {
     private readonly value: string;
 
     constructor(value?: string) {
@@ -58,7 +59,7 @@ export class NUMBER extends Cntnr {
     };
 }
 
-export class UNDEFINED extends Cntnr{
+export class UNDEFINED extends Cntnr {
     constructor() {
         super();
         this.typo = "UNDEFINED";
@@ -69,7 +70,7 @@ export class UNDEFINED extends Cntnr{
     };
 }
 
-export class NAN extends Cntnr{
+export class NAN extends Cntnr {
     constructor() {
         super();
         this.typo = "NAN";
@@ -80,7 +81,7 @@ export class NAN extends Cntnr{
     }
 }
 
-export class NULL extends Cntnr{
+export class NULL extends Cntnr {
     constructor() {
         super();
         this.typo = "NULL";
@@ -92,5 +93,45 @@ export class NULL extends Cntnr{
 
     public getValue = (): object => {
         return null;
+    };
+}
+
+export class ARRAY extends Cntnr {
+    private readonly value: Array<Cntnr>;
+
+    constructor(value?: Array<Cntnr>) {
+        super();
+        this.value = value || new Array<Cntnr>();
+        this.typo = "ARRAY";
+    }
+
+    public toString = (): string => {
+        const size = this.value.length;
+        let log = `Array (${size}) [`;
+        for (let i = 0; i < size; i++) {
+            log += `${(this.value[i] as Reference).getValue()}`;
+            if (size - 1 !== i) {
+                log += ', ';
+            }
+        }
+        log += ']';
+        return log;
+    };
+
+    public getValue = (index: number): object => {
+        let val = this.value[index];
+        if (val !== undefined) {
+            return val;
+        }
+        let size = this.value.length;
+        while (size <= index) {
+            this.value.push(new Reference());
+            size++;
+        }
+        return this.value[index];
+    };
+
+    public getValueList = (): Array<Cntnr> => {
+        return this.value;
     };
 }
