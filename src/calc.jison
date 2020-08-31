@@ -196,6 +196,10 @@ e
         {$$ = new ast.NotNode($2);}
     | '(' e ')'
         {$$ = $2;}
+    | '[' ']'
+        { $$ = new ast.CreateArrayNode(new Array<Op>()); }
+    | '[' eList ']'
+        { $$ = new ast.CreateArrayNode($2); }
     | '-' e %prec UMINUS
         {$$ = new ast.MulNode($2, new ast.NumberNode(-1));}
     | increment
@@ -214,4 +218,11 @@ e
         {$$ = new ast.BooleanNode(true);}
     | IDENTIFIER
         { $$ = new ast.CreateIdVarNode($1); }
+    ;
+
+eList
+    : eList ',' e
+        {$1.push($3); $$ = $1; }
+    | e
+        {$$ = [$1]}
     ;
