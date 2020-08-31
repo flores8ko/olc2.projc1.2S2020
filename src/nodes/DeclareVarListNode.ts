@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {DeclareVarNode} from "./DeclareVarNode";
 import {Cntnr} from "../utils/Cntnr";
+import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
 
 export class DeclareVarListNode extends Op {
     private readonly tipoNombre: string;
@@ -22,6 +23,8 @@ export class DeclareVarListNode extends Op {
             try {
                 if (this.value !== null) {
                     (op as DeclareVarNode).AddValue(this.value.Exe(env) as Cntnr, this.isConst, this.tipoNombre);
+                }else{
+                    (op as DeclareVarNode).AddValue(new UNDEFINED(), this.isConst, this.tipoNombre);
                 }
                 op.Exe(env);
             } catch (e) {

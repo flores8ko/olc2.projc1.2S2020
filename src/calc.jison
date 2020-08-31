@@ -32,6 +32,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 'string'              return 'STRING_TYPE';
 'boolean'             return 'BOOLEAN_TYPE';
 'any'                 return 'ANY_TYPE';
+'array'               return 'ARRAY_TYPE';
 
 "const"               return 'CONST';
 "let"                 return 'LET'
@@ -75,6 +76,8 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "."                   return '.'
 "["                   return '['
 "]"                   return ']'
+"<"                   return '<'
+">"                   return '>'
 
 [a-zA-Z_][a-zA-Z0-9_]*    return 'IDENTIFIER';
 
@@ -135,6 +138,7 @@ varType
     | BOOLEAN_TYPE { $$ = $1; }
     | ANY_TYPE { $$ = $1; }
     | IDENTIFIER { $$ = $1; }
+    | ARRAY_TYPE '<' varType '>' { $$ = $1; }
     ;
 
 letDeclarations
