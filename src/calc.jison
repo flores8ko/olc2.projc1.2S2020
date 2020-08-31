@@ -200,6 +200,8 @@ e
         { $$ = new ast.CreateArrayNode([]); }
     | '[' eList ']'
         { $$ = new ast.CreateArrayNode($2); }
+    | e '[' e ']'
+        { $$ = new ast.CreateArrVarNode($1, $3); }
     | '-' e %prec UMINUS
         {$$ = new ast.MulNode($2, new ast.NumberNode(-1));}
     | increment
