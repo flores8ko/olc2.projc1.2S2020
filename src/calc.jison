@@ -197,7 +197,7 @@ e
     | '(' e ')'
         {$$ = $2;}
     | '[' ']'
-        { $$ = new ast.CreateArrayNode(new Array<Op>()); }
+        { $$ = new ast.CreateArrayNode([]); }
     | '[' eList ']'
         { $$ = new ast.CreateArrayNode($2); }
     | '-' e %prec UMINUS

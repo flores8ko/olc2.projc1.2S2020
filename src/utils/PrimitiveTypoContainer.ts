@@ -98,11 +98,13 @@ export class NULL extends Cntnr {
 
 export class ARRAY extends Cntnr {
     private readonly value: Array<Cntnr>;
+    private readonly contentType: string;
 
     constructor(value?: Array<Cntnr>, contentType: string = 'ANY') {
         super();
         this.value = value || new Array<Cntnr>();
-        this.typo = `ARRAY<${contentType}>`;
+        this.typo = `ARRAY`;
+        this.contentType = contentType;
     }
 
     public toString = (): string => {
