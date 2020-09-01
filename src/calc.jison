@@ -141,6 +141,11 @@ varType
     | ARRAY_TYPE '<' varType '>' { $$ = $1; }
     ;
 
+corchetes
+    : corchetes '[' ']'
+    | '[' ']'
+    ;
+
 letDeclarations
     : LET idList ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, $2, $6); }
     | LET idList ':' varType { $$ = new ast.DeclareVarListNode($4, $2);  }
@@ -148,6 +153,10 @@ letDeclarations
     | LET idList {$$ = new ast.DeclareVarListNode("", $2); }
     | CONST IDENTIFIER ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, [new ast.DeclareVarNode($2)], $6, true); }
     | CONST IDENTIFIER '=' e { $$ = new ast.DeclareVarListNode("", [new ast.DeclareVarNode($2)], $4, true); }
+    | LET idList ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode('ARRAY', $2, $7); }
+    | LET idList ':' varType corchetes { $$ = new ast.DeclareVarListNode('ARRAY', $2);  }
+    | CONST IDENTIFIER ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode('ARRAY', [new ast.DeclareVarNode($2)], $7, true); }
+    | CONST IDENTIFIER corchetes '=' e { $$ = new ast.DeclareVarListNode("", [new ast.DeclareVarNode($2)], $5, true); }
     ;
 
 idList
