@@ -1,5 +1,6 @@
 import {Cntnr} from "./Cntnr";
 import {Reference} from "./Reference";
+import {Length} from "./nativeFunctions/length";
 
 export class BOOLEAN extends Cntnr {
     private readonly value: boolean;
@@ -105,6 +106,11 @@ export class ARRAY extends Cntnr {
         this.value = value || new Array<Cntnr>();
         this.typo = `ARRAY`;
         this.contentType = contentType;
+        try{
+            this.Declare("length", new Length(this));
+        }catch (e) {
+            throw new Error();
+        }
     }
 
     public toString = (): string => {

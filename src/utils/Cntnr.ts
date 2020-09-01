@@ -1,4 +1,5 @@
 import {Reference} from "./Reference";
+import {UNDEFINED} from "./PrimitiveTypoContainer";
 
 export abstract class Cntnr {
     private readonly owner: Cntnr;
@@ -32,7 +33,7 @@ export abstract class Cntnr {
 
         //this.props.set(id, new Reference());
         //return this.props.get(id);
-        return null;
+        return undefined;
     }
 
     public Declare(id: string, cntnr: Cntnr): void {

@@ -39,6 +39,8 @@ import { ReAddNode } from "./nodes/ReAddNode";
 import { ReSubNode } from "./nodes/ReSubNode";
 import { CreateArrayNode } from "./nodes/CreateArrayNode";
 import { CreateArrVarNode } from "./nodes/CreateArrVarNode";
+import { ReturnObj } from "./nodes/ReturnObj";
+import { CreateObjVarNode } from "./nodes/CreateObjVarnode";
 
 export {
     Console,
@@ -92,6 +94,10 @@ export {
 
     CreateArrayNode,
     CreateArrVarNode,
+
+    ReturnObj,
+
+    CreateObjVarNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
