@@ -3,6 +3,8 @@ import {ARRAY, NUMBER} from "../PrimitiveTypoContainer";
 import {Envmnt} from "../Envmnt";
 import {Cntnr} from "../Cntnr";
 import {ReturnObj} from "../../nodes/ReturnObj";
+import {Reference} from "../Reference";
+import {SemanticException} from "../Utils";
 
 export class Push extends Native{
     private readonly array: ARRAY;
@@ -13,8 +15,12 @@ export class Push extends Native{
     }
 
     EXE(env0: Envmnt, args: Array<Cntnr>): Cntnr {
-        let val = this.array.getValueList().push(args[0]);
         let size = this.array.getValueList().length;
+        for (let i in args) {
+            let ref = new Reference();
+            ref.setValue(args[i]);
+            this.array.addValue(ref);
+        }
         return new ReturnObj(new NUMBER(size));
     }
 }

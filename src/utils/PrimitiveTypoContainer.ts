@@ -1,6 +1,7 @@
 import {Cntnr} from "./Cntnr";
 import {Reference} from "./Reference";
 import {Length} from "./nativeFunctions/length";
+import {Push} from "./nativeFunctions/push";
 
 export class BOOLEAN extends Cntnr {
     private readonly value: boolean;
@@ -108,6 +109,7 @@ export class ARRAY extends Cntnr {
         this.contentType = contentType;
         try{
             this.Declare("length", new Length(this));
+            this.Declare("push", new Push(this));
         }catch (e) {
             throw new Error();
         }
@@ -138,6 +140,10 @@ export class ARRAY extends Cntnr {
         }
         return this.value[index];
     };
+
+    public addValue(value: Cntnr) {
+        this.value.push(value);
+    }
 
     public getValueList = (): Array<Cntnr> => {
         return this.value;
