@@ -71,7 +71,7 @@
     recoverable: (boolean: TRUE when the parser has a error recovery rule available for this particular error)
   }
 */
-var parser = (function(){
+var calc = (function(){
     var parser = {trace: function trace(){},
         yy: {},
         symbols_: {"error":2,"expressions":3,"sentences":4,"EOF":5,"sentence":6,";":7,"consoleLog":8,"letDeclarations":9,"asigna":10,"increment":11,"e":12,"+=":13,"-=":14,"*=":15,"/=":16,"%=":17,"++":18,"--":19,"varType":20,"NUMBER_TYPE":21,"STRING_TYPE":22,"BOOLEAN_TYPE":23,"ANY_TYPE":24,"IDENTIFIER":25,"ARRAY_TYPE":26,"<":27,">":28,"corchetes":29,"[":30,"]":31,"LET":32,"idList":33,":":34,"=":35,"CONST":36,",":37,"console.log":38,"(":39,")":40,"+":41,"-":42,"*":43,"/":44,"%":45,"^":46,"==":47,"!=":48,">=":49,"<=":50,"||":51,"&&":52,"!":53,"eList":54,".":55,"NUMBER":56,"STRING":57,"NULL":58,"UNDEFINED":59,"FALSE":60,"TRUE":61,"$accept":0,"$end":1},
