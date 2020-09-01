@@ -40,7 +40,7 @@ import { ReSubNode } from "./nodes/ReSubNode";
 import { CreateArrayNode } from "./nodes/CreateArrayNode";
 import { CreateArrVarNode } from "./nodes/CreateArrVarNode";
 import { ReturnObj } from "./nodes/ReturnObj";
-import { CreateObjVarNode } from "./nodes/CreateObjVarnode";
+import { CreateObjVarNode } from "./nodes/CreateObjVarNode";
 
 export {
     Console,
