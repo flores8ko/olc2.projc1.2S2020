@@ -211,6 +211,8 @@ e
         { $$ = new ast.CreateArrayNode($2); }
     | e '[' e ']'
         { $$ = new ast.CreateArrVarNode($1, $3); }
+    | e '?' e ':' e
+        { $$ = new ast.SentenceTernaryNode($1, $3, $5); }
     | e '.' IDENTIFIER '(' ')'
         { $$ = new ast.CreateObjFunNode($1, $3, []); }
     | e '.' IDENTIFIER '(' eList ')'
