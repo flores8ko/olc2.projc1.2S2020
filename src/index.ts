@@ -43,6 +43,7 @@ import { ReturnObj } from "./nodes/ReturnObj";
 import { CreateObjVarNode } from "./nodes/CreateObjVarNode";
 import { CreateObjFunNode } from "./nodes/CreateObjFunNode";
 import { SentenceTernaryNode } from "./nodes/SentenceTernaryNode";
+import { BreakNode } from "./nodes/BreakNode";
 
 export {
     Console,
@@ -103,6 +104,8 @@ export {
     CreateObjFunNode,
 
     SentenceTernaryNode,
+
+    BreakNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
