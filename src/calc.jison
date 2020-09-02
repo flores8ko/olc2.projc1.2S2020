@@ -35,9 +35,10 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 'array'               return 'ARRAY_TYPE';
 
 "const"               return 'CONST';
-"let"                 return 'LET'
+"let"                 return 'LET';
 
 "break"               return 'break';
+"continue"            return 'continue';
 
 "console.log"         return 'console.log';
 
@@ -118,9 +119,10 @@ sentences
 
 sentence
     : consoleLog {$$ = $1;}
+    | breakControl { $$ = $1; }
+    | continueControl { $$ = $1; }
     | letDeclarations { $$ = $1; }
     | asigna { $$ = $1; }
-    | break { $$ = $1; }
     | e  { $$ = $1; }
     ;
 
@@ -175,8 +177,12 @@ consoleLog
     : 'console.log' '(' e ')' { $$ = new ast.ConsoleLogNode($3); }
     ;
 
-break
+breakControl
     : 'break' { $$ = new ast.BreakNode(); }
+    ;
+
+continueControl
+    : 'continue' { $$ = new ast.ContinueNode(); }
     ;
 
 e
