@@ -118,7 +118,7 @@ sentence
     : consoleLog {$$ = $1;}
     | letDeclarations { $$ = $1; }
     | asigna { $$ = $1; }
-    | increment ';' { $$ = $1; }
+    | e  { $$ = $1; }
     ;
 
 increment

@@ -2,6 +2,7 @@ import {Cntnr} from "./Cntnr";
 import {Reference} from "./Reference";
 import {Length} from "./nativeFunctions/length";
 import {Push} from "./nativeFunctions/push";
+import {Pop} from "./nativeFunctions/pop";
 
 export class BOOLEAN extends Cntnr {
     private readonly value: boolean;
@@ -110,6 +111,7 @@ export class ARRAY extends Cntnr {
         try{
             this.Declare("length", new Length(this));
             this.Declare("push", new Push(this));
+            this.Declare("pop", new Pop(this));
         }catch (e) {
             throw new Error();
         }
