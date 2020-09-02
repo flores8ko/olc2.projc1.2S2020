@@ -2,7 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {BOOLEAN} from "../utils/PrimitiveTypoContainer";
 import {Reference} from "../utils/Reference";
-import {SemanticException} from "../utils/Utils";
+import {PassPropsAndFuncs, SemanticException} from "../utils/Utils";
 
 export class IfNode extends Op{
     private readonly condition: Op;
@@ -27,10 +27,12 @@ export class IfNode extends Op{
 
         if (condition.getValue()) {
             const envTrue = new Envmnt(env, this.operationsTrue);
+            PassPropsAndFuncs(env, envTrue);
             return envTrue.GO_ALL();
         }
 
         const envFalse = new Envmnt(env, this.operationsFalse);
+        PassPropsAndFuncs(env, envFalse);
         return envFalse.GO_ALL();
     }
 }

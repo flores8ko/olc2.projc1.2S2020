@@ -62,10 +62,13 @@
         editor.setValue('' +
             'let a = true;\n' +
             'let b;\n' +
-            'b = "m";\n' +
-            'if(a && false){\n' +
+            'if(a){\n' +
             '    console.log("aver");\n' +
-            '    b = "añlsdfkjasldf";\n' +
+            '    if(false && true){\n' +
+            '        b = "añlsdfkjasldf";\n' +
+            '    }else{\n' +
+            '        b = "dddddddd";\n' +
+            '    }\n' +
             '}else{\n' +
             '    console.log("aver alterno");\n' +
             '    b = "mmmm";\n' +
