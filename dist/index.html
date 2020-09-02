@@ -60,25 +60,18 @@
         editor.setFontSize(16);
 
         editor.setValue('' +
-            'let a = [];\n' +
-            'a = [4,4,4,4];\n' +
-            'console.log(a);\n' +
-            'a = true ? 2 : 4;\n' +
-            'console.log(a);\n' +
-            'a = false ? 2 : 4;\n' +
-            'console.log(a);\n' +
-            'a = true || false && true ? 5 : 6;\n' +
-            'console.log(a);\n' +
-            'a = true && false && true ? 5 : [[2,3], \'hola\', \'mundo\'];\n' +
-            'console.log(a);\n' +
-            'a[0] = true && false ? \'aver\' : a.pop();\n' +
-            'console.log(a);\n' +
+            'let a = true;\n' +
+            'let b;\n' +
+            'b = "m";\n' +
+            'if(a && false){\n' +
+            '    console.log("aver");\n' +
+            '    b = "añlsdfkjasldf";\n' +
+            '}else{\n' +
+            '    console.log("aver alterno");\n' +
+            '    b = "mmmm";\n' +
+            '}\n' +
             '\n' +
-            'true ? a.push(\'mmm\') : a.pop();\n' +
-            'console.log(a);\n' +
-            '\n' +
-            'false ? a.push(\'mmm\') : a.pop();\n' +
-            'console.log(a);');
+            'console.log(b);');
 
 
 

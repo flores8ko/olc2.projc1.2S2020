@@ -42,6 +42,9 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 
 "console.log"         return 'console.log';
 
+"if"                  return 'if';
+"else"                return 'else';
+
 \s+                   /* skip whitespace */
 
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
@@ -79,6 +82,8 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "."                   return '.'
 "["                   return '['
 "]"                   return ']'
+"{"                   return '{'
+"}"                   return '}'
 "<"                   return '<'
 ">"                   return '>'
 
@@ -113,17 +118,18 @@ expressions
     ;
 
 sentences
-    : sentences sentence ';' { $1.push($2); $$ = $1; }
-    | sentence ';' { $$ = [$1];}
+    : sentences sentence { $1.push($2); $$ = $1; }
+    | sentence { $$ = [$1];}
     ;
 
 sentence
-    : consoleLog {$$ = $1;}
-    | breakControl { $$ = $1; }
-    | continueControl { $$ = $1; }
-    | letDeclarations { $$ = $1; }
-    | asigna { $$ = $1; }
-    | e  { $$ = $1; }
+    : consoleLog ';' {$$ = $1;}
+    | breakControl ';' { $$ = $1; }
+    | continueControl ';' { $$ = $1; }
+    | ifControl { $$ = $1; }
+    | letDeclarations ';' { $$ = $1; }
+    | asigna ';' { $$ = $1; }
+    | e ';' { $$ = $1; }
     ;
 
 increment
@@ -183,6 +189,16 @@ breakControl
 
 continueControl
     : 'continue' { $$ = new ast.ContinueNode(); }
+    ;
+
+ifControl
+    : 'if' '(' e ')' ifBody { $$ = new ast.IfNode($3, $5, []); }
+    | 'if' '(' e ')' ifBody 'else' ifBody { $$ = new ast.IfNode($3, $5, $7); }
+    | 'if' '(' e ')' ifBody 'else' ifControl { $$ = new ast.IfNode($3, $5, [$7]); }
+    ;
+
+ifBody
+    : '{' sentences '}'  { $$ = $2; }
     ;
 
 e
