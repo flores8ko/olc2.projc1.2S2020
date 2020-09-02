@@ -37,6 +37,8 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "const"               return 'CONST';
 "let"                 return 'LET'
 
+"break"               return 'break';
+
 "console.log"         return 'console.log';
 
 \s+                   /* skip whitespace */
@@ -118,6 +120,7 @@ sentence
     : consoleLog {$$ = $1;}
     | letDeclarations { $$ = $1; }
     | asigna { $$ = $1; }
+    | break { $$ = $1; }
     | e  { $$ = $1; }
     ;
 
@@ -170,6 +173,10 @@ asigna
 
 consoleLog
     : 'console.log' '(' e ')' { $$ = new ast.ConsoleLogNode($3); }
+    ;
+
+break
+    : 'break' { $$ = new ast.BreakNode(); }
     ;
 
 e
