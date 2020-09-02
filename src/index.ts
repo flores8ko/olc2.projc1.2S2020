@@ -45,6 +45,7 @@ import { CreateObjFunNode } from "./nodes/CreateObjFunNode";
 import { SentenceTernaryNode } from "./nodes/SentenceTernaryNode";
 import { BreakNode } from "./nodes/BreakNode";
 import { ContinueNode } from "./nodes/ContinueNode";
+import { IfNode } from "./nodes/IfNode";
 
 export {
     Console,
@@ -108,6 +109,8 @@ export {
 
     BreakNode,
     ContinueNode,
+
+    IfNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
