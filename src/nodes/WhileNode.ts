@@ -1,5 +1,6 @@
 import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
+import {LogicWhile} from "../utils/Utils";
 
 export class WhileNode extends Op {
     private readonly condition: Op;
@@ -12,6 +13,6 @@ export class WhileNode extends Op {
     }
 
     GO(env: Envmnt): object {
-        return undefined;
+        return LogicWhile(env, this.condition, this.sentences, null);
     }
 }
