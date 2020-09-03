@@ -45,6 +45,8 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "if"                  return 'if';
 "else"                return 'else';
 
+"while"               return 'while';
+
 \s+                   /* skip whitespace */
 
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
@@ -127,6 +129,7 @@ sentence
     | breakControl ';' { $$ = $1; }
     | continueControl ';' { $$ = $1; }
     | ifControl { $$ = $1; }
+    | whileControl { $$ = $1; }
     | letDeclarations ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
@@ -189,6 +192,10 @@ breakControl
 
 continueControl
     : 'continue' { $$ = new ast.ContinueNode(); }
+    ;
+
+whileControl
+    : 'while' '(' e ')' ifBody { $$ = new ast.WhileNode($3, $5); }
     ;
 
 ifControl

@@ -60,21 +60,18 @@
         editor.setFontSize(16);
 
         editor.setValue('' +
-            'let a = true;\n' +
-            'let b;\n' +
-            'if(a){\n' +
-            '    console.log("aver");\n' +
-            '    if(false && true){\n' +
-            '        b = "añlsdfkjasldf";\n' +
-            '    }else{\n' +
-            '        b = "dddddddd";\n' +
+            'let a = 10;\n' +
+            'while(a >= 5){\n' +
+            '    let b = 5;\n' +
+            '    console.log(a--);\n' +
+            '    while(b < 10){\n' +
+            '        console.log(a+b);\n' +
+            '        b++;\n' +
             '    }\n' +
-            '}else{\n' +
-            '    console.log("aver alterno");\n' +
-            '    b = "mmmm";\n' +
             '}\n' +
-            '\n' +
-            'console.log(b);');
+            'console.log(a);\n' +
+            'while(a>0)\n' +
+            'console.log(a--);');
 
 
 
