@@ -199,6 +199,8 @@ ifControl
 
 ifBody
     : '{' sentences '}'  { $$ = $2; }
+    | sentence {$$ = [$1];}
+    | '{' '}' {$$ = [];}
     ;
 
 e
