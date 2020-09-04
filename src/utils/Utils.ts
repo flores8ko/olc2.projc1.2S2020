@@ -100,7 +100,12 @@ export function LogicDoWhile(env: Envmnt, condition: Op, sentences: Array<Op>, e
     PassPropsAndFuncs(env, env0);
     env0.GO_ALL();
 
-    let tmp = ans as BOOLEAN;
+    let ans0 = condition.Exe(env);
+    if (ans0 instanceof Reference) {
+        ans0 = (ans0 as Reference).getValue();
+    }
+    let tmp = ans0 as BOOLEAN;
+
     while (tmp.getValue()) {
         const env0 = new Envmnt(env, sentences);
         PassPropsAndFuncs(env, env0);

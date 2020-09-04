@@ -46,6 +46,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "else"                return 'else';
 
 "while"               return 'while';
+"do"                  return 'do';
 
 \s+                   /* skip whitespace */
 
@@ -130,6 +131,7 @@ sentence
     | continueControl ';' { $$ = $1; }
     | ifControl { $$ = $1; }
     | whileControl { $$ = $1; }
+    | doWhileControl { $$ = $1; }
     | letDeclarations ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
@@ -196,6 +198,11 @@ continueControl
 
 whileControl
     : 'while' '(' e ')' ifBody { $$ = new ast.WhileNode($3, $5); }
+    ;
+
+doWhileControl
+    : 'do' ifBody 'while' '(' e ')' { $$ = new ast.DoWhileNode($5, $2); }
+    | 'do' ifBody 'while' '(' e ')' ';' { $$ = new ast.DoWhileNode($5, $2); }
     ;
 
 ifControl

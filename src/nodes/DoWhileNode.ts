@@ -1,6 +1,6 @@
 import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
-import {LogicWhile} from "../utils/Utils";
+import {LogicDoWhile} from "../utils/Utils";
 
 export class DoWhileNode extends Op {
     private readonly condition: Op;
@@ -13,6 +13,6 @@ export class DoWhileNode extends Op {
     }
 
     GO(env: Envmnt): object {
-        return LogicWhile(env, this.condition, this.sentences, null);
+        return LogicDoWhile(env, this.condition, this.sentences, null);
     }
 }
