@@ -47,6 +47,7 @@ import { BreakNode } from "./nodes/BreakNode";
 import { ContinueNode } from "./nodes/ContinueNode";
 import { IfNode } from "./nodes/IfNode";
 import { WhileNode } from "./nodes/WhileNode";
+import { DoWhileNode } from "./nodes/DoWhileNode";
 
 export {
     Console,
@@ -113,6 +114,7 @@ export {
 
     IfNode,
     WhileNode,
+    DoWhileNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

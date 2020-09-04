@@ -32,7 +32,7 @@ export function FindVar(cont: Cntnr, identifier: string): Cntnr {
     let ownerCntnr = cont;
 
     while (ownerCntnr != null){
-        if(ownerCntnr.GetProperty(identifier) !== null){
+        if(ownerCntnr.GetProperty(identifier) !== undefined){
             return ownerCntnr.GetProperty(identifier);
         }
         ownerCntnr = ownerCntnr.GetOwner();
@@ -42,9 +42,9 @@ export function FindVar(cont: Cntnr, identifier: string): Cntnr {
 }
 
 export function PassPropsAndFuncs(father: Envmnt, son: Envmnt) {
-    father.props.forEach((v, k) => {
-        son.Declare(k, v);
-    });
+    // father.props.forEach((v, k) => {
+    //     son.Declare(k, v);
+    // });
 }
 
 export function LogicWhile(env: Envmnt, condition: Op, sentences: Array<Op>, extra: Op) {
@@ -58,6 +58,54 @@ export function LogicWhile(env: Envmnt, condition: Op, sentences: Array<Op>, ext
     }
 
     let tmp = ans as BOOLEAN;
+    while (tmp.getValue()) {
+        const env0 = new Envmnt(env, sentences);
+        PassPropsAndFuncs(env, env0);
+        const ret = env0.GO_ALL();
+
+        if (ret instanceof BreakObj) {
+            break;
+        }
+        if (ret instanceof ReturnObj) {
+            return ret;
+        }
+        if(ret instanceof ContinueObj){
+            continue;
+        }
+
+        if (extra !== null) {
+            extra.Exe(env);
+        }
+
+        let ans0 = condition.Exe(env);
+        if (ans0 instanceof Reference) {
+            ans0 = (ans0 as Reference).getValue();
+        }
+        tmp = ans0 as BOOLEAN;
+    }
+    return null;
+}
+
+export function LogicDoWhile(env: Envmnt, condition: Op, sentences: Array<Op>, extra: Op) {
+    let ans = condition.Exe(env);
+    if (ans instanceof Reference) {
+        ans = (ans as Reference).getValue();
+    }
+
+    if (!(ans instanceof BOOLEAN)) {
+        throw new SemanticException("Condicion utilizada en ciclo while no soportada");
+    }
+
+    let env0 = new Envmnt(env, sentences);
+    PassPropsAndFuncs(env, env0);
+    env0.GO_ALL();
+
+    let ans0 = condition.Exe(env);
+    if (ans0 instanceof Reference) {
+        ans0 = (ans0 as Reference).getValue();
+    }
+    let tmp = ans0 as BOOLEAN;
+
     while (tmp.getValue()) {
         const env0 = new Envmnt(env, sentences);
         PassPropsAndFuncs(env, env0);
