@@ -9,7 +9,7 @@ import {ReturnObj} from "./ReturnObj";
 import {ContinueObj} from "./ContinueObj";
 import {CaseNode} from "./CaseNode";
 
-export class SeleccionaNode extends Op {
+export class SwitchNode extends Op {
     private readonly condition: Op;
     private readonly cases: Array<CaseNode>;
 
