@@ -48,6 +48,8 @@ import { ContinueNode } from "./nodes/ContinueNode";
 import { IfNode } from "./nodes/IfNode";
 import { WhileNode } from "./nodes/WhileNode";
 import { DoWhileNode } from "./nodes/DoWhileNode";
+import { CaseNode } from "./nodes/CaseNode";
+import { SwitchNode } from "./nodes/SwitchNode";
 
 export {
     Console,
@@ -115,6 +117,9 @@ export {
     IfNode,
     WhileNode,
     DoWhileNode,
+
+    CaseNode,
+    SwitchNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

@@ -48,6 +48,10 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "while"               return 'while';
 "do"                  return 'do';
 
+"switch"              return 'switch'
+"case"                return 'case'
+"default"             return 'default'
+
 \s+                   /* skip whitespace */
 
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
@@ -132,6 +136,7 @@ sentence
     | ifControl { $$ = $1; }
     | whileControl { $$ = $1; }
     | doWhileControl { $$ = $1; }
+    | switchControl { $$ = $1; }
     | letDeclarations ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
@@ -215,6 +220,22 @@ ifBody
     : '{' sentences '}'  { $$ = $2; }
     | sentence {$$ = [$1];}
     | '{' '}' {$$ = [];}
+    ;
+
+switchControl
+    : 'switch' '(' e ')' '{' casesControl '}' { $$ = new ast.SwitchNode($3, $6); }
+    ;
+
+casesControl
+    : casesControl caseControl { $1.push($2); $$ = $1; }
+    | caseControl { $$ = [$1] }
+    ;
+
+caseControl
+    : 'case' e ':' sentences { $$ = new ast.CaseNode($2, $4); }
+    | 'default' ':' sentences { $$ = new ast.CaseNode(null, $3); }
+    | 'case' e ':' { $$ = new ast.CaseNode($2, []); }
+    | 'default' ':' { $$ = new ast.CaseNode(null, []); }
     ;
 
 e

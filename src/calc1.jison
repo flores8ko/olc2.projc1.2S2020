@@ -534,7 +534,7 @@ cases
     ;
 
 caseBlock
-    : 'case' expression ':' funSentenceList         { $$ = new ast.CaseNode(yy.last(), @1, $2, $4); }
+    : 'case' expression ':' funSentenceList         { $$ = new ast.CaseNode.ts(yy.last(), @1, $2, $4); }
     ;
 
 
