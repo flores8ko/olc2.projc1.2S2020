@@ -52,6 +52,9 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "case"                return 'case'
 "default"             return 'default'
 
+"for"                 return 'for'
+"in"                  return 'in'
+
 \s+                   /* skip whitespace */
 
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
@@ -137,6 +140,7 @@ sentence
     | whileControl { $$ = $1; }
     | doWhileControl { $$ = $1; }
     | switchControl { $$ = $1; }
+    | forControl {$$ = $1;}
     | letDeclarations ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
@@ -220,6 +224,15 @@ ifBody
     : '{' sentences '}'  { $$ = $2; }
     | sentence {$$ = [$1];}
     | '{' '}' {$$ = [];}
+    ;
+
+forControl
+    : forInControl {$$ = $1;}
+    ;
+
+forInControl
+    : 'for' '(' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode($3, false, $5, $7); }
+    | 'for' '(' 'LET' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode($4, true, $6, $8); }
     ;
 
 switchControl
