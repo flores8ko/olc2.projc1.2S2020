@@ -233,7 +233,9 @@ casesControl
 
 caseControl
     : 'case' e ':' sentences { $$ = new ast.CaseNode($2, $4); }
+    | 'default' ':' sentences { $$ = new ast.CaseNode(null, $3); }
     | 'case' e ':' { $$ = new ast.CaseNode($2, []); }
+    | 'default' ':' { $$ = new ast.CaseNode(null, []); }
     ;
 
 e

@@ -8,6 +8,7 @@ import {BreakObj} from "./BreakObj";
 import {ReturnObj} from "./ReturnObj";
 import {ContinueObj} from "./ContinueObj";
 import {CaseNode} from "./CaseNode";
+import {SemanticException} from "../utils/Utils";
 
 export class SwitchNode extends Op {
     private readonly condition: Op;
@@ -23,6 +24,18 @@ export class SwitchNode extends Op {
         let condition = this.condition.Exe(env);
         let ret: Cntnr = undefined;
         let hasEnter = false;
+
+        let defaultCount = 0;
+        for (let Case of this.cases) {
+            if (Case.getConditionValue() === null) {
+                defaultCount++;
+            }
+        }
+
+        if (defaultCount > 1) {
+            throw new SemanticException("No pueden exisistir mas de una sentencia 'default' dentro de un ciclo switch");
+        }
+
         for (let Case of this.cases) {
             if (ret instanceof BreakObj) {
                 break;
@@ -33,9 +46,12 @@ export class SwitchNode extends Op {
             if (ret instanceof ContinueObj) {
                 continue;
             }
-            let caseValue = Case.getConditionValue().Exe(env);
-            if (!(Igual(condition as Cntnr, caseValue as Cntnr) as BOOLEAN).getValue() && !hasEnter) {
-                continue;
+
+            if(Case.getConditionValue() !== null) {
+                let caseValue = Case.getConditionValue().Exe(env);
+                if (!(Igual(condition as Cntnr, caseValue as Cntnr) as BOOLEAN).getValue() && !hasEnter) {
+                    continue;
+                }
             }
 
             const env0 = new Envmnt(env, Case.getSentences());
