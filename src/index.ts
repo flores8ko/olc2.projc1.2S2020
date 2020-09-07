@@ -50,6 +50,7 @@ import { WhileNode } from "./nodes/WhileNode";
 import { DoWhileNode } from "./nodes/DoWhileNode";
 import { CaseNode } from "./nodes/CaseNode";
 import { SwitchNode } from "./nodes/SwitchNode";
+import { ForInNode } from "./nodes/ForInNode";
 
 export {
     Console,
@@ -120,6 +121,8 @@ export {
 
     CaseNode,
     SwitchNode,
+
+    ForInNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
