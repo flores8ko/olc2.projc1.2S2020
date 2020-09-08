@@ -5,7 +5,7 @@ import {Reference} from "../utils/Reference";
 import {SemanticException} from "../utils/Utils";
 import {ARRAY, NUMBER, STRING, UNDEFINED} from "../utils/PrimitiveTypoContainer";
 
-export class CreateArrVarNode extends Op{
+export class CreateArrVarNode extends Op {
     private readonly id: Op;
     private readonly index: Op;
 
@@ -27,11 +27,11 @@ export class CreateArrVarNode extends Op{
         }
 
         if (index instanceof STRING) {
-            try{
-                index = new NUMBER(parseInt((index as STRING).getValue()));
-            }catch (e){
+            const val = parseInt((index as STRING).getValue());
+            if (isNaN(val)) {
                 throw new SemanticException("El indice para accesar debe ser de tipo NUMBER");
             }
+            index = new NUMBER(val);
         }
 
         if (!(index instanceof NUMBER)) {
