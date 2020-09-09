@@ -174,12 +174,21 @@ corchetes
     ;
 
 typeDeclaration
-    : TYPE IDENTIFIER '=' '{' '}' {  }
+    : TYPE IDENTIFIER '=' '{' typeDeclarationProps '}' {  }
     ;
 
 typeDeclarationProps
-    : typeDeclarationProps ',' IDENTIFIER ':' varType {  }
-    | IDENTIFIER ':' varType {  }
+    : typeDeclarationProps ',' typeDeclarationPropsT
+        {   $$ = $1;
+            $$.addEntry($3[0], $3[1]);  }
+    | typeDeclarationPropsT
+        {   $$ = new ast.MyMap();
+            $$.addEntry($1[0], $1[1]);  }
+    ;
+
+typeDeclarationPropsT
+    : IDENTIFIER ':' varType { $$ = [$1, $3]; }
+    | IDENTIFIER ':' varType corchetes { $$ = [$1, 'ARRAY']; }
     ;
 
 letDeclarations
