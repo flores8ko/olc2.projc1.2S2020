@@ -144,6 +144,7 @@ sentence
     | switchControl { $$ = $1; }
     | forControl {$$ = $1;}
     | letDeclarations ';' { $$ = $1; }
+    | typeDeclaration ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
     ;
@@ -174,7 +175,7 @@ corchetes
     ;
 
 typeDeclaration
-    : TYPE IDENTIFIER '=' '{' typeDeclarationProps '}' {  }
+    : TYPE IDENTIFIER '=' '{' typeDeclarationProps '}' { $$ = new ast.DeclareTypeStructureNode($2, $5); }
     ;
 
 typeDeclarationProps

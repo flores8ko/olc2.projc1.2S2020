@@ -55,6 +55,7 @@ import { ForOfNode } from "./nodes/ForOfNode";
 import { ForNode } from "./nodes/ForNode";
 import {MyMap, ObjectsStructures, ObjectStructure} from "./utils/Utils";
 import { CreateObjNode } from "./nodes/CreateObjNode";
+import { DeclareTypeStructureNode } from "./nodes/DeclareTypeStructureNode";
 
 export {
     Console,
@@ -132,6 +133,8 @@ export {
 
     CreateObjNode,
     MyMap,
+
+    DeclareTypeStructureNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
