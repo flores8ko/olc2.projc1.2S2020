@@ -54,6 +54,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 
 "for"                 return 'for'
 "in"                  return 'in'
+"of"                  return 'of'
 
 \s+                   /* skip whitespace */
 
@@ -103,7 +104,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 .                     return 'INVALID'
 
 /lex
-
+%left 'if' 'else'
 %right '?'
 %left '||'
 %left '&&'
@@ -228,11 +229,17 @@ ifBody
 
 forControl
     : forInControl {$$ = $1;}
+    | forOfControl {$$ = $1;}
     ;
 
 forInControl
     : 'for' '(' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode($3, false, $5, $7); }
     | 'for' '(' 'LET' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode($4, true, $6, $8); }
+    ;
+
+forOfControl
+    : 'for' '(' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($3, false, $5, $7); }
+    | 'for' '(' 'LET' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($4, true, $6, $8); }
     ;
 
 switchControl
