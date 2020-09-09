@@ -104,7 +104,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 .                     return 'INVALID'
 
 /lex
-
+%left 'if' 'else'
 %right '?'
 %left '||'
 %left '&&'
@@ -239,7 +239,7 @@ forInControl
 
 forOfControl
     : 'for' '(' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($3, false, $5, $7); }
-    | 'for' '(' 'LET' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($4, true $6, $8); }
+    | 'for' '(' 'LET' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($4, true, $6, $8); }
     ;
 
 switchControl
