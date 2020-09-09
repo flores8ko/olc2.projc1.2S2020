@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {Cntnr} from "../utils/Cntnr";
 import {Reference} from "../utils/Reference";
+import {OBJECT} from "../utils/PrimitiveTypoContainer";
 
 export class CreateObjNode extends Op {
     private readonly attrs: Map<string, Op>;
@@ -22,7 +23,7 @@ export class CreateObjNode extends Op {
             reference.PutValueOnReference(value as Cntnr);
             real.set(k, reference);
         });
-        return undefined;
+        return new OBJECT(real);
     }
 
 }
