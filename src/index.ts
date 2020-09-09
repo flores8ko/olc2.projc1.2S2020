@@ -53,7 +53,7 @@ import { SwitchNode } from "./nodes/SwitchNode";
 import { ForInNode } from "./nodes/ForInNode";
 import { ForOfNode } from "./nodes/ForOfNode";
 import { ForNode } from "./nodes/ForNode";
-import { MyMap } from "./utils/Utils";
+import {MyMap, ObjectsStructures, ObjectStructure} from "./utils/Utils";
 import { CreateObjNode } from "./nodes/CreateObjNode";
 
 export {
@@ -136,6 +136,7 @@ export {
 
 export function ExecuteAST(sentences: Array<Op>) {
     Console.log = '';
+    ObjectsStructures.objects = new Map<string, ObjectStructure>();
     const env = new Envmnt(null, sentences);
     env.GO_ALL();
 }

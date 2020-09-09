@@ -149,3 +149,15 @@ export class MyMap {
         this.map.set(key, value);
     }
 }
+
+export class ObjectStructure {
+    private readonly properties: Map<string, string>;
+
+    constructor(properties: Map<string, string>) {
+        this.properties = properties;
+    }
+}
+
+export class ObjectsStructures{
+    public static objects: Map<string, ObjectStructure> = new Map<string, ObjectStructure>();
+}

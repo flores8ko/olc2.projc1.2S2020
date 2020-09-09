@@ -36,6 +36,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 
 "const"               return 'CONST';
 "let"                 return 'LET';
+"type"                return 'TYPE';
 
 "break"               return 'break';
 "continue"            return 'continue';
@@ -170,6 +171,15 @@ varType
 corchetes
     : corchetes '[' ']'
     | '[' ']'
+    ;
+
+typeDeclaration
+    : TYPE IDENTIFIER '=' '{' '}' {  }
+    ;
+
+typeDeclarationProps
+    : typeDeclarationProps ',' IDENTIFIER ':' varType {  }
+    | IDENTIFIER ':' varType {  }
     ;
 
 letDeclarations
