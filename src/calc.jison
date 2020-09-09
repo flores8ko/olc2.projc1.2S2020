@@ -230,6 +230,7 @@ ifBody
 forControl
     : forInControl {$$ = $1;}
     | forOfControl {$$ = $1;}
+    | forZControl { $$ = $1; }
     ;
 
 forInControl
@@ -240,6 +241,20 @@ forInControl
 forOfControl
     : 'for' '(' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($3, false, $5, $7); }
     | 'for' '(' 'LET' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($4, true, $6, $8); }
+    ;
+
+forZControl
+    : 'for' '(' forDeclare ';' e ';' forOperator ')' ifBody { $$ = new ast.ForNode($3, $5, $7, $9); }
+    ;
+
+forDeclare
+    : asigna { $$ = $1; }
+    | letDeclarations { $$ = $1; }
+    ;
+
+forOperator
+    : e { $$ = $1; }
+    | asigna { $$ = $1; }
     ;
 
 switchControl
