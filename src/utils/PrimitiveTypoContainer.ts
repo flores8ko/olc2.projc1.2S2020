@@ -172,7 +172,7 @@ export class OBJECT extends Cntnr {
 
     public toString = (): string => {
         let log = 'TYPE {';
-        let count = 0;
+        let count = 1;
         this.props.forEach((v, k) => {
             let value = v;
             if (value instanceof Reference) {

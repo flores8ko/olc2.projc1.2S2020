@@ -133,3 +133,19 @@ export function LogicDoWhile(env: Envmnt, condition: Op, sentences: Array<Op>, e
     }
     return null;
 }
+
+export class MyMap {
+    private readonly map: Map<any, any>;
+
+    constructor() {
+        this.map = new Map<any, any>();
+    }
+
+    getMap() {
+        return this.map;
+    }
+
+    addEntry(key: any, value: any) {
+        this.map.set(key, value);
+    }
+}

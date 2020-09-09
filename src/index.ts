@@ -53,6 +53,8 @@ import { SwitchNode } from "./nodes/SwitchNode";
 import { ForInNode } from "./nodes/ForInNode";
 import { ForOfNode } from "./nodes/ForOfNode";
 import { ForNode } from "./nodes/ForNode";
+import { MyMap } from "./utils/Utils";
+import { CreateObjNode } from "./nodes/CreateObjNode";
 
 export {
     Console,
@@ -127,6 +129,9 @@ export {
     ForInNode,
     ForOfNode,
     ForNode,
+
+    CreateObjNode,
+    MyMap,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

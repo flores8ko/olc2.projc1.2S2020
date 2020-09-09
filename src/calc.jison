@@ -312,6 +312,8 @@ e
         { $$ = new ast.CreateArrayNode($2); }
     | e '[' e ']'
         { $$ = new ast.CreateArrVarNode($1, $3); }
+    | '{' newObject '}'
+        { $$ = new ast.CreateObjNode($2.getMap()); }
     | e '?' e ':' e
         { $$ = new ast.SentenceTernaryNode($1, $3, $5); }
     | e '.' IDENTIFIER '(' ')'
@@ -346,3 +348,14 @@ eList
     | e
         {$$ = [$1]}
     ;
+
+newObject
+    : newObject ',' IDENTIFIER ':' e {
+        $$ = $1;
+        $$.addEntry($3, $5);
+    }
+    | IDENTIFIER ':' e {
+        $$ = new ast.MyMap();
+        $$.addEntry($1, $3);
+     }
+     ;
