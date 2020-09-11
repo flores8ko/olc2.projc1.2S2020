@@ -141,6 +141,7 @@ sentence
     : consoleLog ';' {$$ = $1;}
     | breakControl ';' { $$ = $1; }
     | continueControl ';' { $$ = $1; }
+    | returnSentence ';' { $$ = $1; }
     | ifControl { $$ = $1; }
     | whileControl { $$ = $1; }
     | doWhileControl { $$ = $1; }
@@ -151,6 +152,11 @@ sentence
     | typeDeclaration ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
+    ;
+
+returnSentence
+    : 'return' { $$ = new ast.ReturnNode(null); }
+    | 'return' e { $$ = new ast.ReturnNode($2); }
     ;
 
 increment
@@ -346,6 +352,8 @@ e
         { $$ = new ast.CreateObjFunNode($1, $3, $5); }
     | e '.' IDENTIFIER
         { $$ = new ast.CreateObjVarNode($1, $3); }
+    | functionCall
+        { $$ = $1; }
     | '-' e %prec UMINUS
         {$$ = new ast.MulNode($2, new ast.NumberNode(-1));}
     | increment
@@ -399,4 +407,9 @@ newFunctionParams
 newFunctionParam
     : IDENTIFIER
         { $$ = new ast.DeclareFunParamNode($1); }
+    ;
+
+functionCall
+    : e '(' eList ')' { $$ = new ast.FunctionCallNode($1, $3); }
+    | e '(' ')' { $$ = new ast.FunctionCallNode($1, []); }
     ;

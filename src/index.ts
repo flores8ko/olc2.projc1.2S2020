@@ -58,6 +58,8 @@ import { CreateObjNode } from "./nodes/CreateObjNode";
 import { DeclareTypeStructureNode } from "./nodes/DeclareTypeStructureNode";
 import { DeclareFunNode } from "./nodes/DeclareFunNode";
 import { DeclareFunParamNode } from "./nodes/DeclareFunParamNode";
+import { ReturnNode } from "./nodes/ReturnNode";
+import { FunctionCallNode } from "./nodes/FunctionCallNode";
 
 export {
     Console,
@@ -140,6 +142,9 @@ export {
 
     DeclareFunNode,
     DeclareFunParamNode,
+    ReturnNode,
+
+    FunctionCallNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
