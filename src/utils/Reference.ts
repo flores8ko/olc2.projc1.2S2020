@@ -1,5 +1,5 @@
 import {Cntnr} from "./Cntnr";
-import {DefaultValue, SemanticException} from "./Utils";
+import {DefaultValue, IsPrimitiveTypo, SemanticException} from "./Utils";
 import {UNDEFINED} from "./PrimitiveTypoContainer";
 
 export class Reference extends Cntnr {
@@ -38,6 +38,8 @@ export class Reference extends Cntnr {
             && this.tipoNombre !== 'ANY'
             && v.typo !== 'NULL'
             && v.typo !== 'UNDEFINED'
+            && v.typo !== 'OBJECT'
+            || (IsPrimitiveTypo(this.tipoNombre) && v.typo === 'OBJECT')
         ){
             throw new SemanticException(`Tipo ${v.typo} no puede ser asignado a Variable de tipo ${this.tipoNombre}`)
         }
