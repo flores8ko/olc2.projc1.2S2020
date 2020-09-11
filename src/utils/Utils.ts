@@ -1,4 +1,4 @@
-import {BOOLEAN, NULL, UNDEFINED} from "./PrimitiveTypoContainer";
+import {BOOLEAN, NULL, OBJECT, UNDEFINED} from "./PrimitiveTypoContainer";
 import {Cntnr} from "./Cntnr";
 import {Envmnt} from "./Envmnt";
 import {Op} from "./Op";
@@ -40,6 +40,15 @@ export function IsPrimitiveTypo(typo: string): boolean {
         default:
             return false;
     }
+}
+
+export function GetObjectValue(typo: string): Cntnr {
+    typo = typo.toUpperCase();
+    let structure: ObjectStructure = ObjectsStructures.objects.get(typo);
+    if (structure === null || structure === undefined) {
+        throw new SemanticException(`No existe una definicion para el tipo ${typo}`);
+    }
+    return structure.GetDefaultValue();
 }
 
 export function FindVar(cont: Cntnr, identifier: string): Cntnr {
@@ -169,6 +178,14 @@ export class ObjectStructure {
 
     constructor(properties: Map<string, string>) {
         this.properties = properties;
+    }
+
+    GetDefaultValue(): Cntnr{
+        const attributes: Map<string, Cntnr> = new Map<string, Cntnr>();
+        this.properties.forEach((v, k) => {
+            attributes.set(k, DefaultValue(v));
+        });
+        return new OBJECT(attributes);
     }
 }
 

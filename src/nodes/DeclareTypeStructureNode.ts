@@ -14,7 +14,7 @@ export class DeclareTypeStructureNode extends Op{
 
     GO(env: Envmnt): object {
         const structure = new ObjectStructure(this.properties);
-        ObjectsStructures.objects.set(this.name, structure);
+        ObjectsStructures.objects.set(this.name.toUpperCase(), structure);
         return undefined;
     }
 }
