@@ -151,3 +151,40 @@ export class ARRAY extends Cntnr {
         return this.value;
     };
 }
+
+export class OBJECT extends Cntnr {
+    private readonly attributes: Map<string, Cntnr>;
+
+    constructor(attributes?: Map<string, Cntnr>) {
+        super();
+        this.attributes = attributes || new Map<string, Cntnr>();
+        this.attributes.forEach((v, k) => {
+            let value = v;
+            if (value instanceof Reference) {
+                value = (value as Reference).getValue();
+            }
+            const reference = new Reference();
+            reference.PutValueOnReference(value);
+            this.Declare(k, reference);
+        });
+        this.typo = "OBJECT";
+    }
+
+    public toString = (): string => {
+        let log = 'TYPE {';
+        let count = 1;
+        this.props.forEach((v, k) => {
+            let value = v;
+            if (value instanceof Reference) {
+                value = (value as Reference).getValue();
+            }
+            log += `${k} : ${value}`;
+            if (count < this.props.size) {
+                log += ', ';
+            }
+            count++;
+        });
+        log += '}';
+        return log;
+    };
+}

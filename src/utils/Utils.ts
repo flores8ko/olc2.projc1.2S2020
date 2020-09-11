@@ -1,4 +1,4 @@
-import {BOOLEAN, NULL, UNDEFINED} from "./PrimitiveTypoContainer";
+import {BOOLEAN, NULL, OBJECT, UNDEFINED} from "./PrimitiveTypoContainer";
 import {Cntnr} from "./Cntnr";
 import {Envmnt} from "./Envmnt";
 import {Op} from "./Op";
@@ -20,12 +20,35 @@ export class ErrorCompo extends Error {
 }
 
 export function DefaultValue(typo: string): Cntnr {
-    switch (typo.toUpperCase()) {
-        case "NULL":
-            return new NULL();
-        default:
-            return new UNDEFINED();
+    if (IsPrimitiveTypo(typo)) {
+        return new UNDEFINED();
     }
+    return GetObjectValue(typo);
+}
+
+export function IsPrimitiveTypo(typo: string): boolean {
+    typo = typo.toUpperCase();
+    switch (typo) {
+        case "STRING":
+        case "NUMBER":
+        case "BOOLEAN":
+        case "ANY":
+        case "ARRAY":
+        case "NULL":
+        case "UNDEFINED":
+            return true;
+        default:
+            return false;
+    }
+}
+
+export function GetObjectValue(typo: string): Cntnr {
+    typo = typo.toUpperCase();
+    let structure: ObjectStructure = ObjectsStructures.objects.get(typo);
+    if (structure === null || structure === undefined) {
+        throw new SemanticException(`No existe una definicion para el tipo ${typo}`);
+    }
+    return structure.GetDefaultValue();
 }
 
 export function FindVar(cont: Cntnr, identifier: string): Cntnr {
@@ -132,4 +155,40 @@ export function LogicDoWhile(env: Envmnt, condition: Op, sentences: Array<Op>, e
         tmp = ans0 as BOOLEAN;
     }
     return null;
+}
+
+export class MyMap {
+    private readonly map: Map<any, any>;
+
+    constructor() {
+        this.map = new Map<any, any>();
+    }
+
+    getMap() {
+        return this.map;
+    }
+
+    addEntry(key: any, value: any) {
+        this.map.set(key, value);
+    }
+}
+
+export class ObjectStructure {
+    private readonly properties: Map<string, string>;
+
+    constructor(properties: Map<string, string>) {
+        this.properties = properties;
+    }
+
+    GetDefaultValue(): Cntnr{
+        const attributes: Map<string, Cntnr> = new Map<string, Cntnr>();
+        this.properties.forEach((v, k) => {
+            attributes.set(k, new UNDEFINED());
+        });
+        return new OBJECT(attributes);
+    }
+}
+
+export class ObjectsStructures{
+    public static objects: Map<string, ObjectStructure> = new Map<string, ObjectStructure>();
 }

@@ -36,6 +36,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 
 "const"               return 'CONST';
 "let"                 return 'LET';
+"type"                return 'TYPE';
 
 "break"               return 'break';
 "continue"            return 'continue';
@@ -143,6 +144,7 @@ sentence
     | switchControl { $$ = $1; }
     | forControl {$$ = $1;}
     | letDeclarations ';' { $$ = $1; }
+    | typeDeclaration ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
     ;
@@ -170,6 +172,24 @@ varType
 corchetes
     : corchetes '[' ']'
     | '[' ']'
+    ;
+
+typeDeclaration
+    : TYPE IDENTIFIER '=' '{' typeDeclarationProps '}' { $$ = new ast.DeclareTypeStructureNode($2, $5); }
+    ;
+
+typeDeclarationProps
+    : typeDeclarationProps ',' typeDeclarationPropsT
+        {   $$ = $1;
+            $$.addEntry($3[0], $3[1]);  }
+    | typeDeclarationPropsT
+        {   $$ = new ast.MyMap();
+            $$.addEntry($1[0], $1[1]);  }
+    ;
+
+typeDeclarationPropsT
+    : IDENTIFIER ':' varType { $$ = [$1, $3]; }
+    | IDENTIFIER ':' varType corchetes { $$ = [$1, 'ARRAY']; }
     ;
 
 letDeclarations
@@ -312,6 +332,8 @@ e
         { $$ = new ast.CreateArrayNode($2); }
     | e '[' e ']'
         { $$ = new ast.CreateArrVarNode($1, $3); }
+    | '{' newObject '}'
+        { $$ = new ast.CreateObjNode($2.getMap()); }
     | e '?' e ':' e
         { $$ = new ast.SentenceTernaryNode($1, $3, $5); }
     | e '.' IDENTIFIER '(' ')'
@@ -346,3 +368,14 @@ eList
     | e
         {$$ = [$1]}
     ;
+
+newObject
+    : newObject ',' IDENTIFIER ':' e {
+        $$ = $1;
+        $$.addEntry($3, $5);
+    }
+    | IDENTIFIER ':' e {
+        $$ = new ast.MyMap();
+        $$.addEntry($1, $3);
+     }
+     ;
