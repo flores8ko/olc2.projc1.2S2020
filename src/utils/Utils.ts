@@ -183,7 +183,7 @@ export class ObjectStructure {
     GetDefaultValue(): Cntnr{
         const attributes: Map<string, Cntnr> = new Map<string, Cntnr>();
         this.properties.forEach((v, k) => {
-            attributes.set(k, DefaultValue(v));
+            attributes.set(k, new UNDEFINED());
         });
         return new OBJECT(attributes);
     }
