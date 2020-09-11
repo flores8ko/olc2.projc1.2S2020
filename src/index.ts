@@ -56,6 +56,8 @@ import { ForNode } from "./nodes/ForNode";
 import {MyMap, ObjectsStructures, ObjectStructure} from "./utils/Utils";
 import { CreateObjNode } from "./nodes/CreateObjNode";
 import { DeclareTypeStructureNode } from "./nodes/DeclareTypeStructureNode";
+import { DeclareFunNode } from "./nodes/DeclareFunNode";
+import { DeclareFunParamNode } from "./nodes/DeclareFunParamNode";
 
 export {
     Console,
@@ -135,6 +137,9 @@ export {
     MyMap,
 
     DeclareTypeStructureNode,
+
+    DeclareFunNode,
+    DeclareFunParamNode,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {

@@ -57,6 +57,9 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "in"                  return 'in'
 "of"                  return 'of'
 
+"function"            return 'function'
+"return"              return 'return'
+
 \s+                   /* skip whitespace */
 
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
@@ -143,6 +146,7 @@ sentence
     | doWhileControl { $$ = $1; }
     | switchControl { $$ = $1; }
     | forControl {$$ = $1;}
+    | newFunction { $$ = $1; }
     | letDeclarations ';' { $$ = $1; }
     | typeDeclaration ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
@@ -379,3 +383,20 @@ newObject
         $$.addEntry($1, $3);
      }
      ;
+
+newFunction
+    : 'function' IDENTIFIER '(' ')' '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, [], $6); }
+    | 'function' IDENTIFIER '(' newFunctionParams ')' '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, $4, $7); }
+    ;
+
+newFunctionParams
+    : newFunctionParams ',' newFunctionParam { $1.push($3); $$ = $1; }
+    | newFunctionParam { $$ = [$1]; }
+    ;
+
+newFunctionParam
+    : IDENTIFIER
+        { $$ = new ast.DeclareFunParamNode($1); }
+    ;
