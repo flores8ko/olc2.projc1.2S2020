@@ -28,6 +28,20 @@ export function DefaultValue(typo: string): Cntnr {
     }
 }
 
+export function IsPrimitiveTypo(typo: string): boolean {
+    typo = typo.toUpperCase();
+    switch (typo) {
+        case "STRING":
+        case "NUMBER":
+        case "BOOLEAN":
+        case "ANY":
+        case "ARRAY":
+            return true;
+        default:
+            return false;
+    }
+}
+
 export function FindVar(cont: Cntnr, identifier: string): Cntnr {
     let ownerCntnr = cont;
 
