@@ -20,12 +20,10 @@ export class ErrorCompo extends Error {
 }
 
 export function DefaultValue(typo: string): Cntnr {
-    switch (typo.toUpperCase()) {
-        case "NULL":
-            return new NULL();
-        default:
-            return new UNDEFINED();
+    if (IsPrimitiveTypo(typo)) {
+        return new UNDEFINED();
     }
+    return GetObjectValue(typo);
 }
 
 export function IsPrimitiveTypo(typo: string): boolean {
@@ -36,6 +34,8 @@ export function IsPrimitiveTypo(typo: string): boolean {
         case "BOOLEAN":
         case "ANY":
         case "ARRAY":
+        case "NULL":
+        case "UNDEFINED":
             return true;
         default:
             return false;
