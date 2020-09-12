@@ -33,6 +33,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 'boolean'             return 'BOOLEAN_TYPE';
 'any'                 return 'ANY_TYPE';
 'array'               return 'ARRAY_TYPE';
+'void'                return 'VOID_TYPE';
 
 "const"               return 'CONST';
 "let"                 return 'LET';
@@ -56,6 +57,9 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "for"                 return 'for'
 "in"                  return 'in'
 "of"                  return 'of'
+
+"function"            return 'function'
+"return"              return 'return'
 
 \s+                   /* skip whitespace */
 
@@ -138,15 +142,22 @@ sentence
     : consoleLog ';' {$$ = $1;}
     | breakControl ';' { $$ = $1; }
     | continueControl ';' { $$ = $1; }
+    | returnSentence ';' { $$ = $1; }
     | ifControl { $$ = $1; }
     | whileControl { $$ = $1; }
     | doWhileControl { $$ = $1; }
     | switchControl { $$ = $1; }
     | forControl {$$ = $1;}
+    | newFunction { $$ = $1; }
     | letDeclarations ';' { $$ = $1; }
     | typeDeclaration ';' { $$ = $1; }
     | asigna ';' { $$ = $1; }
     | e ';' { $$ = $1; }
+    ;
+
+returnSentence
+    : 'return' { $$ = new ast.ReturnNode(null); }
+    | 'return' e { $$ = new ast.ReturnNode($2); }
     ;
 
 increment
@@ -165,6 +176,7 @@ varType
     | STRING_TYPE { $$ = $1; }
     | BOOLEAN_TYPE { $$ = $1; }
     | ANY_TYPE { $$ = $1; }
+    | VOID_TYPE { $$ = $1; }
     | IDENTIFIER { $$ = $1; }
     | ARRAY_TYPE '<' varType '>' { $$ = $1; }
     ;
@@ -342,6 +354,8 @@ e
         { $$ = new ast.CreateObjFunNode($1, $3, $5); }
     | e '.' IDENTIFIER
         { $$ = new ast.CreateObjVarNode($1, $3); }
+    | functionCall
+        { $$ = $1; }
     | '-' e %prec UMINUS
         {$$ = new ast.MulNode($2, new ast.NumberNode(-1));}
     | increment
@@ -379,3 +393,31 @@ newObject
         $$.addEntry($1, $3);
      }
      ;
+
+newFunction
+    : 'function' IDENTIFIER '(' ')' '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, [], $6); }
+    | 'function' IDENTIFIER '(' newFunctionParams ')' '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, $4, $7); }
+    | 'function' IDENTIFIER '(' ')' ':' varType '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, [], $8, $6); }
+    | 'function' IDENTIFIER '(' newFunctionParams ')' ':' varType '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, $4, $9, $7); }
+    ;
+
+newFunctionParams
+    : newFunctionParams ',' newFunctionParam { $1.push($3); $$ = $1; }
+    | newFunctionParam { $$ = [$1]; }
+    ;
+
+newFunctionParam
+    : IDENTIFIER
+        { $$ = new ast.DeclareFunParamNode($1); }
+    | IDENTIFIER ':' varType
+        { $$ = new ast.DeclareFunParamNode($1, $3); }
+    ;
+
+functionCall
+    : e '(' eList ')' { $$ = new ast.FunctionCallNode($1, $3); }
+    | e '(' ')' { $$ = new ast.FunctionCallNode($1, []); }
+    ;
