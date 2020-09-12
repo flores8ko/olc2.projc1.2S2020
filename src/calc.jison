@@ -227,7 +227,7 @@ asigna
     ;
 
 consoleLog
-    : 'console.log' '(' e ')' { $$ = new ast.ConsoleLogNode($3); }
+    : 'console.log' '(' eList ')' { $$ = new ast.ConsoleLogNode($3); }
     ;
 
 breakControl

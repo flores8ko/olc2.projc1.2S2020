@@ -4,21 +4,24 @@ import {Reference} from "../utils/Reference";
 import {Console} from "../utils/Console";
 
 export class ConsoleLogNode extends Op{
-    private expression: Op;
+    private expression: Array<Op>;
 
-    constructor(expression: Op) {
+    constructor(expression: Array<Op>) {
         super();
         this.expression = expression;
     }
 
     GO(env: Envmnt) : object {
-        let val = this.expression.Exe(env);
-        if (val instanceof Reference) {
-            val = (val as Reference).getValue();
+        let finalLog = '[LOG]: ';
+        for(let expression of this.expression) {
+            let val = expression.Exe(env);
+            if (val instanceof Reference) {
+                val = (val as Reference).getValue();
+            }
+            finalLog += `${val} `;
         }
-
-        Console.log += `[LOG]: ${val} \n`;
-        console.log(`[LOG]: ${val}`);
+        Console.log += `${finalLog}\n`;
+        console.log(`${finalLog}`);
         return null;
     };
 }
