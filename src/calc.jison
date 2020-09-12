@@ -397,6 +397,10 @@ newFunction
         { $$ = new ast.DeclareFunNode($2, [], $6); }
     | 'function' IDENTIFIER '(' newFunctionParams ')' '{' sentences '}'
         { $$ = new ast.DeclareFunNode($2, $4, $7); }
+    | 'function' IDENTIFIER '(' ')' ':' varType '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, [], $8, $6); }
+    | 'function' IDENTIFIER '(' newFunctionParams ')' ':' varType '{' sentences '}'
+        { $$ = new ast.DeclareFunNode($2, $4, $9, $7); }
     ;
 
 newFunctionParams

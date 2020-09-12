@@ -7,11 +7,17 @@ import {Reference} from "../Reference";
 export class UserDefined extends FunctionRepresent {
     private readonly src: Array<Op>;
     private readonly params: Array<Op>;
+    private readonly type: string;
 
-    constructor(src: Array<Op>, params: Array<Op>) {
+    constructor(src: Array<Op>, params: Array<Op>, type: string) {
         super();
         this.src = src;
         this.params = params;
+        this.type = type.toUpperCase();
+    }
+
+    public getType(): string{
+        return this.type;
     }
 
     public getSrc(): Array<Op> {
