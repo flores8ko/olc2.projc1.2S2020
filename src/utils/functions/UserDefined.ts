@@ -24,9 +24,8 @@ export class UserDefined extends FunctionRepresent {
         for (let param of this.params) {
             references.push(param.Exe(env) as Reference);
         }
-
         for (let i = 0; i < args.length && i < references.length; i++) {
-            references[i].setValue(args[i]);
+            references[i].PutValueOnReference(args[i]);
         }
         return env.GO_ALL();
     }

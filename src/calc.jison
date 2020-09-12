@@ -407,6 +407,8 @@ newFunctionParams
 newFunctionParam
     : IDENTIFIER
         { $$ = new ast.DeclareFunParamNode($1); }
+    | IDENTIFIER ':' varType
+        { $$ = new ast.DeclareFunParamNode($1, $3); }
     ;
 
 functionCall

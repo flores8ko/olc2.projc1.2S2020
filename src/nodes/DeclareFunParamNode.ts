@@ -5,15 +5,17 @@ import {Reference} from "../utils/Reference";
 
 export class DeclareFunParamNode extends Op{
     private readonly name: string;
+    private readonly type: string;
 
-    constructor(name: string) {
+    constructor(name: string, type = 'ANY') {
         super();
         this.name = name;
+        this.type = type.toUpperCase();
     }
 
     GO(env: Envmnt): object {
         const value = new UNDEFINED();
-        const reference = new Reference();
+        const reference = new Reference(this.type);
         reference.PutValueOnReference(value);
         env.Declare(this.name, reference);
         return reference;
