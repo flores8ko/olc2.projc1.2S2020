@@ -109,7 +109,6 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 .                     return 'INVALID'
 
 /lex
-%left 'if' 'else'
 %right '?'
 %left '||'
 %left '&&'

@@ -57,6 +57,13 @@ export class SwitchNode extends Op {
             const env0 = new Envmnt(env, Case.getSentences());
             ret = env0.GO_ALL();
             hasEnter = true;
+
+            if (ret instanceof BreakObj) {
+                break;
+            }
+            if (ret instanceof ReturnObj) {
+                return ret;
+            }
         }
         return undefined;
     }
