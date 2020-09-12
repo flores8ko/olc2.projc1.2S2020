@@ -15,7 +15,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 %%
 "/*"                  {
 
-                        this.begin('no joda man xD');
+                        this.begin('comment');
                         }
 <comment>"*/"         {
 
@@ -61,6 +61,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 "function"            return 'function'
 "return"              return 'return'
 
+"//".*                /*skip comments*/
 \s+                   /* skip whitespace */
 
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
