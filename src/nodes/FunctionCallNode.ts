@@ -5,6 +5,8 @@ import {Reference} from "../utils/Reference";
 import {FunctionRepresent} from "../utils/functions/FunctionRepresent";
 import {ReturnObj} from "./ReturnObj";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
+import {IsPrimitiveTypo, SemanticException} from "../utils/Utils";
+import {UserDefined} from "../utils/functions/UserDefined";
 
 export class FunctionCallNode extends Op{
     private readonly name: Op;
@@ -32,8 +34,22 @@ export class FunctionCallNode extends Op{
         }
 
         if (id instanceof FunctionRepresent) {
-            let ans = (id as FunctionRepresent).EXE(env, argsValues);
+            let funct = (id as UserDefined);
+            let ans = funct.EXE(env, argsValues);
             if (ans instanceof ReturnObj) {
+                let ret = (ans as ReturnObj).getValue();
+                if (ret instanceof Reference) {
+                    ret = (ret as Reference).getValue();
+                }
+                if(funct.getType() !== ret.typo
+                    && funct.getType() !== 'ANY'
+                    && ret.typo !== 'NULL'
+                    && ret.typo !== 'UNDEFINED'
+                    && ret.typo !== 'OBJECT'
+                    || (IsPrimitiveTypo(funct.getType()) && ret.typo === 'OBJECT')
+                ) {
+                    throw new SemanticException(`Se esperaba retorno de tipo ${funct.getType()}, se retorno tipo ${ret.typo}`)
+                }
                 return (ans as ReturnObj).getValue();
             }
         }
