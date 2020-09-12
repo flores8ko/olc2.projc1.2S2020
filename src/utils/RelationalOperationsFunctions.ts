@@ -1,7 +1,7 @@
 import {Cntnr} from "./Cntnr";
 import {Reference} from "./Reference";
 import {SemanticException} from "./Utils";
-import {BOOLEAN, NAN, NULL, NUMBER, STRING, UNDEFINED} from "./PrimitiveTypoContainer";
+import {ARRAY, BOOLEAN, NAN, NULL, NUMBER, OBJECT, STRING, UNDEFINED} from "./PrimitiveTypoContainer";
 
 export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
@@ -79,6 +79,10 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
                     default:
                         return new BOOLEAN(false);
                 }
+            case lf instanceof OBJECT:
+                return new BOOLEAN(false);
+            case lf instanceof ARRAY:
+                return new BOOLEAN(true);
         }
     }
 }
@@ -90,7 +94,7 @@ export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr {
     try {
         return Dif(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} == ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} != ${rt.typo} ) no permitida.`)
     }
 
     function Dif(lf: any, rt: any): Cntnr {
@@ -157,6 +161,10 @@ export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr {
                     default:
                         throw new BOOLEAN(true);
                 }
+            case lf instanceof OBJECT:
+                return new BOOLEAN(true);
+            case lf instanceof ARRAY:
+                return new BOOLEAN(true);
             default:
                 throw new Error();
         }

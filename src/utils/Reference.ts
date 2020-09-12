@@ -39,7 +39,7 @@ export class Reference extends Cntnr {
             && v.typo !== 'NULL'
             && v.typo !== 'UNDEFINED'
             && v.typo !== 'OBJECT'
-            || (IsPrimitiveTypo(this.tipoNombre) && v.typo === 'OBJECT')
+            || (IsPrimitiveTypo(this.tipoNombre) && v.typo === 'OBJECT' && this.tipoNombre != "ANY")
         ){
             throw new SemanticException(`Tipo ${v.typo} no puede ser asignado a Variable de tipo ${this.tipoNombre}`)
         }
