@@ -17,8 +17,8 @@ export class ConsoleLogNode extends Op{
             val = (val as Reference).getValue();
         }
 
-        Console.log += `>_ ${val} \n`;
-        console.log(`>_ ${val}`);
+        Console.log += `[LOG]: ${val} \n`;
+        console.log(`[LOG]: ${val}`);
         return null;
     };
 }
