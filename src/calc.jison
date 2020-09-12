@@ -113,11 +113,11 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 %right '?'
 %left '||'
 %left '&&'
-%left '**'
 %left '==' '!='
 %left '<' '>' '<=' '>='
 %left '+' '-'
 %left '*' '/' '%'
+%left '**'
 %right UMINUS
 %left '+=' '-='
 %left '*=' '/=' '%='

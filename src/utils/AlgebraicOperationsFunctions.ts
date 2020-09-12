@@ -232,7 +232,7 @@ export function Potencia(lf: Cntnr, rt: Cntnr): Cntnr {
     try {
         return Pot(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} ^ ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} ** ${rt.typo} ) no permitida.`)
     }
 
     function Pot(lf: any, rt: any): Cntnr {
@@ -240,18 +240,18 @@ export function Potencia(lf: Cntnr, rt: Cntnr): Cntnr {
             case lf instanceof NUMBER:
                 switch (true) {
                     case rt instanceof NUMBER:
-                        return new NUMBER(Math.pow((lf as NUMBER).getValue(), (rt as NUMBER).getValue()));
+                        return new NUMBER((lf as NUMBER).getValue() ** (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
-                        return new NUMBER(Math.pow((lf as NUMBER).getValue(),  (rt as BOOLEAN).getValueNumber()));
+                        return new NUMBER((lf as NUMBER).getValue() **  (rt as BOOLEAN).getValueNumber());
                     default:
                         throw new Error();
                 }
             case lf instanceof BOOLEAN:
                 switch (true) {
                     case rt instanceof NUMBER:
-                        return new NUMBER(Math.pow((lf as BOOLEAN).getValueNumber(), (rt as NUMBER).getValue()));
+                        return new NUMBER((lf as BOOLEAN).getValueNumber() ** (rt as NUMBER).getValue());
                     case rt instanceof BOOLEAN:
-                        return new NUMBER(Math.pow((lf as BOOLEAN).getValueNumber(), (rt as BOOLEAN).getValueNumber()));
+                        return new NUMBER((lf as BOOLEAN).getValueNumber() ** (rt as BOOLEAN).getValueNumber());
                     default:
                         throw new Error();
                 }
