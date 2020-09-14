@@ -108,7 +108,7 @@
             $('#translated').val(TXT);
             let sentences = calc.parse(TXT);
             ast.ExecuteAST(sentences);
-            c.text(ast.Console.log);
+            c.html(ast.Console.log);
 
             scrollToConsole();
         });

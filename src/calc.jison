@@ -110,6 +110,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 .                     return 'INVALID'
 
 /lex
+%left '+=' '-=' '*=' '/=' '%=' '='
 %right '?'
 %left '||'
 %left '&&'
@@ -119,8 +120,6 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 %left '*' '/' '%'
 %left '**'
 %right UMINUS
-%left '+=' '-='
-%left '*=' '/=' '%='
 %right '--' '++' '!'
 %left '.' '['
 
