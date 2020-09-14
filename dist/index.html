@@ -48,7 +48,7 @@
                 <button id="run" style="width: 80%; margin-top: 5vh" class="btn">Run</button>
             </div>
             <div class="input-field col s12 m5 l5">
-                <textarea style="height: 80vh" rows="10" id="translated"></textarea>
+                <textarea style="height: 80vh; color: white" rows="10" id="translated" disabled></textarea>
             </div>
             <div id="console-header" class="input-field col s12">
                 <h4 style="background-color: #2BBBAD; color: white; padding-top: 0.3em; padding-bottom: 0.3em">Console</h4>
@@ -104,7 +104,9 @@
             e.preventDefault();
             let c = $('#console');
             c.text('');
-            let sentences = calc.parse(editor.getValue());
+            let TXT = ast.TranslateStringsCompose(editor.getValue());
+            $('#translated').val(TXT);
+            let sentences = calc.parse(TXT);
             ast.ExecuteAST(sentences);
             c.text(ast.Console.log);
 
