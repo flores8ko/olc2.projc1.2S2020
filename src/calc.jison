@@ -214,12 +214,14 @@ letDeclarations
     | LET idList ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode('ARRAY', $2, $7); }
     | LET idList ':' varType corchetes { $$ = new ast.DeclareVarListNode('ARRAY', $2);  }
     | CONST IDENTIFIER ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode('ARRAY', [new ast.DeclareVarNode($2)], $7, true); }
-    | CONST IDENTIFIER corchetes '=' e { $$ = new ast.DeclareVarListNode("", [new ast.DeclareVarNode($2)], $5, true); }
+    | CONST IDENTIFIER corchetes '=' e { $$ = new ast.DeclareVarListNode("ARRAY", [new ast.DeclareVarNode($2)], $5, true); }
     ;
 
 idList
     : idList ',' IDENTIFIER { $1.push(new ast.DeclareVarNode($3)); $$ = $1; }
+    | idList ',' IDENTIFIER '=' e { $1.push(new ast.DeclareVarNode($3, $5)); $$ = $1; }
     | IDENTIFIER { $$ = [new ast.DeclareVarNode($1)] }
+    | IDENTIFIER '=' e { $$ = [new ast.DeclareVarNode($1, $3)] }
     ;
 
 asigna
@@ -415,6 +417,8 @@ newFunctionParam
         { $$ = new ast.DeclareFunParamNode($1); }
     | IDENTIFIER ':' varType
         { $$ = new ast.DeclareFunParamNode($1, $3); }
+    | IDENTIFIER ':' varType corchetes
+            { $$ = new ast.DeclareFunParamNode($1, 'ARRAY'); }
     ;
 
 functionCall
