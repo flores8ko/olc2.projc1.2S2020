@@ -46,6 +46,15 @@
             <div style="text-align: center" class="input-field col s12 m2 l2">
                 <button id="translate" style="width: 80%; margin-top: 30vh" class="btn">Translate</button>
                 <button id="run" style="width: 80%; margin-top: 5vh" class="btn">Run</button>
+                <div class="input-field" style="background-color: white; width: 80%; margin-left: 10%; border-radius: 5px; border: none; ">
+                <select onchange="GetExample(this.value)">
+                    <option style="color: white; text-align: center" value="" disabled selected>EXAMPLES</option>
+                    <option style="color: white" value="Expression.ts">Expression.ts</option>
+                    <option style="color: white" value="FuncionesRescursivas.ts">FuncionesRecursivas.ts</option>
+                    <option style="color: white" value="avl.ts">avl.ts</option>
+                    <option style="color: white" value="matriz.ts">matriz.ts</option>
+                </select>
+                </div>
             </div>
             <div class="input-field col s12 m5 l5">
                 <textarea style="height: 80vh; color: white" rows="10" id="translated" disabled></textarea>
@@ -59,7 +68,23 @@
     </form>
 </div>
 <script>
+    function GetExample(index){
+        const url = `https://raw.githubusercontent.com/PvasquezF/ArchivosPruebaOLC2/master/MatrioshTS-2s2020/${index}`;
+        $.get(url, (data) => {
+            var editor = ace.edit("textarea");
+            editor.setValue(data);
+        }, 'text');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, options);
+    });
+
     $(document).ready(() => {
+        $('select').formSelect();
+
+
         var editor = ace.edit("textarea");
         editor.setTheme("ace/theme/nord_dark");
         editor.session.setMode("ace/mode/typescript");
