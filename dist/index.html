@@ -63,6 +63,7 @@
                 <h4 style="background-color: #2BBBAD; color: white; padding-top: 0.3em; padding-bottom: 0.3em">Console</h4>
                 <textarea disabled style="height: 80vh; background-color: #2E3440; color: #FFF; font-family: casadia; white-space: pre-wrap;" rows="10"
                           id="console"></textarea>
+                <button id="graph" class="btn">View Graph</button>
             </div>
         </div>
     </form>
@@ -136,6 +137,10 @@
             c.html(ast.Console.log);
 
             scrollToConsole();
+        });
+
+        $('#graph').click((e) => {
+            alert('view graph');
         });
     });
 </script>
