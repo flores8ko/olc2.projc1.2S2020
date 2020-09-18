@@ -154,6 +154,19 @@ export function ExecuteAST(sentences: Array<Op>) {
     env.GO_ALL();
 }
 
+export function GraphAST(sentences: Array<Op>): string {
+    let graph =
+        'digraph G {\n' +
+        '        bgcolor="#1E222A"\n' +
+        '        node [fillcolor="#2E3440"; style=filled; fontcolor="#2BBBAD"; color="#2BBBAD"];\n' +
+        '        edge [color="#2BBBAD"];';
+    const env = new Envmnt(null, sentences);
+    graph += env.GetGraph().toString();
+    graph += '}';
+    console.log(graph);
+    return graph;
+}
+
 export function TranslateStringsCompose(text: string) {
     return text.replace(/`([^̣`]*)`/g, (text) =>
         text.replace(/`/g, '"').replace(/\${[^}]*}/g, (text) => "\"+" + text.substring(2, text.length - 1) + "+\"")

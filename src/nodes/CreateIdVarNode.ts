@@ -1,6 +1,7 @@
 import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {FindVar} from "../utils/Utils";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class CreateIdVarNode extends Op{
     private readonly id: string;
@@ -12,5 +13,9 @@ export class CreateIdVarNode extends Op{
 
     GO(env: Envmnt) : object{
         return FindVar(env, this.id);
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('VAR', [new GraphvizNode(this.id)]);
     }
 }

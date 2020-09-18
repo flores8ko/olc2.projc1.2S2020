@@ -7,6 +7,7 @@ import {ReturnObj} from "./ReturnObj";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
 import {IsPrimitiveTypo, SemanticException} from "../utils/Utils";
 import {UserDefined} from "../utils/functions/UserDefined";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class FunctionCallNode extends Op{
     private readonly name: Op;
@@ -54,5 +55,9 @@ export class FunctionCallNode extends Op{
             }
         }
         return new UNDEFINED();
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('FUNCTION_CALL', [this.name.GetGraph(env), new GraphvizNode('ARGS', this.args.map(arg => arg.GetGraph(env)))]);
     }
 }

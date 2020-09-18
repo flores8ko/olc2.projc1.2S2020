@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {DeclareVarNode} from "./DeclareVarNode";
 import {Cntnr} from "../utils/Cntnr";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class DeclareVarListNode extends Op {
     private readonly tipoNombre: string;
@@ -32,5 +33,10 @@ export class DeclareVarListNode extends Op {
             }
         }
         return null;
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('DECLARE_VAR_LIST', [new GraphvizNode(this.tipoNombre? this.tipoNombre: 'ANY'), this.value === null ? new GraphvizNode('UNDEFINED') : this.value.GetGraph(env)]
+            .concat(this.declarationOps.map(op => op.GetGraph(env))));
     }
 }

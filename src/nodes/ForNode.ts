@@ -1,6 +1,7 @@
 import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {LogicWhile} from "../utils/Utils";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ForNode extends Op {
     private readonly condition0: Op;
@@ -24,4 +25,13 @@ export class ForNode extends Op {
         LogicWhile(conditionEnv, this.condition1, this.sentences, this.condition2);
         return undefined;
     }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('FOR', [
+            this.condition0.GetGraph(env),
+            this.condition1.GetGraph(env),
+            this.condition2.GetGraph(env),
+            new GraphvizNode('FOR_BODY', this.sentences.map(sentence => sentence.GetGraph(env)))]);
+    }
+
 }

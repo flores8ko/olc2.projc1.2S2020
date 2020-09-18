@@ -64,6 +64,7 @@
                 <textarea disabled style="height: 80vh; background-color: #2E3440; color: #FFF; font-family: casadia; white-space: pre-wrap;" rows="10"
                           id="console"></textarea>
                 <button id="graph" class="btn">View Graph</button>
+                <p style="color: white"><b>NOTE</b>: If you can't see the graph, go to this <a href="./graph.html">LINK</a>, and CTRL+V on the text editor.</p>
             </div>
         </div>
     </form>
@@ -140,7 +141,26 @@
         });
 
         $('#graph').click((e) => {
-            alert('view graph');
+            e.preventDefault();
+
+            const copyToClipboard = str => {
+                const el = document.createElement('textarea');
+                el.value = str;
+                el.setAttribute('readonly', '');
+                el.style.position = 'absolute';
+                el.style.left = '-9999px';
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+            };
+
+            const TXT = ast.TranslateStringsCompose(editor.getValue());
+            const sentences = calc.parse(TXT);
+            const content = ast.GraphAST(sentences);
+            copyToClipboard(content);
+            const win = window.open('./graph.html#' + content, '_blank');
+            win.focus();
         });
     });
 </script>

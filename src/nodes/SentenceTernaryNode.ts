@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {Reference} from "../utils/Reference";
 import {BOOLEAN} from "../utils/PrimitiveTypoContainer";
 import {SemanticException} from "../utils/Utils";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class SentenceTernaryNode extends Op{
     private readonly condicion: Op;
@@ -31,4 +32,9 @@ export class SentenceTernaryNode extends Op{
         }
         return this.falseSentence.Exe(env);
     }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('TERNARY', [this.condicion.GetGraph(env), this.trueSentence.GetGraph(env), this.falseSentence.GetGraph(env)]);
+    }
+
 }

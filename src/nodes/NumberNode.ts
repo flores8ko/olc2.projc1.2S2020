@@ -1,6 +1,7 @@
 import {Envmnt} from "../utils/Envmnt";
 import {NUMBER} from "../utils/PrimitiveTypoContainer";
 import {Op} from "../utils/Op";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class NumberNode extends Op{
     private readonly val: number;
@@ -12,5 +13,9 @@ export class NumberNode extends Op{
 
     GO(env: Envmnt){
         return new NUMBER(this.val);
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('NUMBER', [new GraphvizNode(this.val + '')]);
     }
 }

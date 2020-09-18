@@ -1,5 +1,6 @@
 import {Envmnt} from "./Envmnt";
 import {ErrorCompo} from "./Utils";
+import {GraphvizNode} from "./GraphvizNode";
 
 export abstract class Op {
     public Exe(env: Envmnt): object{
@@ -11,4 +12,6 @@ export abstract class Op {
     }
 
     public abstract GO(env: Envmnt): object;
+
+    public abstract GetGraph(env: Envmnt): GraphvizNode;
 }

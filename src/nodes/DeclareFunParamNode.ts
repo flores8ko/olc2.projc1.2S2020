@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
 import {Reference} from "../utils/Reference";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class DeclareFunParamNode extends Op{
     private readonly name: string;
@@ -19,5 +20,9 @@ export class DeclareFunParamNode extends Op{
         reference.PutValueOnReference(value);
         env.Declare(this.name, reference);
         return reference;
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('NEW_FUN_PARAM', [new GraphvizNode(this.name), new GraphvizNode(this.type)]);
     }
 }

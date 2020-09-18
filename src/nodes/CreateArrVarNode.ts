@@ -4,6 +4,7 @@ import {Cntnr} from "../utils/Cntnr";
 import {Reference} from "../utils/Reference";
 import {SemanticException} from "../utils/Utils";
 import {ARRAY, NUMBER, STRING, UNDEFINED} from "../utils/PrimitiveTypoContainer";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class CreateArrVarNode extends Op {
     private readonly id: Op;
@@ -45,5 +46,9 @@ export class CreateArrVarNode extends Op {
         }
 
         return (ref as ARRAY).getValue((index as NUMBER).getValue());
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('ARR_ELEMENT', [this.id.GetGraph(env), this.index.GetGraph(env)]);
     }
 }

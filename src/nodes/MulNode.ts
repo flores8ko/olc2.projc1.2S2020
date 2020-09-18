@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Multiplicacion} from "../utils/AlgebraicOperationsFunctions";
 import {Cntnr} from "../utils/Cntnr";
 import {Envmnt} from "../utils/Envmnt";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class MulNode extends Op{
     private readonly lf: Op;
@@ -17,4 +18,7 @@ export class MulNode extends Op{
         return Multiplicacion(this.lf.Exe(env) as Cntnr, this.rt.Exe(env) as Cntnr);
     }
 
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('MUL', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
+    }
 }

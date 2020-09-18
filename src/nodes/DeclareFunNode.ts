@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {UserDefined} from "../utils/functions/UserDefined";
 import {Reference} from "../utils/Reference";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class DeclareFunNode extends Op{
     private readonly name: string;
@@ -26,5 +27,14 @@ export class DeclareFunNode extends Op{
             return undefined;
         }
         return value;
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('NEW_FUN', [
+            new GraphvizNode(this.name),
+            new GraphvizNode(this.type),
+            new GraphvizNode('PARAMS', this.params.map(param => param.GetGraph(env))),
+            new GraphvizNode('NEW_FUN_BODY', this.sentences.map(sentence => sentence.GetGraph(env)))
+        ]);
     }
 }

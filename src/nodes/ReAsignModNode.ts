@@ -4,6 +4,7 @@ import {Reference} from "../utils/Reference";
 import {SemanticException} from "../utils/Utils";
 import {Modulo} from "../utils/AlgebraicOperationsFunctions";
 import {Cntnr} from "../utils/Cntnr";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ReAsignModNode extends Op {
     private readonly lf: Op;
@@ -28,4 +29,9 @@ export class ReAsignModNode extends Op {
         );
         return (lf as Reference).getValue();
     }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('RE_ASIGN_MOD', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
+    }
+
 }

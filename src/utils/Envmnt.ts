@@ -5,6 +5,7 @@ import {ReturnObj} from "../nodes/ReturnObj";
 import {ContinueObj} from "../nodes/ContinueObj";
 import {DeclareFunNode} from "../nodes/DeclareFunNode";
 import {DeclareTypeStructureNode} from "../nodes/DeclareTypeStructureNode";
+import {GraphvizNode} from "./GraphvizNode";
 
 export class Envmnt extends Cntnr {
     public readonly Extra = new Map<string, any>();
@@ -39,5 +40,10 @@ export class Envmnt extends Cntnr {
             }
         }
         return null;
+    }
+
+    public GetGraph(): GraphvizNode {
+        console.log('aver');
+        return new GraphvizNode('ROOT', this.operations.map(operation => operation.GetGraph(this)));
     }
 }

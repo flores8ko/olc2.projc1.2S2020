@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Diferente} from "../utils/RelationalOperationsFunctions";
 import {Cntnr} from "../utils/Cntnr";
 import {Envmnt} from "../utils/Envmnt";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class DifNode extends Op {
     private readonly lf: Op;
@@ -15,5 +16,9 @@ export class DifNode extends Op {
 
     GO(env: Envmnt): object {
         return Diferente((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr));
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('DIF', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 }

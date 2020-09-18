@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {ReturnObj} from "./ReturnObj";
 import {Cntnr} from "../utils/Cntnr";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ReturnNode extends Op{
     private readonly value: Op;
@@ -19,4 +20,9 @@ export class ReturnNode extends Op{
         }
         return new ReturnObj(new UNDEFINED());
     }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('RETURN', [this.value.GetGraph(env)]);
+    }
+
 }

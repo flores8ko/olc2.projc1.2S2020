@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {Not} from "../utils/LogicalOperationsFunctions";
 import {Cntnr} from "../utils/Cntnr";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class NotNode extends Op {
     private readonly lf: Op;
@@ -13,5 +14,9 @@ export class NotNode extends Op {
 
     GO(env: Envmnt): object {
         return Not(this.lf.Exe(env) as Cntnr);
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('NOT', [this.lf.GetGraph(env)]);
     }
 }

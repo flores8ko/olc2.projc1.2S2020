@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {Reference} from "../utils/Reference";
 import {SemanticException} from "../utils/Utils";
 import {Cntnr} from "../utils/Cntnr";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class AsignNode extends Op{
     private readonly lf: Op;
@@ -23,5 +24,9 @@ export class AsignNode extends Op{
         }
         (lfVal as Reference).PutValueOnReference(rtVal as Cntnr);
         return null;
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('ASIG', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 }

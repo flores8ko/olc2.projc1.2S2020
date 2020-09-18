@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {Reference} from "../utils/Reference";
 import {ARRAY} from "../utils/PrimitiveTypoContainer";
 import {FindVar, SemanticException} from "../utils/Utils";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ForOfNode extends Op {
     private readonly controlVar: string;
@@ -41,5 +42,9 @@ export class ForOfNode extends Op {
             env0.GO_ALL();
         }
         return undefined;
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('FOR_OF', [new GraphvizNode(this.controlVar), new GraphvizNode('FOR_OF_BODY', this.sentences.map(sentence => sentence.GetGraph(env)))]);
     }
 }

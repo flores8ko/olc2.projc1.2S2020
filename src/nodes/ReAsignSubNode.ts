@@ -4,6 +4,7 @@ import {Reference} from "../utils/Reference";
 import {SemanticException} from "../utils/Utils";
 import {Resta} from "../utils/AlgebraicOperationsFunctions";
 import {Cntnr} from "../utils/Cntnr";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ReAsignSubNode extends Op {
     private readonly lf: Op;
@@ -28,4 +29,9 @@ export class ReAsignSubNode extends Op {
         );
         return (lf as Reference).getValue();
     }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('RE_ASIGN_SUB', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
+    }
+
 }

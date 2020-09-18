@@ -1,6 +1,7 @@
 import {Cntnr, Envmnt, Op, Reference} from "../index";
 import {SemanticException} from "../utils/Utils";
 import {Suma} from "../utils/AlgebraicOperationsFunctions";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ReAsignAddNode extends Op {
     private readonly lf: Op;
@@ -24,5 +25,9 @@ export class ReAsignAddNode extends Op {
             Suma((lf as Reference).getValue(), rt as Cntnr)
         );
         return (lf as Reference).getValue();
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('RE_ASIGN_ADD', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 }

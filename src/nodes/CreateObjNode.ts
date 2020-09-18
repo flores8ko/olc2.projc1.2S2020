@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {Cntnr} from "../utils/Cntnr";
 import {Reference} from "../utils/Reference";
 import {OBJECT} from "../utils/PrimitiveTypoContainer";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class CreateObjNode extends Op {
     private readonly attrs: Map<string, Op>;
@@ -26,4 +27,12 @@ export class CreateObjNode extends Op {
         return new OBJECT(real);
     }
 
+    GetGraph(env: Envmnt): GraphvizNode {
+        let values: GraphvizNode[] = [];
+        this.attrs.forEach((v, k) => {
+            values.push(new GraphvizNode(k));
+            values.push(v.GetGraph(env));
+        });
+        return new GraphvizNode('TYPE_VALUE', values);
+    }
 }

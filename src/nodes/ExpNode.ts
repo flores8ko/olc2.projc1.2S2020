@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {Potencia} from "../utils/AlgebraicOperationsFunctions";
 import {Cntnr} from "../utils/Cntnr";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ExpNode extends Op {
     private readonly lf: Op;
@@ -15,5 +16,9 @@ export class ExpNode extends Op {
 
     GO(env: Envmnt): object {
         return Potencia((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr));
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('EXP', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 }

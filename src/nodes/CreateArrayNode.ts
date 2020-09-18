@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {Cntnr} from "../utils/Cntnr";
 import {Reference} from "../utils/Reference";
 import {ARRAY} from "../utils/PrimitiveTypoContainer";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class CreateArrayNode extends Op{
     private readonly vals: Array<Op>;
@@ -22,4 +23,7 @@ export class CreateArrayNode extends Op{
         return new ARRAY(real);
     }
 
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('ARRAY', this.vals.map(val => val.GetGraph(env)));
+    }
 }

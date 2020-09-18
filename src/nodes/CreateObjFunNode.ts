@@ -4,6 +4,7 @@ import {Reference} from "../utils/Reference";
 import {Cntnr} from "../utils/Cntnr";
 import {FunctionRepresent} from "../utils/functions/FunctionRepresent";
 import {ReturnObj} from "./ReturnObj";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class CreateObjFunNode extends Op{
     private readonly object: Op;
@@ -42,5 +43,9 @@ export class CreateObjFunNode extends Op{
             return (ans as ReturnObj).getValue();
         }
         return null;
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('FUNCTION', [this.object.GetGraph(env), new GraphvizNode(this.funId), new GraphvizNode('ARGS', this.args.map(arg => arg.GetGraph(env)))]);
     }
 }

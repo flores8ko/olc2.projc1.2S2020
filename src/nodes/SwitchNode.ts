@@ -9,6 +9,7 @@ import {ReturnObj} from "./ReturnObj";
 import {ContinueObj} from "./ContinueObj";
 import {CaseNode} from "./CaseNode";
 import {SemanticException} from "../utils/Utils";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class SwitchNode extends Op {
     private readonly condition: Op;
@@ -67,4 +68,16 @@ export class SwitchNode extends Op {
         }
         return undefined;
     }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('SWTICH', [
+            this.condition.GetGraph(env),
+            new GraphvizNode('SWITCH_BODY', this.cases.map(casee =>
+                new GraphvizNode('CASE', [
+                    casee.getConditionValue() ? casee.getConditionValue().GetGraph(env) : new GraphvizNode('UNDEFINED'),
+                    new GraphvizNode('SENTENCES', casee.getSentences().map(sentence => sentence.GetGraph(env)))
+                ])))
+        ]);
+    }
+
 }

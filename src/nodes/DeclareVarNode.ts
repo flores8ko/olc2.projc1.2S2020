@@ -3,6 +3,7 @@ import {Cntnr} from '../utils/Cntnr';
 import {Envmnt} from "../utils/Envmnt";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
 import {Reference} from "../utils/Reference";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class DeclareVarNode extends Op {
     private readonly name: string;
@@ -39,5 +40,10 @@ export class DeclareVarNode extends Op {
         const reference: Reference = new Reference(this.tipoNombre, this.isConst);
         reference.PutValueOnReference(value);
         env.Declare(identifier, reference);
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('DECLARE_VAR', [new GraphvizNode(this.name), new GraphvizNode(this.tipoNombre?this.tipoNombre:'ANY'),
+            this.valueOp !== null ? this.valueOp.GetGraph(env) : new GraphvizNode('undefined')]);
     }
 }

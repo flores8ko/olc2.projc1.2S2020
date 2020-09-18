@@ -2,6 +2,7 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {Reference} from "../utils/Reference";
 import {Console} from "../utils/Console";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class ConsoleLogNode extends Op{
     private expression: Array<Op>;
@@ -24,4 +25,8 @@ export class ConsoleLogNode extends Op{
         console.log(`${finalLog}`);
         return null;
     };
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('CONSOLE.LOG', this.expression.map(expression => expression.GetGraph(env)));
+    }
 }

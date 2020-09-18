@@ -6,6 +6,7 @@ import {SemanticException} from "../utils/Utils";
 import {Native} from "../utils/functions/Native";
 import {FunctionRepresent} from "../utils/functions/FunctionRepresent";
 import {ReturnObj} from "./ReturnObj";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class CreateObjVarNode extends Op{
     private readonly id: Op;
@@ -33,5 +34,9 @@ export class CreateObjVarNode extends Op{
         }
 
         return ref.GetProperty(this.attr);
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('TYPE_MEMBER', [this.id.GetGraph(env), new GraphvizNode(this.attr)]);
     }
 }

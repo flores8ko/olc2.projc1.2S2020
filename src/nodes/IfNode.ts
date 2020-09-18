@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {BOOLEAN} from "../utils/PrimitiveTypoContainer";
 import {Reference} from "../utils/Reference";
 import {PassPropsAndFuncs, SemanticException} from "../utils/Utils";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class IfNode extends Op{
     private readonly condition: Op;
@@ -34,5 +35,13 @@ export class IfNode extends Op{
         const envFalse = new Envmnt(env, this.operationsFalse);
         PassPropsAndFuncs(env, envFalse);
         return envFalse.GO_ALL();
+    }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('IF', [
+            this.condition.GetGraph(env),
+            new GraphvizNode('IF_BODY_TRUE', this.operationsTrue.map(sentence => sentence.GetGraph(env))),
+            new GraphvizNode('IF_BODY_FALSE', this.operationsFalse.map(sentence => sentence.GetGraph(env)))
+        ]);
     }
 }

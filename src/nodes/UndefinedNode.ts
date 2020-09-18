@@ -1,6 +1,7 @@
 import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
+import {GraphvizNode} from "../utils/GraphvizNode";
 
 export class UndefinedNode extends Op{
     constructor() {
@@ -10,4 +11,9 @@ export class UndefinedNode extends Op{
     GO(env: Envmnt) {
         return new UNDEFINED();
     }
+
+    GetGraph(env: Envmnt): GraphvizNode {
+        return new GraphvizNode('UNDEFINED', [new GraphvizNode('undefined')]);
+    }
+
 }
