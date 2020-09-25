@@ -14,6 +14,10 @@ export class DeclareFunParamNode extends Op{
         this.type = type.toUpperCase();
     }
 
+    GetName() {
+        return this.name.toUpperCase();
+    }
+
     GO(env: Envmnt): object {
         const value = new UNDEFINED();
         const reference = new Reference(this.type);

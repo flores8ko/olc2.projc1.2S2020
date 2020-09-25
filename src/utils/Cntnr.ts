@@ -1,5 +1,9 @@
 import {Reference} from "./Reference";
 import {UNDEFINED} from "./PrimitiveTypoContainer";
+import {TSGraphControl} from "./TSGraphControl";
+import {FunctionRepresent} from "./functions/FunctionRepresent";
+import {Native} from "./functions/Native";
+import {UserDefined} from "./functions/UserDefined";
 
 export abstract class Cntnr {
     private readonly owner: Cntnr;
@@ -34,6 +38,29 @@ export abstract class Cntnr {
         //this.props.set(id, new Reference());
         //return this.props.get(id);
         return undefined;
+    }
+
+    public GetTSGraph(owner: string = ''): string {
+        let value = '';
+        const graphId = TSGraphControl.GetGraphId();
+        value += `subgraph cluster_${graphId} { \n`;
+        value += 'style=filled;\n' +
+                 'color=black;\n' +
+                 'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        this.props.forEach((v, k) => {
+            value += `n${TSGraphControl.GetNodeId()} [label="${k}"]\n`
+        });
+        value += `label = "${owner.toUpperCase()}";\n`;
+        this.props.forEach((v, k) => {
+            let vv = v;
+            if (vv instanceof Reference) {
+                vv = (vv as Reference).getValue();
+            }
+            value += vv.GetTSGraph(k);
+        });
+        value += `}\n`
+        return value;
     }
 
     public Declare(id: string, cntnr: Cntnr): void {

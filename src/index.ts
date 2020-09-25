@@ -53,7 +53,7 @@ import {SwitchNode} from "./nodes/SwitchNode";
 import {ForInNode} from "./nodes/ForInNode";
 import {ForOfNode} from "./nodes/ForOfNode";
 import {ForNode} from "./nodes/ForNode";
-import {MyMap, ObjectsStructures, ObjectStructure} from "./utils/Utils";
+import {MyMap, ObjectsStructures, ObjectStructure, TSGraph} from "./utils/Utils";
 import {CreateObjNode} from "./nodes/CreateObjNode";
 import {DeclareTypeStructureNode} from "./nodes/DeclareTypeStructureNode";
 import {DeclareFunNode} from "./nodes/DeclareFunNode";
@@ -152,6 +152,11 @@ export function ExecuteAST(sentences: Array<Op>) {
     ObjectsStructures.objects = new Map<string, ObjectStructure>();
     const env = new Envmnt(null, sentences);
     env.GO_ALL();
+    let content = 'digraph G {bgcolor="cyan" gradientangle=0 rankdir=TB \n';
+    content += TSGraph(env);
+    content += '}'
+    const win = window.open('./graph.html#' + content, '_blank');
+    win.focus();
 }
 
 export function GraphAST(sentences: Array<Op>): string {

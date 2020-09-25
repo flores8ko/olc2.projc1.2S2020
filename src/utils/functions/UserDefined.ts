@@ -3,6 +3,8 @@ import {Op} from "../Op";
 import {Envmnt} from "../Envmnt";
 import {Cntnr} from "../Cntnr";
 import {Reference} from "../Reference";
+import {TSGraphControl} from "../TSGraphControl";
+import {DeclareFunParamNode} from "../../nodes/DeclareFunParamNode";
 
 export class UserDefined extends FunctionRepresent {
     private readonly src: Array<Op>;
@@ -34,5 +36,29 @@ export class UserDefined extends FunctionRepresent {
             references[i].PutValueOnReference(args[i]);
         }
         return env.GO_ALL();
+    }
+
+    public GetTSGraph(owner: string = ''): string {
+        let value = '';
+        const graphId = TSGraphControl.GetGraphId();
+        value += `subgraph cluster_${graphId} { \n`;
+        value += 'style=filled;\n' +
+            'color=black;\n' +
+            'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        this.params.forEach((v) => {
+            value += `n${TSGraphControl.GetNodeId()} [label="${(v as DeclareFunParamNode).GetName()}"]\n`
+        });
+        value += `label = "${owner.toUpperCase()}";\n`;
+        this.props.forEach((v, k) => {
+            let vv = v;
+            if (vv instanceof Reference) {
+                vv = (vv as Reference).getValue();
+            }
+            console.log(vv);
+            value += vv.GetTSGraph(k);
+        });
+        value += `}\n`;
+        return value;
     }
 }

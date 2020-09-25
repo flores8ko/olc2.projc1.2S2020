@@ -64,6 +64,17 @@ export function FindVar(cont: Cntnr, identifier: string): Cntnr {
     throw  new SemanticException(`identificador ${identifier} no encontrado`);
 }
 
+export function TSGraph(envmnt: Cntnr): string {
+    let ownerCntnr = envmnt;
+    while (true) {
+        if (ownerCntnr.GetOwner() == null) {
+            break;
+        }
+        ownerCntnr = ownerCntnr.GetOwner();
+    }
+    return ownerCntnr.GetTSGraph('global');
+}
+
 export function PassPropsAndFuncs(father: Envmnt, son: Envmnt) {
     // father.props.forEach((v, k) => {
     //     son.Declare(k, v);
