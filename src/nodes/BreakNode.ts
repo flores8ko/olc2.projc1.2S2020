@@ -10,4 +10,8 @@ export  class BreakNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('BREAK', [new GraphvizNode('break')]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

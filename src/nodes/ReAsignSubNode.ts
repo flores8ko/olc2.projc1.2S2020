@@ -34,4 +34,8 @@ export class ReAsignSubNode extends Op {
         return new GraphvizNode('RE_ASIGN_SUB', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

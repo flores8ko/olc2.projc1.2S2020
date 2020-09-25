@@ -16,4 +16,8 @@ export class UndefinedNode extends Op{
         return new GraphvizNode('UNDEFINED', [new GraphvizNode('undefined')]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

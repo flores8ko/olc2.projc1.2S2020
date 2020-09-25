@@ -29,4 +29,8 @@ export class AsignNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('ASIG', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

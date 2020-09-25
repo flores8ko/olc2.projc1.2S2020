@@ -21,4 +21,8 @@ export class SubNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('SUB', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

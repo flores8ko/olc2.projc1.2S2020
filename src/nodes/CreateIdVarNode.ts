@@ -18,4 +18,8 @@ export class CreateIdVarNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('VAR', [new GraphvizNode(this.id)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

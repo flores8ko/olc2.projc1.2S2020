@@ -35,4 +35,8 @@ export class CreateObjNode extends Op {
         });
         return new GraphvizNode('TYPE_VALUE', values);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

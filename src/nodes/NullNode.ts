@@ -15,4 +15,8 @@ export class NullNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('NULL', [new GraphvizNode('null')]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

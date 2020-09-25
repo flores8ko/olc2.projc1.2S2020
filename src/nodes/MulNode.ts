@@ -21,4 +21,8 @@ export class MulNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('MUL', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

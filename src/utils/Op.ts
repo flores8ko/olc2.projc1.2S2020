@@ -14,4 +14,6 @@ export abstract class Op {
     public abstract GO(env: Envmnt): object;
 
     public abstract GetGraph(env: Envmnt): GraphvizNode;
+
+    public abstract GetTSGraph(): string;
 }

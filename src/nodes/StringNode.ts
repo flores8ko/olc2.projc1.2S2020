@@ -20,4 +20,8 @@ export class StringNode extends Op{
         return new GraphvizNode('STRING', [new GraphvizNode(this.val.substring(1, this.val.length - 1))]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

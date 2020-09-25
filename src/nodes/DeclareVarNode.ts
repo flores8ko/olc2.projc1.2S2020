@@ -4,6 +4,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
 import {Reference} from "../utils/Reference";
 import {GraphvizNode} from "../utils/GraphvizNode";
+import {TSGraphControl} from "../utils/TSGraphControl";
 
 export class DeclareVarNode extends Op {
     private readonly name: string;
@@ -45,5 +46,9 @@ export class DeclareVarNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('DECLARE_VAR', [new GraphvizNode(this.name), new GraphvizNode(this.tipoNombre?this.tipoNombre:'ANY'),
             this.valueOp !== null ? this.valueOp.GetGraph(env) : new GraphvizNode('undefined')]);
+    }
+
+    GetTSGraph(): string {
+        return `n${TSGraphControl.GetNodeId()} [label="${this.name.toUpperCase()}"]\n`;
     }
 }

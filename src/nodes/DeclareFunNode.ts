@@ -3,6 +3,8 @@ import {Envmnt} from "../utils/Envmnt";
 import {UserDefined} from "../utils/functions/UserDefined";
 import {Reference} from "../utils/Reference";
 import {GraphvizNode} from "../utils/GraphvizNode";
+import {TSGraphControl} from "../utils/TSGraphControl";
+import {DeclareFunParamNode} from "./DeclareFunParamNode";
 
 export class DeclareFunNode extends Op{
     private readonly name: string;
@@ -36,5 +38,24 @@ export class DeclareFunNode extends Op{
             new GraphvizNode('PARAMS', this.params.map(param => param.GetGraph(env))),
             new GraphvizNode('NEW_FUN_BODY', this.sentences.map(sentence => sentence.GetGraph(env)))
         ]);
+    }
+
+    GetTSGraph(): string {
+        let value = '';
+        const graphId = TSGraphControl.GetGraphId();
+        value += `subgraph cluster_${graphId} { \n`;
+        value += 'style=filled;\n' +
+            'color=black;\n' +
+            'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        this.sentences.forEach(sentence => {
+            value += sentence.GetTSGraph();
+        });
+        this.params.forEach(param => {
+            value += param.GetTSGraph();
+        });
+        value += `label = "${this.name}";\n`;
+        value += `}\n`;
+        return value;
     }
 }

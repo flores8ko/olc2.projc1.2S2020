@@ -4,6 +4,7 @@ import {Reference} from "../utils/Reference";
 import {ARRAY} from "../utils/PrimitiveTypoContainer";
 import {FindVar, SemanticException} from "../utils/Utils";
 import {GraphvizNode} from "../utils/GraphvizNode";
+import {TSGraphControl} from "../utils/TSGraphControl";
 
 export class ForOfNode extends Op {
     private readonly controlVar: string;
@@ -46,5 +47,23 @@ export class ForOfNode extends Op {
 
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('FOR_OF', [new GraphvizNode(this.controlVar), new GraphvizNode('FOR_OF_BODY', this.sentences.map(sentence => sentence.GetGraph(env)))]);
+    }
+
+    GetTSGraph(): string {
+        let value = '';
+        const graphId = TSGraphControl.GetGraphId();
+        value += `subgraph cluster_${graphId} { \n`;
+        value += 'style=filled;\n' +
+            'color=black;\n' +
+            'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        value += `n${TSGraphControl.GetNodeId()} [label="${this.controlVar.toUpperCase()}"]\n`;
+        value += this.array.GetTSGraph();
+        this.sentences.forEach(sentence => {
+            value += sentence.GetTSGraph();
+        });
+        value += `label = "${"FOR_OF_SENTENCE"}";\n`;
+        value += `}\n`;
+        return value;
     }
 }

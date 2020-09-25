@@ -29,4 +29,8 @@ export class ConsoleLogNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('CONSOLE.LOG', this.expression.map(expression => expression.GetGraph(env)));
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

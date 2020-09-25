@@ -21,4 +21,8 @@ export class EqNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('EQ', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

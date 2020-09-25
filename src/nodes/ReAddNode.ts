@@ -19,4 +19,8 @@ export class ReAddNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('RE_ADD', [this.lf.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

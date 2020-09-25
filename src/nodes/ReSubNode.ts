@@ -20,4 +20,8 @@ export class ReSubNode extends Op {
         return new GraphvizNode('RE_SUB', [this.lf.GetGraph(env)]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

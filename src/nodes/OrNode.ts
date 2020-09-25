@@ -21,4 +21,8 @@ export class OrNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('OR', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

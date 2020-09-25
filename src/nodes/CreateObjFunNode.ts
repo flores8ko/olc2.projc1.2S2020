@@ -48,4 +48,8 @@ export class CreateObjFunNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('FUNCTION', [this.object.GetGraph(env), new GraphvizNode(this.funId), new GraphvizNode('ARGS', this.args.map(arg => arg.GetGraph(env)))]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

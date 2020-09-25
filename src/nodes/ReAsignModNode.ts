@@ -34,4 +34,8 @@ export class ReAsignModNode extends Op {
         return new GraphvizNode('RE_ASIGN_MOD', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

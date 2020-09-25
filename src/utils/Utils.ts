@@ -6,6 +6,7 @@ import {Reference} from "./Reference";
 import {BreakObj} from "../nodes/BreakObj";
 import {ReturnObj} from "../nodes/ReturnObj";
 import {ContinueObj} from "../nodes/ContinueObj";
+import {TSGraphControl} from "./TSGraphControl";
 
 export class SemanticException extends Error {
     constructor(message?: string) {
@@ -73,6 +74,22 @@ export function TSGraph(envmnt: Cntnr): string {
         ownerCntnr = ownerCntnr.GetOwner();
     }
     return ownerCntnr.GetTSGraph('global');
+}
+
+export function TSGraph2(sentences: Array<Op>): string {
+    let value = '';
+    const graphId = TSGraphControl.GetGraphId();
+    value += `subgraph cluster_${graphId} { \n`;
+    value += 'style=filled;\n' +
+        'color=black;\n' +
+        'fillcolor="yellow";\n';
+    value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+    sentences.forEach(sentence => {
+        value += sentence.GetTSGraph();
+    });
+    value += `label = "${'GLOBAL'}";\n`;
+    value += `}\n`
+    return value;
 }
 
 export function PassPropsAndFuncs(father: Envmnt, son: Envmnt) {

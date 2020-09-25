@@ -3,6 +3,7 @@ import {Envmnt} from "../utils/Envmnt";
 import {UNDEFINED} from "../utils/PrimitiveTypoContainer";
 import {Reference} from "../utils/Reference";
 import {GraphvizNode} from "../utils/GraphvizNode";
+import {TSGraphControl} from "../utils/TSGraphControl";
 
 export class DeclareFunParamNode extends Op{
     private readonly name: string;
@@ -28,5 +29,9 @@ export class DeclareFunParamNode extends Op{
 
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('NEW_FUN_PARAM', [new GraphvizNode(this.name), new GraphvizNode(this.type)]);
+    }
+
+    GetTSGraph(): string {
+        return `n${TSGraphControl.GetNodeId()} [label="${this.name.toUpperCase()}"]\n`;;
     }
 }

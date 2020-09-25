@@ -25,4 +25,8 @@ export class ReturnNode extends Op{
         return new GraphvizNode('RETURN', [this.value.GetGraph(env)]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

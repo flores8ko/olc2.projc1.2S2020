@@ -39,4 +39,12 @@ export class DeclareVarListNode extends Op {
         return new GraphvizNode('DECLARE_VAR_LIST', [new GraphvizNode(this.tipoNombre? this.tipoNombre: 'ANY'), this.value === null ? new GraphvizNode('UNDEFINED') : this.value.GetGraph(env)]
             .concat(this.declarationOps.map(op => op.GetGraph(env))));
     }
+
+    GetTSGraph(): string {
+        let val = '';
+        this.declarationOps.forEach(declare => {
+            val += declare.GetTSGraph();
+        });
+        return val;
+    }
 }

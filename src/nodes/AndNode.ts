@@ -21,4 +21,8 @@ export class AndNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('AND', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

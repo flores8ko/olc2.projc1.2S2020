@@ -80,4 +80,8 @@ export class SwitchNode extends Op {
         ]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

@@ -2,6 +2,9 @@ import {Op} from "../utils/Op";
 import {Envmnt} from "../utils/Envmnt";
 import {LogicWhile} from "../utils/Utils";
 import {GraphvizNode} from "../utils/GraphvizNode";
+import {TSGraphControl} from "../utils/TSGraphControl";
+import {DeclareFunParamNode} from "./DeclareFunParamNode";
+import {Reference} from "../utils/Reference";
 
 export class ForNode extends Op {
     private readonly condition0: Op;
@@ -32,6 +35,25 @@ export class ForNode extends Op {
             this.condition1.GetGraph(env),
             this.condition2.GetGraph(env),
             new GraphvizNode('FOR_BODY', this.sentences.map(sentence => sentence.GetGraph(env)))]);
+    }
+
+    GetTSGraph(): string {
+        let value = '';
+        const graphId = TSGraphControl.GetGraphId();
+        value += `subgraph cluster_${graphId} { \n`;
+        value += 'style=filled;\n' +
+            'color=black;\n' +
+            'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        value += this.condition0.GetTSGraph();
+        value += this.condition1.GetTSGraph();
+        value += this.condition2.GetTSGraph();
+        this.sentences.forEach(sentence => {
+            value += sentence.GetTSGraph();
+        });
+        value += `label = "${"FOR_SENTENCE"}";\n`;
+        value += `}\n`;
+        return value;
     }
 
 }

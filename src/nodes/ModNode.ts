@@ -21,4 +21,8 @@ export class ModNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('MOD', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

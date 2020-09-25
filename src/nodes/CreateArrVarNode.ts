@@ -51,4 +51,8 @@ export class CreateArrVarNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('ARR_ELEMENT', [this.id.GetGraph(env), this.index.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

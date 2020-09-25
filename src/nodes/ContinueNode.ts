@@ -11,4 +11,8 @@ export class ContinueNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('CONTINUE', [new GraphvizNode('continue')]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

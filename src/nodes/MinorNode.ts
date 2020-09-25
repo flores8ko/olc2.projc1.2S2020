@@ -21,4 +21,8 @@ export class MinorNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('MIN', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

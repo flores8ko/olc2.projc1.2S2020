@@ -39,4 +39,8 @@ export class CreateObjVarNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('TYPE_MEMBER', [this.id.GetGraph(env), new GraphvizNode(this.attr)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

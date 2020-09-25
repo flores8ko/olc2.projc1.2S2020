@@ -26,4 +26,8 @@ export class CreateArrayNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('ARRAY', this.vals.map(val => val.GetGraph(env)));
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

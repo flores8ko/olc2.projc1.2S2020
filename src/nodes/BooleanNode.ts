@@ -18,4 +18,8 @@ export class BooleanNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('BOOLEAN', [new GraphvizNode(this.val + '', [])]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

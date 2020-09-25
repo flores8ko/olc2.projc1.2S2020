@@ -33,4 +33,8 @@ export class ReAsignDivNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('RE_ASIGN_DIV', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

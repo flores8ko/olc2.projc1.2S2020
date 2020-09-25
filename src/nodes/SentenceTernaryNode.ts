@@ -37,4 +37,8 @@ export class SentenceTernaryNode extends Op{
         return new GraphvizNode('TERNARY', [this.condicion.GetGraph(env), this.trueSentence.GetGraph(env), this.falseSentence.GetGraph(env)]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

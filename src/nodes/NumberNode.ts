@@ -18,4 +18,8 @@ export class NumberNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('NUMBER', [new GraphvizNode(this.val + '')]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

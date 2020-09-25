@@ -30,4 +30,8 @@ export class ReAsignAddNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('RE_ASIGN_ADD', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

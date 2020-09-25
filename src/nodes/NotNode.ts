@@ -19,4 +19,8 @@ export class NotNode extends Op {
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('NOT', [this.lf.GetGraph(env)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

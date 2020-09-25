@@ -27,4 +27,8 @@ export class DeclareTypeStructureNode extends Op{
         });
         return new GraphvizNode('NEW_TYPE', [new GraphvizNode(this.name), new GraphvizNode('VALUES', values)]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

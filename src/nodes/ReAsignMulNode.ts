@@ -34,4 +34,8 @@ export class ReAsignMulNode extends Op {
         return new GraphvizNode('RE_ASIGN_MUL-', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }

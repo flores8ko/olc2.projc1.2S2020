@@ -60,4 +60,8 @@ export class FunctionCallNode extends Op{
     GetGraph(env: Envmnt): GraphvizNode {
         return new GraphvizNode('FUNCTION_CALL', [this.name.GetGraph(env), new GraphvizNode('ARGS', this.args.map(arg => arg.GetGraph(env)))]);
     }
+
+    GetTSGraph(): string {
+        return "";
+    }
 }

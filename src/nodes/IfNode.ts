@@ -4,6 +4,7 @@ import {BOOLEAN} from "../utils/PrimitiveTypoContainer";
 import {Reference} from "../utils/Reference";
 import {PassPropsAndFuncs, SemanticException} from "../utils/Utils";
 import {GraphvizNode} from "../utils/GraphvizNode";
+import {TSGraphControl} from "../utils/TSGraphControl";
 
 export class IfNode extends Op{
     private readonly condition: Op;
@@ -43,5 +44,44 @@ export class IfNode extends Op{
             new GraphvizNode('IF_BODY_TRUE', this.operationsTrue.map(sentence => sentence.GetGraph(env))),
             new GraphvizNode('IF_BODY_FALSE', this.operationsFalse.map(sentence => sentence.GetGraph(env)))
         ]);
+    }
+
+    GetTSGraph(): string {
+        let value = '';
+        const graphId = TSGraphControl.GetGraphId();
+        value += `subgraph cluster_${graphId} { \n`;
+        value += 'style=filled;\n' +
+            'color=black;\n' +
+            'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        value += this.condition.GetTSGraph();
+
+
+        value += `subgraph cluster_${TSGraphControl.GetGraphId()} { \n`;
+        value += 'style=filled;\n' +
+            'color=black;\n' +
+            'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        this.operationsTrue.forEach(sentence => {
+            value += sentence.GetTSGraph();
+        });
+        value += `label = "${"IF_SENTENCE_TRUE"}";\n`;
+        value += `}\n`;
+
+        value += `subgraph cluster_${TSGraphControl.GetGraphId()} { \n`;
+        value += 'style=filled;\n' +
+            'color=black;\n' +
+            'fillcolor="yellow";\n';
+        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        this.operationsFalse.forEach(sentence => {
+            value += sentence.GetTSGraph();
+        });
+        value += `label = "${"IF_SENTENCE_FALSE"}";\n`;
+        value += `}\n`;
+
+
+        value += `label = "${"IF_SENTENCE"}";\n`;
+        value += `}\n`;
+        return value;
     }
 }

@@ -22,4 +22,8 @@ export class SumNode extends Op {
         return new GraphvizNode('SUM', [this.lf.GetGraph(env), this.rt.GetGraph(env)]);
     }
 
+    GetTSGraph(): string {
+        return "";
+    }
+
 }
