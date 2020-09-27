@@ -43,9 +43,9 @@ export class UserDefined extends FunctionRepresent {
         const graphId = TSGraphControl.GetGraphId();
         value += `subgraph cluster_${graphId} { \n`;
         value += 'style=filled;\n' +
-            'color=black;\n' +
-            'fillcolor="yellow";\n';
-        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+            'color="#2BBBAD";\n' +
+            'fillcolor="#1E222A";\n';
+        value += 'node [color="#2BBBAD" fontcolor="#2BBBAD" shape="rectangle"] \n';
         this.params.forEach((v) => {
             value += `n${TSGraphControl.GetNodeId()} [label="${(v as DeclareFunParamNode).GetName()}"]\n`
         });

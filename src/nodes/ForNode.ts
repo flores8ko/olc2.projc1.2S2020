@@ -42,9 +42,9 @@ export class ForNode extends Op {
         const graphId = TSGraphControl.GetGraphId();
         value += `subgraph cluster_${graphId} { \n`;
         value += 'style=filled;\n' +
-            'color=black;\n' +
-            'fillcolor="yellow";\n';
-        value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+            'color="#2BBBAD";\n' +
+            'fillcolor="#1E222A";\n';
+        value += 'node [color="#2BBBAD" fontcolor="#2BBBAD" shape="rectangle"] \n';
         value += this.condition0.GetTSGraph();
         value += this.condition1.GetTSGraph();
         value += this.condition2.GetTSGraph();

@@ -46,12 +46,12 @@ export abstract class Cntnr {
         value += `subgraph cluster_${graphId} { \n`;
         value += 'style=filled;\n' +
                  'color=black;\n' +
-                 'fillcolor="yellow";\n';
+                 'fillcolor="#1E222";\n';
         value += 'node [fillcolor="yellow" shape="rectangle"] \n';
         this.props.forEach((v, k) => {
             value += `n${TSGraphControl.GetNodeId()} [label="${k}"]\n`
         });
-        value += `label = "${owner.toUpperCase()}";\n`;
+        value += `label = "${owner}";\n`;
         this.props.forEach((v, k) => {
             let vv = v;
             if (vv instanceof Reference) {

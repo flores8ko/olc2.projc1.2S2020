@@ -49,6 +49,6 @@ export class DeclareVarNode extends Op {
     }
 
     GetTSGraph(): string {
-        return `n${TSGraphControl.GetNodeId()} [label="${this.name.toUpperCase()}"]\n`;
+        return `n${TSGraphControl.GetNodeId()} [label="${this.name}"]\n`;
     }
 }

@@ -18,7 +18,7 @@ export class Graficar_ts extends Native{
             }
             ownerCntnr = ownerCntnr.GetOwner();
         }
-        let content = 'digraph G {bgcolor="cyan" gradientangle=0 rankdir=TB \n';
+        let content = 'digraph G {bgcolor="#2E3440" gradientangle=0 rankdir=TB fontcolor="#2BBBAD" \n';
         content +=     TSGraph2((ownerCntnr as Envmnt).GetSentences());
         content += '}\n\n';
         console.log(content);

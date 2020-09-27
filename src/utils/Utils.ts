@@ -80,10 +80,10 @@ export function TSGraph2(sentences: Array<Op>): string {
     let value = '';
     const graphId = TSGraphControl.GetGraphId();
     value += `subgraph cluster_${graphId} { \n`;
-    value += 'style=filled;\n' +
-        'color=black;\n' +
-        'fillcolor="yellow";\n';
-    value += 'node [fillcolor="yellow" shape="rectangle"] \n';
+        value += 'style=filled;\n' +
+            'color="#2BBBAD";\n' +
+            'fillcolor="#1E222A";\n';
+        value += 'node [color="#2BBBAD" fontcolor="#2BBBAD" shape="rectangle"] \n';
     sentences.forEach(sentence => {
         value += sentence.GetTSGraph();
     });
