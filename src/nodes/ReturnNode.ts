@@ -22,7 +22,7 @@ export class ReturnNode extends Op{
     }
 
     GetGraph(env: Envmnt): GraphvizNode {
-        return new GraphvizNode('RETURN', [this.value.GetGraph(env)]);
+        return new GraphvizNode('RETURN', this.value ? [this.value.GetGraph(env)]: []);
     }
 
     GetTSGraph(): string {

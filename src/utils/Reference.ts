@@ -34,6 +34,9 @@ export class Reference extends Cntnr {
         } else {
             v = value;
         }
+        if (v === undefined) {
+            v = new UNDEFINED();
+        }
         if(this.tipoNombre !== v.typo
             && this.tipoNombre !== 'ANY'
             && v.typo !== 'NULL'
@@ -41,7 +44,7 @@ export class Reference extends Cntnr {
             && v.typo !== 'OBJECT'
             || (IsPrimitiveTypo(this.tipoNombre) && v.typo === 'OBJECT' && this.tipoNombre != "ANY")
         ){
-            throw new SemanticException(`Tipo ${v.typo} no puede ser asignado a Variable de tipo ${this.tipoNombre}`)
+            throw new SemanticException(`Tipo ${v.typo} no puede ser asignado a Variable de tipo ${this.tipoNombre}`);
         }
         this.value = v;
     }

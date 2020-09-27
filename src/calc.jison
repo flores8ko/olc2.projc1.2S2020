@@ -32,7 +32,7 @@ JavaStringLiteral               ('"' {StringCharacters}? '"') | ('\'' {StringCha
 'string'              return 'STRING_TYPE';
 'boolean'             return 'BOOLEAN_TYPE';
 'any'                 return 'ANY_TYPE';
-'array'               return 'ARRAY_TYPE';
+//'Array'               return 'ARRAY_TYPE';
 'void'                return 'VOID_TYPE';
 
 "const"               return 'CONST';
@@ -177,7 +177,7 @@ varType
     | ANY_TYPE { $$ = $1; }
     | VOID_TYPE { $$ = $1; }
     | IDENTIFIER { $$ = $1; }
-    | ARRAY_TYPE '<' varType '>' { $$ = $1; }
+ //   | ARRAY_TYPE '<' varType '>' { $$ = $1; }
     ;
 
 corchetes

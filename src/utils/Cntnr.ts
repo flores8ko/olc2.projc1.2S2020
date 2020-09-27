@@ -24,12 +24,12 @@ export abstract class Cntnr {
     }
 
     public AddProperty(id: string, cntnr: Cntnr): void {
-        id = id.toUpperCase();
+        //id = id.toUpperCase();
         this.props.set(id, cntnr);
     }
 
     public GetProperty(id: string): Cntnr {
-        id = id.toUpperCase();
+       // id = id.toUpperCase();
         const val = this.props.get(id);
         if (val !== null && val !== undefined) {
             return val;
@@ -64,7 +64,7 @@ export abstract class Cntnr {
     }
 
     public Declare(id: string, cntnr: Cntnr): void {
-        id = id.toUpperCase();
+        //id = id.toUpperCase();
         this.props.set(id, cntnr);
     }
 

@@ -152,14 +152,14 @@ export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof NULL:
                         return new BOOLEAN(false);
                     default:
-                        throw new BOOLEAN(true);
+                        return new BOOLEAN(true);
                 }
             case lf instanceof NAN:
                 switch (true) {
                     case rt instanceof NAN:
                         return new BOOLEAN(false);
                     default:
-                        throw new BOOLEAN(true);
+                        return new BOOLEAN(true);
                 }
             case lf instanceof OBJECT:
                 return new BOOLEAN(true);
@@ -178,7 +178,7 @@ export function Mayor(lf: Cntnr, rt: Cntnr): Cntnr {
     try {
         return May(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} > ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} > ${rt.typo} ) dddno permitida.`)
     }
 
     function May(lf: any, rt: any): Cntnr {
@@ -192,7 +192,7 @@ export function Mayor(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof NAN:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof BOOLEAN:
                 switch (true) {
@@ -201,24 +201,24 @@ export function Mayor(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() > (rt as BOOLEAN).getValueNumber());
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof STRING:
                 switch (true) {
                     case rt instanceof STRING:
                         return new BOOLEAN((lf as STRING).getValue() > (rt as STRING).getValue());
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof NAN:
                 switch (true) {
                     case rt instanceof NUMBER:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             default:
-                throw new Error();
+                return new BOOLEAN(false);
         }
     }
 }
@@ -230,7 +230,7 @@ export function Menor(lf: Cntnr, rt: Cntnr): Cntnr {
     try {
         return Min(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} < ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} < ${rt.typo} ) ndadfao permitida.`)
     }
 
     function Min(lf: any, rt: any): Cntnr {
@@ -244,7 +244,7 @@ export function Menor(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof NAN:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return  new BOOLEAN(false);
                 }
             case lf instanceof BOOLEAN:
                 switch (true) {
@@ -253,24 +253,24 @@ export function Menor(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() < (rt as BOOLEAN).getValueNumber());
                     default:
-                        throw new Error();
+                        return  new BOOLEAN(false);
                 }
             case lf instanceof STRING:
                 switch (true) {
                     case rt instanceof STRING:
                         return new BOOLEAN((lf as STRING).getValue() < (rt as STRING).getValue());
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof NAN:
                 switch (true) {
                     case rt instanceof NUMBER:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             default:
-                throw new Error();
+                return new BOOLEAN(false);
         }
     }
 }
@@ -296,7 +296,7 @@ export function MayorEq(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof NAN:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof BOOLEAN:
                 switch (true) {
@@ -305,24 +305,24 @@ export function MayorEq(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() >= (rt as BOOLEAN).getValueNumber());
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof STRING:
                 switch (true) {
                     case rt instanceof STRING:
                         return new BOOLEAN((lf as STRING).getValue() >= (rt as STRING).getValue());
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof NAN:
                 switch (true) {
                     case rt instanceof NUMBER:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             default:
-                throw new Error();
+                return new BOOLEAN(false);
         }
     }
 }
@@ -348,7 +348,7 @@ export function MenorEq(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof NAN:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof BOOLEAN:
                 switch (true) {
@@ -357,24 +357,24 @@ export function MenorEq(lf: Cntnr, rt: Cntnr): Cntnr {
                     case rt instanceof BOOLEAN:
                         return new BOOLEAN((lf as BOOLEAN).getValueNumber() <= (rt as BOOLEAN).getValueNumber());
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof STRING:
                 switch (true) {
                     case rt instanceof STRING:
                         return new BOOLEAN((lf as STRING).getValue() <= (rt as STRING).getValue());
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             case lf instanceof NAN:
                 switch (true) {
                     case rt instanceof NUMBER:
                         return new BOOLEAN(false);
                     default:
-                        throw new Error();
+                        return new BOOLEAN(false);
                 }
             default:
-                throw new Error();
+                return new BOOLEAN(false);
         }
     }
 }

@@ -60,6 +60,8 @@ import {DeclareFunNode} from "./nodes/DeclareFunNode";
 import {DeclareFunParamNode} from "./nodes/DeclareFunParamNode";
 import {ReturnNode} from "./nodes/ReturnNode";
 import {FunctionCallNode} from "./nodes/FunctionCallNode";
+import {TSGraphControl} from "./utils/TSGraphControl";
+import {NodesControl} from "./utils/NodesControl";
 
 export {
     Console,
@@ -149,14 +151,14 @@ export {
 
 export function ExecuteAST(sentences: Array<Op>) {
     Console.log = '';
+    NodesControl.clearStructures();
+    TSGraphControl.clearStructures();
     ObjectsStructures.objects = new Map<string, ObjectStructure>();
     const env = new Envmnt(null, sentences);
     env.GO_ALL();
-    let content = 'digraph G {bgcolor="cyan" gradientangle=0 rankdir=TB \n';
-    content += TSGraph2(sentences);
-    content += '}'
-    const win = window.open('./graph.html#' + content, '_blank');
-    win.focus();
+    const win = window.open('./graph.html#' + TSGraphControl.GetGetGraphsString(), '_blank');
+    if(win !== null)
+        win.focus();
 }
 
 export function GraphAST(sentences: Array<Op>): string {

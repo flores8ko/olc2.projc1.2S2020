@@ -9,7 +9,6 @@ export class StringNode extends Op{
     constructor(val: string) {
         super();
         this.val = val.replace(/\\n/g, "&#13;&#10;       ").replace(/\\t/g, "&#9;");
-        console.log(this.val);
     }
 
     GO(env: Envmnt) {

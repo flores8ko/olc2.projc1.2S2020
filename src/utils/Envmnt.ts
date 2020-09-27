@@ -6,6 +6,7 @@ import {ContinueObj} from "../nodes/ContinueObj";
 import {DeclareFunNode} from "../nodes/DeclareFunNode";
 import {DeclareTypeStructureNode} from "../nodes/DeclareTypeStructureNode";
 import {GraphvizNode} from "./GraphvizNode";
+import {Graficar_ts} from "./nativeFunctions/graficar_ts";
 
 export class Envmnt extends Cntnr {
     public readonly Extra = new Map<string, any>();
@@ -15,6 +16,7 @@ export class Envmnt extends Cntnr {
         super(owner);
         this.operations = operations;
         this.typo = "Ambito";
+        this.Declare("graficar_ts", new Graficar_ts());
     }
 
     public GO_ALL(): Cntnr {
@@ -45,5 +47,9 @@ export class Envmnt extends Cntnr {
     public GetGraph(): GraphvizNode {
         console.log('aver');
         return new GraphvizNode('ROOT', this.operations.map(operation => operation.GetGraph(this)));
+    }
+
+    public GetSentences(): Array<Op> {
+        return this.operations;
     }
 }
