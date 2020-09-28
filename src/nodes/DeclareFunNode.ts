@@ -4,7 +4,6 @@ import {UserDefined} from "../utils/functions/UserDefined";
 import {Reference} from "../utils/Reference";
 import {GraphvizNode} from "../utils/GraphvizNode";
 import {TSGraphControl} from "../utils/TSGraphControl";
-import {DeclareFunParamNode} from "./DeclareFunParamNode";
 
 export class DeclareFunNode extends Op{
     private readonly name: string;
@@ -12,8 +11,8 @@ export class DeclareFunNode extends Op{
     private readonly sentences: Array<Op>;
     private readonly type: string;
 
-    constructor(name: string, params: Array<Op>, sentences: Array<Op>, type = 'ANY') {
-        super();
+    constructor(position: any, name: string, params: Array<Op>, sentences: Array<Op>, type = 'ANY') {
+        super(position);
         this.name = name;
         this.params = params;
         this.sentences = sentences;

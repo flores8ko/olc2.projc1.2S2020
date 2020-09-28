@@ -10,8 +10,8 @@ export class CreateArrVarNode extends Op {
     private readonly id: Op;
     private readonly index: Op;
 
-    constructor(id: Op, index: Op) {
-        super();
+    constructor(position: any, id: Op, index: Op) {
+        super(position);
         this.id = id;
         this.index = index;
     }
@@ -30,13 +30,13 @@ export class CreateArrVarNode extends Op {
         if (index instanceof STRING) {
             const val = parseInt((index as STRING).getValue());
             if (isNaN(val)) {
-                throw new SemanticException("El indice para accesar debe ser de tipo NUMBER");
+                throw new SemanticException("El indice para accesar debe ser de tipo NUMBER", this.position);
             }
             index = new NUMBER(val);
         }
 
         if (!(index instanceof NUMBER)) {
-            throw new SemanticException("El indice para accesar debe ser de tipo NUMBER");
+            throw new SemanticException("El indice para accesar debe ser de tipo NUMBER", this.position);
         }
 
         let ref = idRef instanceof Reference ? (idRef as Reference).getValue() : idRef;

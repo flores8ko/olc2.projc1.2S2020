@@ -3,7 +3,6 @@ import {Envmnt} from "../utils/Envmnt";
 import {Cntnr} from "../utils/Cntnr";
 import {Reference} from "../utils/Reference";
 import {SemanticException} from "../utils/Utils";
-import {Native} from "../utils/functions/Native";
 import {FunctionRepresent} from "../utils/functions/FunctionRepresent";
 import {ReturnObj} from "./ReturnObj";
 import {GraphvizNode} from "../utils/GraphvizNode";
@@ -12,8 +11,8 @@ export class CreateObjVarNode extends Op{
     private readonly id: Op;
     private readonly attr: string;
 
-    constructor(id: Op, attr: string) {
-        super();
+    constructor(position: any, id: Op, attr: string) {
+        super(position);
         this.id = id;
         this.attr = attr;
     }
@@ -21,7 +20,7 @@ export class CreateObjVarNode extends Op{
     GO(env: Envmnt): object {
         let id = this.id.Exe(env) as Cntnr;
         if (!(id instanceof Reference)) {
-            throw new SemanticException("Llamada a Objeto no definido");
+            throw new SemanticException("Llamada a Objeto no definido", this.position);
         }
 
         let ref = (id as Reference).getValue();

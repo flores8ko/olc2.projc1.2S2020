@@ -7,8 +7,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class ConsoleLogNode extends Op{
     private expression: Array<Op>;
 
-    constructor(expression: Array<Op>) {
-        super();
+    constructor(position: any, expression: Array<Op>) {
+        super(position);
         this.expression = expression;
     }
 

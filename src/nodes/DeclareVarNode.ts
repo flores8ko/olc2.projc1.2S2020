@@ -13,8 +13,8 @@ export class DeclareVarNode extends Op {
     private isConst: boolean;
     private tipoNombre: string;
 
-    constructor(name: string, value: Op = null) {
-        super();
+    constructor(position: any, name: string, value: Op = null) {
+        super(position);
         this.name = name;
         this.valueOp = value;
     }

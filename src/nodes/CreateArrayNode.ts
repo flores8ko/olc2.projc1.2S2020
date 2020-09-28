@@ -8,8 +8,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class CreateArrayNode extends Op{
     private readonly vals: Array<Op>;
 
-    constructor(vals: Array<Op>) {
-        super();
+    constructor(position: any, vals: Array<Op>) {
+        super(position);
         this.vals = vals;
     }
 

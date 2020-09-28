@@ -7,16 +7,19 @@ import {BreakObj} from "../nodes/BreakObj";
 import {ReturnObj} from "../nodes/ReturnObj";
 import {ContinueObj} from "../nodes/ContinueObj";
 import {TSGraphControl} from "./TSGraphControl";
+import {ErrorsControl, Position} from "./ErrorsControl";
 
 export class SemanticException extends Error {
-    constructor(message?: string) {
+    constructor(message?: string, position: Position = new Position()) {
         super(message);
+        ErrorsControl.AddError(position.first_line, position.first_column, '', message, 'SEMANTIC');
     }
 }
 
 export class ErrorCompo extends Error {
-    constructor(message?: string) {
+    constructor(message?: string, position: Position = new Position()) {
         super(message);
+        ErrorsControl.AddError(position.first_line, position.first_column, '', message, 'SEMANTIC');
     }
 }
 

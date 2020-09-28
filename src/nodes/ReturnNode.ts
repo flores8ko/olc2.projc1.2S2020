@@ -8,8 +8,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class ReturnNode extends Op{
     private readonly value: Op;
 
-    constructor(value: Op) {
-        super();
+    constructor(position: any, value: Op) {
+        super(position);
         this.value = value;
     }
 

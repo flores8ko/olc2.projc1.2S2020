@@ -6,8 +6,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class NumberNode extends Op{
     private readonly val: number;
 
-    constructor(val: number) {
-        super();
+    constructor(position: any, val: number) {
+        super(position);
         this.val = val;
     }
 

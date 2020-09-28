@@ -6,8 +6,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class BooleanNode extends Op{
     private readonly val: boolean;
 
-    constructor(val: boolean) {
-        super();
+    constructor(position: any, val: boolean) {
+        super(position);
         this.val = val;
     }
 

@@ -3,8 +3,6 @@ import {Envmnt} from "../utils/Envmnt";
 import {LogicWhile} from "../utils/Utils";
 import {GraphvizNode} from "../utils/GraphvizNode";
 import {TSGraphControl} from "../utils/TSGraphControl";
-import {DeclareFunParamNode} from "./DeclareFunParamNode";
-import {Reference} from "../utils/Reference";
 
 export class ForNode extends Op {
     private readonly condition0: Op;
@@ -12,9 +10,8 @@ export class ForNode extends Op {
     private readonly condition2: Op;
 
     private readonly sentences: Array<Op>;
-
-    constructor(condition0: Op, condition1: Op, condition2: Op, sentences: Array<Op>) {
-        super();
+    constructor(position: any, condition0: Op, condition1: Op, condition2: Op, sentences: Array<Op>) {
+        super(position);
         this.condition0 = condition0;
         this.condition1 = condition1;
         this.condition2 = condition2;

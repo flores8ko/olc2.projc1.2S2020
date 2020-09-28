@@ -12,8 +12,8 @@ export class ForInNode extends Op {
     private readonly array: Op;
     private readonly sentences: Array<Op>;
 
-    constructor(controlVar: string, newControlVar: boolean, array: Op, sentences: Array<Op>) {
-        super();
+    constructor(position: any, controlVar: string, newControlVar: boolean, array: Op, sentences: Array<Op>) {
+        super(position);
         this.controlVar = controlVar;
         this.newControlVar = newControlVar;
         this.array = array;
@@ -26,7 +26,7 @@ export class ForInNode extends Op {
             array = (array as Reference).getValue();
         }
         if (!(array instanceof ARRAY)) {
-            throw new SemanticException("Se esperaba una referencia a un arreglo en ciclo For In");
+            throw new SemanticException("Se esperaba una referencia a un arreglo en ciclo For In", this.position);
         }
 
         const env0 = new Envmnt(env, this.sentences);

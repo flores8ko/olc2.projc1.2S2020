@@ -11,8 +11,8 @@ export class CreateObjFunNode extends Op{
     private readonly funId: string;
     private readonly args: Array<Op>;
 
-    constructor(object: Op, funId: string, args: Array<Op>) {
-        super();
+    constructor(position: any, object: Op, funId: string, args: Array<Op>) {
+        super(position);
         this.object = object;
         this.funId = funId;
         this.args = args;

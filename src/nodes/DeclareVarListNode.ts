@@ -11,8 +11,8 @@ export class DeclareVarListNode extends Op {
     private readonly declarationOps: Array<Op>;
     private readonly isConst: boolean;
 
-    constructor(tipoNombre: string, declarationOps: Array<Op>, value?: Op, isConst: boolean = false) {
-        super();
+    constructor(position: any, tipoNombre: string, declarationOps: Array<Op>, value?: Op, isConst: boolean = false) {
+        super(position);
         this.tipoNombre = tipoNombre;
         this.declarationOps = declarationOps;
         this.value = value || null;

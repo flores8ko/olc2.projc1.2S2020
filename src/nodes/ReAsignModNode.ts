@@ -10,8 +10,8 @@ export class ReAsignModNode extends Op {
     private readonly lf: Op;
     private readonly rt: Op;
 
-    constructor(lf: Op, rt: Op) {
-        super();
+    constructor(position: any, lf: Op, rt: Op) {
+        super(position);
         this.lf = lf;
         this.rt = rt;
     }
@@ -21,7 +21,7 @@ export class ReAsignModNode extends Op {
         const rt = this.rt.Exe(env);
 
         if (!(lf instanceof Reference)) {
-            throw new SemanticException(`No se puede asiganr a ${lf}, las asignaciones solo pueden ser sobre una referencia`);
+            throw new SemanticException(`No se puede asiganr a ${lf}, las asignaciones solo pueden ser sobre una referencia`, this.position);
         }
 
         (lf as Reference).PutValueOnReference(

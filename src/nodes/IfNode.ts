@@ -11,8 +11,8 @@ export class IfNode extends Op{
     private readonly operationsTrue: Array<Op>;
     private readonly operationsFalse: Array<Op>;
 
-    constructor(condition: Op, operationsTrue: Array<Op>, operationsFalse: Array<Op>) {
-        super();
+    constructor(position: any, condition: Op, operationsTrue: Array<Op>, operationsFalse: Array<Op>) {
+        super(position);
         this.condition = condition;
         this.operationsTrue = operationsTrue;
         this.operationsFalse = operationsFalse;
@@ -24,7 +24,7 @@ export class IfNode extends Op{
             condition = (condition as Reference).getValue();
         }
         if(!(condition instanceof BOOLEAN)){
-            throw new SemanticException("Condicion utilizada como parametro no soportada por sentencia If");
+            throw new SemanticException("Condicion utilizada como parametro no soportada por sentencia If", this.position);
         }
 
         if (condition.getValue()) {

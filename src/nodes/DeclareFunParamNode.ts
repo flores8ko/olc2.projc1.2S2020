@@ -9,8 +9,8 @@ export class DeclareFunParamNode extends Op{
     private readonly name: string;
     private readonly type: string;
 
-    constructor(name: string, type = 'ANY') {
-        super();
+    constructor(position: any, name: string, type = 'ANY') {
+        super(position);
         this.name = name;
         this.type = type.toUpperCase();
     }

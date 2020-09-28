@@ -7,8 +7,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class NotNode extends Op {
     private readonly lf: Op;
 
-    constructor(lf: Op, rt: Op) {
-        super();
+    constructor(position: any, lf: Op, rt: Op) {
+        super(position);
         this.lf = lf;
     }
 

@@ -6,8 +6,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class StringNode extends Op{
     private readonly val: string;
 
-    constructor(val: string) {
-        super();
+    constructor(position: any, val: string) {
+        super(position);
         this.val = val.replace(/\\n/g, "&#13;&#10;       ").replace(/\\t/g, "&#9;");
     }
 

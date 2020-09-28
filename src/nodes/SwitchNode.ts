@@ -15,8 +15,8 @@ export class SwitchNode extends Op {
     private readonly condition: Op;
     private readonly cases: Array<CaseNode>;
 
-    constructor(condition: Op, cases: Array<CaseNode>) {
-        super();
+    constructor(position: any, condition: Op, cases: Array<CaseNode>) {
+        super(position);
         this.condition = condition;
         this.cases = cases;
     }
@@ -34,7 +34,7 @@ export class SwitchNode extends Op {
         }
 
         if (defaultCount > 1) {
-            throw new SemanticException("No pueden exisistir mas de una sentencia 'default' dentro de un ciclo switch");
+            throw new SemanticException("No pueden exisistir mas de una sentencia 'default' dentro de un ciclo switch", this.position);
         }
 
         for (let Case of this.cases) {

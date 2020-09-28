@@ -155,18 +155,18 @@ sentence
     ;
 
 returnSentence
-    : 'return' { $$ = new ast.ReturnNode(null); }
-    | 'return' e { $$ = new ast.ReturnNode($2); }
+    : 'return' { $$ = new ast.ReturnNode(@1, null); }
+    | 'return' e { $$ = new ast.ReturnNode(@2, $2); }
     ;
 
 increment
-    : e '+=' e { $$ = new ast.ReAsignAddNode($1, $3); }
-    | e '-=' e { $$ = new ast.ReAsignSubNode($1, $3); }
-    | e '*=' e { $$ = new ast.ReAsignMulNode($1, $3); }
-    | e '/=' e { $$ = new ast.ReAsignDivNode($1, $3); }
-    | e '%=' e { $$ = new ast.ReAsignModNode($1, $3); }
-    | e '++' { $$ = new ast.ReAddNode($1); }
-    | e '--' { $$ = new ast.ReSubNode($1); }
+    : e '+=' e { $$ = new ast.ReAsignAddNode(@2, $1, $3); }
+    | e '-=' e { $$ = new ast.ReAsignSubNode(@2, $1, $3); }
+    | e '*=' e { $$ = new ast.ReAsignMulNode(@2, $1, $3); }
+    | e '/=' e { $$ = new ast.ReAsignDivNode(@2, $1, $3); }
+    | e '%=' e { $$ = new ast.ReAsignModNode(@2, $1, $3); }
+    | e '++' { $$ = new ast.ReAddNode(@1, $1); }
+    | e '--' { $$ = new ast.ReSubNode(@1, $1); }
     ;
 
 
@@ -186,7 +186,7 @@ corchetes
     ;
 
 typeDeclaration
-    : TYPE IDENTIFIER '=' '{' typeDeclarationProps '}' { $$ = new ast.DeclareTypeStructureNode($2, $5); }
+    : TYPE IDENTIFIER '=' '{' typeDeclarationProps '}' { $$ = new ast.DeclareTypeStructureNode(@1, $2, $5); }
     ;
 
 typeDeclarationProps
@@ -204,31 +204,31 @@ typeDeclarationPropsT
     ;
 
 letDeclarations
-    : LET idList ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, $2, $6); }
-    | LET idList ':' varType { $$ = new ast.DeclareVarListNode($4, $2);  }
-    | LET idList '=' e { $$ = new ast.DeclareVarListNode("", $2, $4); }
-    | LET idList {$$ = new ast.DeclareVarListNode("", $2); }
-    | CONST IDENTIFIER ':' varType '=' e {$$ = new ast.DeclareVarListNode($4, [new ast.DeclareVarNode($2)], $6, true); }
-    | CONST IDENTIFIER '=' e { $$ = new ast.DeclareVarListNode("", [new ast.DeclareVarNode($2)], $4, true); }
-    | LET idList ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode('ARRAY', $2, $7); }
-    | LET idList ':' varType corchetes { $$ = new ast.DeclareVarListNode('ARRAY', $2);  }
-    | CONST IDENTIFIER ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode('ARRAY', [new ast.DeclareVarNode($2)], $7, true); }
-    | CONST IDENTIFIER corchetes '=' e { $$ = new ast.DeclareVarListNode("ARRAY", [new ast.DeclareVarNode($2)], $5, true); }
+    : LET idList ':' varType '=' e {$$ = new ast.DeclareVarListNode(@1, $4, $2, $6); }
+    | LET idList ':' varType { $$ = new ast.DeclareVarListNode(@1, $4, $2);  }
+    | LET idList '=' e { $$ = new ast.DeclareVarListNode(@1, "", $2, $4); }
+    | LET idList {$$ = new ast.DeclareVarListNode(@1, "", $2); }
+    | CONST IDENTIFIER ':' varType '=' e {$$ = new ast.DeclareVarListNode(@1, $4, [new ast.DeclareVarNode(@1, $2)], $6, true); }
+    | CONST IDENTIFIER '=' e { $$ = new ast.DeclareVarListNode(@1, "", [new ast.DeclareVarNode(@1, $2)], $4, true); }
+    | LET idList ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode(@1, 'ARRAY', $2, $7); }
+    | LET idList ':' varType corchetes { $$ = new ast.DeclareVarListNode(@1, 'ARRAY', $2);  }
+    | CONST IDENTIFIER ':' varType corchetes '=' e {$$ = new ast.DeclareVarListNode(@1, 'ARRAY', [new ast.DeclareVarNode(@1, $2)], $7, true); }
+    | CONST IDENTIFIER corchetes '=' e { $$ = new ast.DeclareVarListNode(@1, "ARRAY", [new ast.DeclareVarNode(@1, $2)], $5, true); }
     ;
 
 idList
-    : idList ',' IDENTIFIER { $1.push(new ast.DeclareVarNode($3)); $$ = $1; }
-    | idList ',' IDENTIFIER '=' e { $1.push(new ast.DeclareVarNode($3, $5)); $$ = $1; }
-    | IDENTIFIER { $$ = [new ast.DeclareVarNode($1)] }
-    | IDENTIFIER '=' e { $$ = [new ast.DeclareVarNode($1, $3)] }
+    : idList ',' IDENTIFIER { $1.push(new ast.DeclareVarNode(@3, $3)); $$ = $1; }
+    | idList ',' IDENTIFIER '=' e { $1.push(new ast.DeclareVarNode(@3, $3, $5)); $$ = $1; }
+    | IDENTIFIER { $$ = [new ast.DeclareVarNode(@1, $1)] }
+    | IDENTIFIER '=' e { $$ = [new ast.DeclareVarNode(@1, $1, $3)] }
     ;
 
 asigna
-    : e '=' e { $$ = new ast.AsignNode($1, $3); }
+    : e '=' e { $$ = new ast.AsignNode(@1, $1, $3); }
     ;
 
 consoleLog
-    : 'console.log' '(' eList ')' { $$ = new ast.ConsoleLogNode($3); }
+    : 'console.log' '(' eList ')' { $$ = new ast.ConsoleLogNode(@1, $3); }
     ;
 
 breakControl
@@ -240,18 +240,18 @@ continueControl
     ;
 
 whileControl
-    : 'while' '(' e ')' ifBody { $$ = new ast.WhileNode($3, $5); }
+    : 'while' '(' e ')' ifBody { $$ = new ast.WhileNode(@1, $3, $5); }
     ;
 
 doWhileControl
-    : 'do' ifBody 'while' '(' e ')' { $$ = new ast.DoWhileNode($5, $2); }
-    | 'do' ifBody 'while' '(' e ')' ';' { $$ = new ast.DoWhileNode($5, $2); }
+    : 'do' ifBody 'while' '(' e ')' { $$ = new ast.DoWhileNode(@1, $5, $2); }
+    | 'do' ifBody 'while' '(' e ')' ';' { $$ = new ast.DoWhileNode(@1, $5, $2); }
     ;
 
 ifControl
-    : 'if' '(' e ')' ifBody { $$ = new ast.IfNode($3, $5, []); }
-    | 'if' '(' e ')' ifBody 'else' ifBody { $$ = new ast.IfNode($3, $5, $7); }
-    | 'if' '(' e ')' ifBody 'else' ifControl { $$ = new ast.IfNode($3, $5, [$7]); }
+    : 'if' '(' e ')' ifBody { $$ = new ast.IfNode(@1, $3, $5, []); }
+    | 'if' '(' e ')' ifBody 'else' ifBody { $$ = new ast.IfNode(@1, $3, $5, $7); }
+    | 'if' '(' e ')' ifBody 'else' ifControl { $$ = new ast.IfNode(@1, $3, $5, [$7]); }
     ;
 
 ifBody
@@ -267,17 +267,17 @@ forControl
     ;
 
 forInControl
-    : 'for' '(' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode($3, false, $5, $7); }
-    | 'for' '(' 'LET' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode($4, true, $6, $8); }
+    : 'for' '(' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode(@1, $3, false, $5, $7); }
+    | 'for' '(' 'LET' IDENTIFIER 'in' e ')' ifBody { $$ = new ast.ForInNode(@1, $4, true, $6, $8); }
     ;
 
 forOfControl
-    : 'for' '(' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($3, false, $5, $7); }
-    | 'for' '(' 'LET' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode($4, true, $6, $8); }
+    : 'for' '(' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode(@1, $3, false, $5, $7); }
+    | 'for' '(' 'LET' IDENTIFIER 'of' e ')' ifBody { $$ = new ast.ForOfNode(@1, $4, true, $6, $8); }
     ;
 
 forZControl
-    : 'for' '(' forDeclare ';' e ';' forOperator ')' ifBody { $$ = new ast.ForNode($3, $5, $7, $9); }
+    : 'for' '(' forDeclare ';' e ';' forOperator ')' ifBody { $$ = new ast.ForNode(@1, $3, $5, $7, $9); }
     ;
 
 forDeclare
@@ -291,7 +291,7 @@ forOperator
     ;
 
 switchControl
-    : 'switch' '(' e ')' '{' casesControl '}' { $$ = new ast.SwitchNode($3, $6); }
+    : 'switch' '(' e ')' '{' casesControl '}' { $$ = new ast.SwitchNode(@1, $3, $6); }
     ;
 
 casesControl
@@ -300,81 +300,81 @@ casesControl
     ;
 
 caseControl
-    : 'case' e ':' sentences { $$ = new ast.CaseNode($2, $4); }
-    | 'default' ':' sentences { $$ = new ast.CaseNode(null, $3); }
-    | 'case' e ':' { $$ = new ast.CaseNode($2, []); }
-    | 'default' ':' { $$ = new ast.CaseNode(null, []); }
+    : 'case' e ':' sentences { $$ = new ast.CaseNode(@1, $2, $4); }
+    | 'default' ':' sentences { $$ = new ast.CaseNode(@1, null, $3); }
+    | 'case' e ':' { $$ = new ast.CaseNode(@1, $2, []); }
+    | 'default' ':' { $$ = new ast.CaseNode(@1, null, []); }
     ;
 
 e
     : e '+' e
-        {$$ = new ast.SumNode($1,$3);}
+        {$$ = new ast.SumNode(@2, $1,$3);}
     | e '-' e
-        {$$ = new ast.SubNode($1, $3);}
+        {$$ = new ast.SubNode(@2, $1, $3);}
     | e '**' e
-        {$$ = new ast.ExpNode($1, $3);}
+        {$$ = new ast.ExpNode(@2, $1, $3);}
     | e '*' e
-        {$$ = new ast.MulNode($1,$3);}
+        {$$ = new ast.MulNode(@2, $1,$3);}
     | e '/' e
-        {$$ = new ast.DivNode($1,$3);}
+        {$$ = new ast.DivNode(@2, $1,$3);}
     | e '%' e
-        {$$ = new ast.ModNode($1,$3);}
+        {$$ = new ast.ModNode(@2, $1,$3);}
     | e '==' e
-        {$$ = new ast.EqNode($1, $3);}
+        {$$ = new ast.EqNode(@2, $1, $3);}
     | e '!=' e
-        {$$ = new ast.DifNode($1, $3);}
+        {$$ = new ast.DifNode(@2, $1, $3);}
     | e '>' e
-        {$$ = new ast.HigherNode($1, $3);}
+        {$$ = new ast.HigherNode(@2, $1, $3);}
     | e '>=' e
-        {$$ = new ast.HigherEqNode($1, $3);}
+        {$$ = new ast.HigherEqNode(@2, $1, $3);}
     | e '<=' e
-        {$$ = new ast.MinorEqNode($1, $3);}
+        {$$ = new ast.MinorEqNode(@2, $1, $3);}
     | e '<' e
-        {$$ = new ast.MinorNode($1, $3);}
+        {$$ = new ast.MinorNode(@2, $1, $3);}
     | e '||' e
-        {$$ = new ast.OrNode($1, $3);}
+        {$$ = new ast.OrNode(@2, $1, $3);}
     | e '&&' e
-        {$$ = new ast.AndNode($1, $3);}
+        {$$ = new ast.AndNode(@2, $1, $3);}
     | '!' e
-        {$$ = new ast.NotNode($2);}
+        {$$ = new ast.NotNode(@2, $2);}
     | '(' e ')'
         {$$ = $2;}
     | '[' ']'
-        { $$ = new ast.CreateArrayNode([]); }
+        { $$ = new ast.CreateArrayNode(@1, []); }
     | '[' eList ']'
-        { $$ = new ast.CreateArrayNode($2); }
+        { $$ = new ast.CreateArrayNode(@2, $2); }
     | e '[' e ']'
-        { $$ = new ast.CreateArrVarNode($1, $3); }
+        { $$ = new ast.CreateArrVarNode(@1, $1, $3); }
     | '{' newObject '}'
-        { $$ = new ast.CreateObjNode($2.getMap()); }
+        { $$ = new ast.CreateObjNode(@2, $2.getMap()); }
     | e '?' e ':' e
-        { $$ = new ast.SentenceTernaryNode($1, $3, $5); }
+        { $$ = new ast.SentenceTernaryNode(@1, $1, $3, $5); }
     | e '.' IDENTIFIER '(' ')'
-        { $$ = new ast.CreateObjFunNode($1, $3, []); }
+        { $$ = new ast.CreateObjFunNode(@1, $1, $3, []); }
     | e '.' IDENTIFIER '(' eList ')'
-        { $$ = new ast.CreateObjFunNode($1, $3, $5); }
+        { $$ = new ast.CreateObjFunNode(@1, $1, $3, $5); }
     | e '.' IDENTIFIER
-        { $$ = new ast.CreateObjVarNode($1, $3); }
+        { $$ = new ast.CreateObjVarNode(@1, $1, $3); }
     | functionCall
         { $$ = $1; }
     | '-' e %prec UMINUS
-        {$$ = new ast.MulNode($2, new ast.NumberNode(-1));}
+        {$$ = new ast.MulNode(@2, $2, new ast.NumberNode(-1));}
     | increment
         { $$ = $1 }
     | NUMBER
-        {$$ = new ast.NumberNode(Number(yytext));}
+        {$$ = new ast.NumberNode(@1, Number(yytext));}
     | STRING
-        {$$ = new ast.StringNode(yytext); }
+        {$$ = new ast.StringNode(@1, yytext); }
     | NULL
         { $$ = new ast.NullNode(); }
     | UNDEFINED
         { $$ = new ast.UndefinedNode(); }
     | FALSE
-        {$$ = new ast.BooleanNode(false);}
+        {$$ = new ast.BooleanNode(@1, false);}
     | TRUE
-        {$$ = new ast.BooleanNode(true);}
+        {$$ = new ast.BooleanNode(@1, true);}
     | IDENTIFIER
-        { $$ = new ast.CreateIdVarNode($1); }
+        { $$ = new ast.CreateIdVarNode(@1, $1); }
     ;
 
 eList
@@ -397,13 +397,13 @@ newObject
 
 newFunction
     : 'function' IDENTIFIER '(' ')' '{' sentences '}'
-        { $$ = new ast.DeclareFunNode($2, [], $6); }
+        { $$ = new ast.DeclareFunNode(@2, $2, [], $6); }
     | 'function' IDENTIFIER '(' newFunctionParams ')' '{' sentences '}'
-        { $$ = new ast.DeclareFunNode($2, $4, $7); }
+        { $$ = new ast.DeclareFunNode(@2, $2, $4, $7); }
     | 'function' IDENTIFIER '(' ')' ':' varType '{' sentences '}'
-        { $$ = new ast.DeclareFunNode($2, [], $8, $6); }
+        { $$ = new ast.DeclareFunNode(@2, $2, [], $8, $6); }
     | 'function' IDENTIFIER '(' newFunctionParams ')' ':' varType '{' sentences '}'
-        { $$ = new ast.DeclareFunNode($2, $4, $9, $7); }
+        { $$ = new ast.DeclareFunNode(@2, $2, $4, $9, $7); }
     ;
 
 newFunctionParams
@@ -413,14 +413,14 @@ newFunctionParams
 
 newFunctionParam
     : IDENTIFIER
-        { $$ = new ast.DeclareFunParamNode($1); }
+        { $$ = new ast.DeclareFunParamNode(@1, $1); }
     | IDENTIFIER ':' varType
-        { $$ = new ast.DeclareFunParamNode($1, $3); }
+        { $$ = new ast.DeclareFunParamNode(@1, $1, $3); }
     | IDENTIFIER ':' varType corchetes
-            { $$ = new ast.DeclareFunParamNode($1, 'ARRAY'); }
+            { $$ = new ast.DeclareFunParamNode(@1, $1, 'ARRAY'); }
     ;
 
 functionCall
-    : e '(' eList ')' { $$ = new ast.FunctionCallNode($1, $3); }
-    | e '(' ')' { $$ = new ast.FunctionCallNode($1, []); }
+    : e '(' eList ')' { $$ = new ast.FunctionCallNode(@1, $1, $3); }
+    | e '(' ')' { $$ = new ast.FunctionCallNode(@1, $1, []); }
     ;

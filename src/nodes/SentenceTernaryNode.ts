@@ -10,8 +10,8 @@ export class SentenceTernaryNode extends Op{
     private readonly trueSentence: Op;
     private readonly falseSentence: Op;
 
-    constructor(condition: Op, trueSentence: Op, falseSentence: Op) {
-        super();
+    constructor(position: any, condition: Op, trueSentence: Op, falseSentence: Op) {
+        super(position);
         this.condicion = condition;
         this.trueSentence = trueSentence;
         this.falseSentence = falseSentence;
@@ -24,7 +24,7 @@ export class SentenceTernaryNode extends Op{
         }
 
         if (!(ans instanceof BOOLEAN)) {
-            throw new SemanticException("Condicion utilizada con parametro no soportada por operador ternario");
+            throw new SemanticException("Condicion utilizada con parametro no soportada por operador ternario", this.position);
         }
 
         if ((ans as BOOLEAN).getValue()) {

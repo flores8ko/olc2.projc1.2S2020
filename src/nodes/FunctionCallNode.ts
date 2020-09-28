@@ -13,8 +13,8 @@ export class FunctionCallNode extends Op{
     private readonly name: Op;
     private readonly args: Array<Op>;
 
-    constructor(name: Op, args: Array<Op>) {
-        super();
+    constructor(position: any, name: Op, args: Array<Op>) {
+        super(position);
         this.name = name;
         this.args = args;
     }
@@ -49,7 +49,7 @@ export class FunctionCallNode extends Op{
                     && ret.typo !== 'OBJECT'
                     || (IsPrimitiveTypo(funct.getType()) && ret.typo === 'OBJECT')
                 ) {
-                    throw new SemanticException(`Se esperaba retorno de tipo ${funct.getType()}, se retorno tipo ${ret.typo}`)
+                    throw new SemanticException(`Se esperaba retorno de tipo ${funct.getType()}, se retorno tipo ${ret.typo}`, this.position);
                 }
                 return (ans as ReturnObj).getValue();
             }

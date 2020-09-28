@@ -6,8 +6,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class CreateIdVarNode extends Op{
     private readonly id: string;
 
-    constructor(id: string) {
-        super();
+    constructor(position: any, id: string) {
+        super(position);
         this.id = id;
     }
 

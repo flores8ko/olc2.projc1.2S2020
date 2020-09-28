@@ -8,8 +8,8 @@ export class DivNode extends Op{
     private readonly lf: Op;
     private readonly rt: Op;
 
-    constructor(lf: Op, rt: Op) {
-        super();
+    constructor(position: any, lf: Op, rt: Op) {
+        super(position);
         this.lf = lf;
         this.rt = rt;
     }

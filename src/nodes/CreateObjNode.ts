@@ -8,8 +8,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class CreateObjNode extends Op {
     private readonly attrs: Map<string, Op>;
 
-    constructor(attrs: Map<string, Op>) {
-        super();
+    constructor(position: any, attrs: Map<string, Op>) {
+        super(position);
         this.attrs = attrs;
     }
 

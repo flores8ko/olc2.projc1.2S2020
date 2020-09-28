@@ -7,8 +7,8 @@ import {GraphvizNode} from "../utils/GraphvizNode";
 export class ReSubNode extends Op {
     private readonly lf: Op;
 
-    constructor(lf: Op) {
-        super();
+    constructor(position: any, lf: Op) {
+        super(position);
         this.lf = lf;
     }
 
