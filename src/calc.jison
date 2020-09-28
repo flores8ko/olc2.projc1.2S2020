@@ -358,7 +358,7 @@ e
     | functionCall
         { $$ = $1; }
     | '-' e %prec UMINUS
-        {$$ = new ast.MulNode(@2, $2, new ast.NumberNode(-1));}
+        {$$ = new ast.MulNode(@2, $2, new ast.NumberNode(@1, -1));}
     | increment
         { $$ = $1 }
     | NUMBER
