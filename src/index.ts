@@ -62,6 +62,7 @@ import {ReturnNode} from "./nodes/ReturnNode";
 import {FunctionCallNode} from "./nodes/FunctionCallNode";
 import {TSGraphControl} from "./utils/TSGraphControl";
 import {NodesControl} from "./utils/NodesControl";
+import { ErrorsControl } from "./utils/ErrorsControl";
 
 export {
     Console,
@@ -147,6 +148,7 @@ export {
     ReturnNode,
 
     FunctionCallNode,
+    ErrorsControl,
 }
 
 export function ExecuteAST(sentences: Array<Op>) {
@@ -156,9 +158,12 @@ export function ExecuteAST(sentences: Array<Op>) {
     ObjectsStructures.objects = new Map<string, ObjectStructure>();
     const env = new Envmnt(null, sentences);
     env.GO_ALL();
-    const win = window.open('./graph.html#' + TSGraphControl.GetGetGraphsString(), '_blank');
-    if(win !== null)
-        win.focus();
+    const graphString = TSGraphControl.GetGetGraphsString();
+    if (graphString !== '') {
+        const win = window.open('./graph.html#' + TSGraphControl.GetGetGraphsString(), '_blank');
+        if(win !== null)
+            win.focus();
+    }
 }
 
 export function GraphAST(sentences: Array<Op>): string {
