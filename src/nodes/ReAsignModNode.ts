@@ -25,7 +25,7 @@ export class ReAsignModNode extends Op {
         }
 
         (lf as Reference).PutValueOnReference(
-            Modulo((lf as Reference).getValue(), rt as Cntnr)
+            Modulo((lf as Reference).getValue(), rt as Cntnr, this.position)
         );
         return (lf as Reference).getValue();
     }

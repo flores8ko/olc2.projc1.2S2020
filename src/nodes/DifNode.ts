@@ -15,7 +15,7 @@ export class DifNode extends Op {
     }
 
     GO(env: Envmnt): object {
-        return Diferente((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr));
+        return Diferente((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr), this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

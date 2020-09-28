@@ -25,7 +25,7 @@ export class ReAsignSubNode extends Op {
         }
 
         (lf as Reference).PutValueOnReference(
-            Resta((lf as Reference).getValue(), rt as Cntnr)
+            Resta((lf as Reference).getValue(), rt as Cntnr, this.position)
         );
         return (lf as Reference).getValue();
     }

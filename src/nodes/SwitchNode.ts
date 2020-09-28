@@ -50,7 +50,7 @@ export class SwitchNode extends Op {
 
             if(Case.getConditionValue() !== null) {
                 let caseValue = Case.getConditionValue().Exe(env);
-                if (!(Igual(condition as Cntnr, caseValue as Cntnr) as BOOLEAN).getValue() && !hasEnter) {
+                if (!(Igual(condition as Cntnr, caseValue as Cntnr, this.position) as BOOLEAN).getValue() && !hasEnter) {
                     continue;
                 }
             }

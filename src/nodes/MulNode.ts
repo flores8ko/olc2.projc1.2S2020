@@ -15,7 +15,7 @@ export class MulNode extends Op{
     }
 
     GO(env: Envmnt): object {
-        return Multiplicacion(this.lf.Exe(env) as Cntnr, this.rt.Exe(env) as Cntnr);
+        return Multiplicacion(this.lf.Exe(env) as Cntnr, this.rt.Exe(env) as Cntnr, this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

@@ -13,7 +13,7 @@ export class ReSubNode extends Op {
     }
 
     GO(env: Envmnt): object {
-        return Sub(this.lf.Exe(env) as Cntnr);
+        return Sub(this.lf.Exe(env) as Cntnr, this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

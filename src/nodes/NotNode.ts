@@ -13,7 +13,7 @@ export class NotNode extends Op {
     }
 
     GO(env: Envmnt): object {
-        return Not(this.lf.Exe(env) as Cntnr);
+        return Not(this.lf.Exe(env) as Cntnr, this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

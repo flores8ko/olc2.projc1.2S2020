@@ -15,7 +15,7 @@ export class DivNode extends Op{
     }
 
     GO(env: Envmnt): object {
-        return Division((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr));
+        return Division((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr), this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

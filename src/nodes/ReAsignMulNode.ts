@@ -25,7 +25,7 @@ export class ReAsignMulNode extends Op {
         }
 
         (lf as Reference).PutValueOnReference(
-            Multiplicacion((lf as Reference).getValue(), rt as Cntnr)
+            Multiplicacion((lf as Reference).getValue(), rt as Cntnr, this.position)
         );
         return (lf as Reference).getValue();
     }

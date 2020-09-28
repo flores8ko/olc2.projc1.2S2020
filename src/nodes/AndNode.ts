@@ -15,7 +15,7 @@ export class AndNode extends Op{
     }
 
     GO(env: Envmnt): object {
-        return And(this.lf.Exe(env) as Cntnr, this.rt.Exe(env) as Cntnr);
+        return And(this.lf.Exe(env) as Cntnr, this.rt.Exe(env) as Cntnr, this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

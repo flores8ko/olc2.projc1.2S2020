@@ -25,7 +25,7 @@ export class ReAsignDivNode extends Op {
         }
 
         (lf as Reference).PutValueOnReference(
-            Division((lf as Reference).getValue(), rt as Cntnr)
+            Division((lf as Reference).getValue(), rt as Cntnr, this.position)
         );
         return (lf as Reference).getValue();
     }

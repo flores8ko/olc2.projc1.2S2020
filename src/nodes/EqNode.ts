@@ -15,7 +15,7 @@ export class EqNode extends Op {
     }
 
     GO(env: Envmnt): object {
-        return Igual((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr));
+        return Igual((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr), this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

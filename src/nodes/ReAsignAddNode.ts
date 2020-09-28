@@ -22,7 +22,7 @@ export class ReAsignAddNode extends Op {
         }
 
         (lf as Reference).PutValueOnReference(
-            Suma((lf as Reference).getValue(), rt as Cntnr)
+            Suma((lf as Reference).getValue(), rt as Cntnr, this.position)
         );
         return (lf as Reference).getValue();
     }

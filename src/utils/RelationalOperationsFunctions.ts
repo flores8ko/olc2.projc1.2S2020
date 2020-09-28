@@ -2,15 +2,16 @@ import {Cntnr} from "./Cntnr";
 import {Reference} from "./Reference";
 import {SemanticException} from "./Utils";
 import {ARRAY, BOOLEAN, NAN, NULL, NUMBER, OBJECT, STRING, UNDEFINED} from "./PrimitiveTypoContainer";
+import {Position} from "./ErrorsControl";
 
-export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
+export function Igual(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return Eq(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} == ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} == ${rt.typo} ) no permitida.`, position)
     }
 
     function Eq(lf: any, rt: any): Cntnr {
@@ -87,14 +88,14 @@ export function Igual(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 }
 
-export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr {
+export function Diferente(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return Dif(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} != ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} != ${rt.typo} ) no permitida.`, position)
     }
 
     function Dif(lf: any, rt: any): Cntnr {
@@ -171,14 +172,14 @@ export function Diferente(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 }
 
-export function Mayor(lf: Cntnr, rt: Cntnr): Cntnr {
+export function Mayor(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return May(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} > ${rt.typo} ) dddno permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} > ${rt.typo} ) dddno permitida.`, position)
     }
 
     function May(lf: any, rt: any): Cntnr {
@@ -223,14 +224,14 @@ export function Mayor(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 }
 
-export function Menor(lf: Cntnr, rt: Cntnr): Cntnr {
+export function Menor(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return Min(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} < ${rt.typo} ) ndadfao permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} < ${rt.typo} ) ndadfao permitida.`, position)
     }
 
     function Min(lf: any, rt: any): Cntnr {
@@ -275,14 +276,14 @@ export function Menor(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 }
 
-export function MayorEq(lf: Cntnr, rt: Cntnr): Cntnr {
+export function MayorEq(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return MayEq(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} >= ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} >= ${rt.typo} ) no permitida.`, position)
     }
 
     function MayEq(lf: any, rt: any): Cntnr {
@@ -327,14 +328,14 @@ export function MayorEq(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 }
 
-export function MenorEq(lf: Cntnr, rt: Cntnr): Cntnr {
+export function MenorEq(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return MinEq(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} >= ${rt.typo} ) no permitida.`)
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} >= ${rt.typo} ) no permitida.`, position)
     }
 
     function MinEq(lf: any, rt: any): Cntnr {

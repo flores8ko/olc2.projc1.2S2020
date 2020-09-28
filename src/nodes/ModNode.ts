@@ -15,7 +15,7 @@ export class ModNode extends Op{
     }
 
     GO(env: Envmnt): object {
-        return Modulo((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr));
+        return Modulo((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr), this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

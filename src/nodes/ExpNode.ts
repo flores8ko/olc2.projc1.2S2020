@@ -15,7 +15,7 @@ export class ExpNode extends Op {
     }
 
     GO(env: Envmnt): object {
-        return Potencia((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr));
+        return Potencia((this.lf.Exe(env) as Cntnr), (this.rt.Exe(env) as Cntnr), this.position);
     }
 
     GetGraph(env: Envmnt): GraphvizNode {

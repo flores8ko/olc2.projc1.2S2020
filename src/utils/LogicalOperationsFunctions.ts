@@ -2,15 +2,16 @@ import {Cntnr} from "./Cntnr";
 import {Reference} from "./Reference";
 import {SemanticException} from "./Utils";
 import {BOOLEAN, NAN, NULL, NUMBER, STRING, UNDEFINED} from "./PrimitiveTypoContainer";
+import {Position} from "./ErrorsControl";
 
-export function Or(lf: Cntnr, rt: Cntnr): Cntnr {
+export function Or(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return or(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} || ${rt.typo} ) no permitida.`);
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} || ${rt.typo} ) no permitida.`, position);
     }
 
     function or(lf: any, rt: any): Cntnr {
@@ -28,14 +29,14 @@ export function Or(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 }
 
-export function And(lf: Cntnr, rt: Cntnr): Cntnr {
+export function And(lf: Cntnr, rt: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
     rt instanceof Reference ? rt = (rt as Reference).getValue() : rt;
 
     try {
         return and(lf, rt);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} && ${rt.typo} ) no permitida.`);
+        throw new SemanticException(`Operacion entre tipos ( ${lf.typo} && ${rt.typo} ) no permitida.`, position);
     }
 
     function and(lf: any, rt: any): Cntnr {
@@ -53,13 +54,13 @@ export function And(lf: Cntnr, rt: Cntnr): Cntnr {
     }
 }
 
-export function Not(lf: Cntnr): Cntnr {
+export function Not(lf: Cntnr, position: Position = new Position()): Cntnr {
     lf instanceof Reference ? lf = (lf as Reference).getValue() : lf;
 
     try {
         return not(lf);
     } catch (e) {
-        throw new SemanticException(`Operacion entre tipos ( ! ${lf.typo} ) no permitida.`);
+        throw new SemanticException(`Operacion entre tipos ( ! ${lf.typo} ) no permitida.`, position);
     }
 
     function not(lf: any): Cntnr {
