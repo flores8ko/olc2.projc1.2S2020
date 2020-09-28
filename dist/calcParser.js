@@ -301,7 +301,7 @@ var calc = (function(){
                     break;
                 case 110: this.$ = $$[$0];
                     break;
-                case 111:this.$ = new ast.MulNode(_$[$0], $$[$0], new ast.NumberNode(-1));
+                case 111:this.$ = new ast.MulNode(_$[$0], $$[$0], new ast.NumberNode(_$[$0-1], -1));
                     break;
                 case 112: this.$ = $$[$0]
                     break;
